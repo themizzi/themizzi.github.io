@@ -13,22 +13,22 @@
   <script src="/js/gtag.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMLSEPRS2B"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ .Site.Params.shortDescription }}">
+  <meta name="description" content="{{ .Site.Params.short_description }}">
   <meta property="og:title" content="{{ .Site.Title }}" />
-  <meta property="og:description" content="{{ .Site.Params.shortDescription }}" />
-  <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Site.Params.profileImage }}" />
+  <meta property="og:description" content="{{ .Site.Params.short_description }}" />
+  <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Site.Params.large_profile_image }}" />
   <meta property="og:url" content="{{ .Site.BaseURL }}" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ .Site.Title }}">
-  <meta name="twitter:description" content="{{ .Site.Params.shortDescription }}">
-  <meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Site.Params.profileImage }}">
+  <meta name="twitter:description" content="{{ .Site.Params.short_description }}">
+  <meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Site.Params.large_profile_image }}">
 </head>
 
 <body>
   <div class="container">
     <div class="profile-pic">
-      <img src="/images/profile-large.png" alt="Profile Picture">
+      <img src="/{{ .Site.Params.small_profile_image }}" alt="Profile Picture">
     </div>
     <h1>{{ .Site.Title }}</h1>
     <p>
