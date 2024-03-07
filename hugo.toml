@@ -4,3 +4,23 @@ title = 'Joe Mizzi'
 [params]
   shortDescription = "Music, Software, Midwest"
   profileImage = "images/profile-large.png"
+[[params.social_links]]
+  name = "mastodon"
+  href = "https://mastodon.social/@themizzi"
+  order = 1
+[[params.social_links]]
+  name = "github"
+  href = "https://github.com/themizzi"
+  order = 2
+[[params.social_links]]
+  name = "linkedin"
+  href = "https://linkedin.com/in/joemizzi"
+  order = 3
+[[params.social_links]]
+  name = "facebook"
+  href = "https://facebook.com/themizzi"
+  order = 4
+[[params.social_links]]
+  name = "instagram"
+  href = "https://instagram.com/themizzinator"
+  order = 5

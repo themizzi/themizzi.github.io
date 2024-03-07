@@ -1,0 +1,14 @@
+<ul>
+  <!-- Loop through each event -->
+  {{ range . }}
+  {{ $eventDate := .date | dateFormat "January 2, 2006" }}
+  <li>
+    <!-- Event title -->
+    <strong>{{ $eventDate }}:</strong> {{ .title }}
+    
+    <!-- Event link-->
+    <a href="{{ .link }}" class="info-link" aria-label="More Info"><i
+        class="fa-solid fa-arrow-up-right-from-square"></i></a>
+  </li>
+  {{ end }}
+</ul>
