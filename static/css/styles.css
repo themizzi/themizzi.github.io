@@ -1,0 +1,177 @@
+/* Light theme colors */
+:root[data-theme="light"] {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --link-color: #007bff;
+}
+
+/* Dark theme colors */
+:root[data-theme="dark"] {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --link-color: #fd0d0d;
+  --tab-bg-color: #242424;
+  --tab-selected-color: #333333;
+}
+
+/* Fallback for system based on media query */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --link-color: #fd0d0d;
+    --tab-bg-color: #999999;
+    --tab-selected-color: #333333;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --link-color: #007bff;
+  }
+}
+
+:root {
+  /* Light theme colors */
+  --background-color: #ffffff; /* White */
+  --text-color: #000000; /* Black */
+  --link-color: #007bff; /* Blue */
+}
+
+[data-theme="dark"] {
+  /* Dark theme colors */
+  --background-color: #121212; /* Almost black */
+  --text-color: #ffffff; /* White */
+  --link-color: #0d6efd; /* Lighter blue */
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none; /* Removes underlines from all links */
+}
+
+a:hover, a:focus {
+  text-decoration: underline; /* Optional: Adds underlines back on hover or focus for better accessibility */
+}
+
+.container {
+  text-align: center;
+  margin-top: 50px;
+  max-width: 600px; /* Set the maximum width of the container */
+    margin-left: auto; /* Center align the container */
+    margin-right: auto; /* Center align the container */
+}
+
+.profile-pic img {
+  width: 120px; /* Adjust based on your preference */
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.social-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333; /* Change color as needed */
+  font-size: 24px;
+}
+
+.social-links a:hover {
+  color: #555; /* Icon hover color */
+}
+
+.social-links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.appearances ul {
+  list-style-type: none; /* Removes bullets */
+  padding-left: 0; /* Removes the default padding */
+  margin-left: 0; /* Adjust as needed, depending on your site's layout */
+}
+
+.appearances .info-link {
+  color: inherit; /* Or any color you prefer */
+}
+
+.appearances .info-link:hover,
+.appearances .info-link:focus {
+  color: #007bff; /* Or any hover color you prefer */
+}
+
+.appearances ul li:not(:last-child) {
+  position: relative; /* Establishes a positioning context for pseudo-elements */
+  padding-bottom: 15px; /* Space between the content and the border */
+  margin-bottom: 15px; /* Space between items */
+}
+
+.appearances ul li:not(:last-child)::after {
+  content: ""; /* Necessary for a pseudo-element */
+  position: absolute;
+  bottom: 0; /* Aligns the pseudo-element at the bottom of the li */
+  left: 50%; /* Positions the border in the middle */
+  width: 100px; /* Width of the border */
+  height: 1px; /* Height of the border */
+  background-color: #cccccc; /* Color of the border */
+  transform: translateX(-50%); /* Centers the pseudo-element */
+}
+
+.tabs {
+  overflow: hidden;
+  text-align: center;
+}
+
+.tab-button {
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: background-color 0.3s;
+  color: var(--link-color); /* Set the default color to link color */
+  font-size: 1rem;
+}
+
+.tab-button:hover {
+  background-color: var(--tab-selected-color, #ddd); /* Dark theme or fallback to light theme color */
+}
+
+.tab-button.active {
+  background-color: var(--tab-selected-color, #ccc); /* Dark theme or fallback to light theme color */
+  color: var(--text-color); /* Set the active tab to use the normal text color */
+}
+
+.tab-content {
+  display: none;
+  padding: 6px 12px;
+}
+
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.theme-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color); /* Adjust based on your theme */
+  font-size: 24px; /* Adjust size as needed */
+  margin: 0 5px;
+}
+
+.theme-button:focus, .theme-button:hover {
+  outline: none;
+  color: var(--link-color); /* Adjust for a hover effect */
+}

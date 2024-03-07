@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Site's Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/theme-toggle.js"></script>
+    <script src="/js/appearances.js"></script>
+    <script src="/js/newsletter.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-pic">
+            <img src="/images/profile-large.png" alt="Profile Picture">
+        </div>
+        <h1>Joe Mizzi</h1>
+        <p><a href="https://linktr.ee/thebollweevils">The Bollweevils</a>, <a href="https://linktr.ee/theironspiders">The Iron Spiders</a>, <a href="https://linktr.ee/themizzerables">The Mizzerables</a>, Software Architect & Leadership, Chicago, Traverse City</p>
+        <div class="social-links">
+            <a href="https://mastodon.social/@themizzi" class="mastodon"><i class="fab fa-mastodon"></i></a>
+            <a href="https://github.com/themizzi" class="github"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/joemizzi" class="linkedin"><i class="fab fa-linkedin"></i></a>
+            <a href="https://facebook.com/themizzi" class="facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://instagram.com/themizzinator" class="instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="appearances">
+          {{ $currentTime := now }}
+          <h2>Appearances</h2>
+          <div class="tabs">
+              <button class="tab-button" onclick="openTab(event, 'Upcoming')">Upcoming</button>
+              <button class="tab-button" onclick="openTab(event, 'Past')">Past</button>
+          </div>
+          <div id="Upcoming" class="tab-content" style="display:block;">
+            <ul>
+              {{ range .Site.Data.events }}
+                  {{ $eventDate := .date | dateFormat "January 2, 2006" }}
+                  {{ if ge $currentTime .date }}
+                      <li>
+                          <strong>{{ $eventDate }}:</strong> {{ .title }} <a href="{{ .link }}" class="info-link" aria-label="More Info"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                      </li>
+                  {{ end }}
+              {{ end }}
+            </ul>
+        </div>
+        <div id="Past" class="tab-content" style="display:none;">
+            <ul>
+              {{ range .Site.Data.events }}
+              {{ $eventDate := .date | dateFormat "January 2, 2006" }}
+                {{ if lt $currentTime .date }}
+                    <li>
+                        <strong>{{ $eventDate }}:</strong> {{ .title }} <a href="{{ .link }}" class="info-link" aria-label="More Info"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </li>
+                {{ end }}
+              {{ end }}
+            </ul>
+        </div>
+        </div>   
+        <div id="theme-toggle" style="position: fixed; bottom: 20px; right: 20px; cursor: pointer;">
+          <i id="theme-icon-system" class="fas fa-adjust" aria-hidden="true" title="Change Theme" style="display: none;"></i> <!-- System icon -->
+          <i id="theme-icon-light" class="fas fa-sun" aria-hidden="true" title="Change Theme" style="display: none;"></i> <!-- Light icon -->
+          <i id="theme-icon-dark" class="fas fa-moon" aria-hidden="true" title="Change Theme" style="display: none;"></i> <!-- Dark icon -->
+        </div>      
+    </div>
+</body>
+</html>

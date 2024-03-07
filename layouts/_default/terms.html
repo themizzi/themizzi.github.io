@@ -1,0 +1,17 @@
+<!-- layouts/_default/terms.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Terms</title>
+</head>
+<body>
+    <h1>All Terms</h1>
+    {{ range .Data.Terms.Alphabetical }}
+        <div>
+            <a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
+            ({{ .Count }})
+        </div>
+    {{ end }}
+</body>
+</html>

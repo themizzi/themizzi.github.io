@@ -1,0 +1,16 @@
+<!-- layouts/_default/taxonomy.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Taxonomy Term</title>
+</head>
+<body>
+    <h1>{{ .Title }}</h1>
+    {{ range .Data.Pages }}
+        <div>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </div>
+    {{ end }}
+</body>
+</html>
