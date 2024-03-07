@@ -1,3 +1,6 @@
 baseURL = 'https://joemizzi.com/'
 languageCode = 'en-us'
 title = 'Joe Mizzi'
+[params]
+  shortDescription = "Music, Software, Midwest"
+  profileImage = "images/profile-large.png"

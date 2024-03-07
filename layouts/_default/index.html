@@ -9,15 +9,16 @@
     <script src="/js/theme-toggle.js"></script>
     <script src="/js/appearances.js"></script>
     <script src="/js/newsletter.js"></script>
+    <meta name="description" content="{{ .Site.Params.shortDescription }}">
     <meta property="og:title" content="{{ .Site.Title }}" />
-    <meta property="og:description" content="Music, Software, Midwest" />
-    <meta property="og:image" content="https://joemizzi.com/images/profile-large.png" />
-    <meta property="og:url" content="https://joemizzi.com" />
+    <meta property="og:description" content="{{ .Site.Params.shortDescription }}" />
+    <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Site.Params.profileImage }}" />
+    <meta property="og:url" content="{{ .Site.BaseURL }}" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ .Site.Title }}">
-    <meta name="twitter:description" content="Music, Software, Midwest">
-    <meta name="twitter:image" content="https://joemizzi.com/images/profile-large.png">
+    <meta name="twitter:description" content="{{ .Site.Params.shortDescription }}">
+    <meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Site.Params.profileImage }}">
   </head>
 <body>
     <div class="container">
