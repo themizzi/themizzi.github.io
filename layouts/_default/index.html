@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Joe Mizzi</title>
+    <title>{{ .Site.Title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/theme-toggle.js"></script>
     <script src="/js/appearances.js"></script>
     <script src="/js/newsletter.js"></script>
-    <meta property="og:title" content="Joe Mizzi" />
+    <meta property="og:title" content="{{ .Site.Title }}" />
     <meta property="og:description" content="Music, Software, Midwest" />
     <meta property="og:image" content="https://joemizzi.com/images/profile-large.png" />
     <meta property="og:url" content="https://joemizzi.com" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Joe Mizzi">
+    <meta name="twitter:title" content="{{ .Site.Title }}">
     <meta name="twitter:description" content="Music, Software, Midwest">
     <meta name="twitter:image" content="https://joemizzi.com/images/profile-large.png">
   </head>
@@ -24,7 +24,7 @@
         <div class="profile-pic">
             <img src="/images/profile-large.png" alt="Profile Picture">
         </div>
-        <h1>Joe Mizzi</h1>
+        <h1>{{ .Site.Title }}</h1>
         <p><a href="https://linktr.ee/thebollweevils">The Bollweevils</a>, <a href="https://linktr.ee/theironspiders">The Iron Spiders</a>, <a href="https://linktr.ee/themizzerables">The Mizzerables</a>, Software Architect & Leadership, Chicago, Traverse City</p>
         <div class="social-links">
             <a href="https://mastodon.social/@themizzi" class="mastodon"><i class="fab fa-mastodon"></i></a>
