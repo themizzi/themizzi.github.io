@@ -25,3 +25,7 @@ title = 'Joe Mizzi'
   name = "instagram"
   href = "https://instagram.com/themizzinator"
   order = 5
+[[params.social_links]]
+  name = "goodreads"
+  href = "https://www.goodreads.com/user/show/51946425-joe-mizzi"
+  order = 6
