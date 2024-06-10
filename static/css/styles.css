@@ -2,7 +2,7 @@
 :root[data-theme="light"] {
   --background-color: #ffffff;
   --text-color: #000000;
-  --link-color: #007bff;
+  --link-color: #fd0d0d;
 }
 
 /* Dark theme colors */
@@ -29,7 +29,7 @@
   :root:not([data-theme="dark"]) {
     --background-color: #ffffff;
     --text-color: #000000;
-    --link-color: #007bff;
+    --link-color: #fd0d0d;
   }
 }
 
