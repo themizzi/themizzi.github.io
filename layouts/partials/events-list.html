@@ -1,6 +1,6 @@
 <ul>
   <!-- Loop through each event -->
-  {{ range . }}
+  {{ range sort . "date" "asc" }}
   {{ $eventDate := .date | dateFormat "January 2, 2006" }}
   <li>
     <!-- Event title -->
