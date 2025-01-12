@@ -33,3 +33,7 @@ title = 'Joe Mizzi'
   name = "telegram"
   href = "https://t.me/themizzinator"
   order = 700
+[[params.social_links]]
+  name = "bluesky"
+  href = "https://bsky.app/profile/themizzinator.bsky.social"
+  order = 250
