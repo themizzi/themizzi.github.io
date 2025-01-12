@@ -8,7 +8,7 @@ title = 'Joe Mizzi'
 [[params.social_links]]
   name = "mastodon"
   href = "https://mastodon.social/@themizzi"
-  order = 100
+  order = 550
 [[params.social_links]]
   name = "github"
   href = "https://github.com/themizzi"
@@ -36,4 +36,4 @@ title = 'Joe Mizzi'
 [[params.social_links]]
   name = "bluesky"
   href = "https://bsky.app/profile/themizzinator.bsky.social"
-  order = 250
+  order = 100
