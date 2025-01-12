@@ -74,7 +74,7 @@ a:hover, a:focus {
   width: 120px; /* Adjust based on your preference */
   height: 120px;
   border-radius: 50%;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .social-links a {
