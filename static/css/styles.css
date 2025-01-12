@@ -80,12 +80,12 @@ a:hover, a:focus {
 .social-links a {
   margin: 0 10px;
   text-decoration: none;
-  color: #333; /* Change color as needed */
+  color: #555;
   font-size: 24px;
 }
 
 .social-links a:hover {
-  color: #555; /* Icon hover color */
+  color: #fd0d0d;
 }
 
 .social-links {
