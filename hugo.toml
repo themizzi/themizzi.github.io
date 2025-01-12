@@ -29,3 +29,7 @@ title = 'Joe Mizzi'
   name = "goodreads"
   href = "https://www.goodreads.com/user/show/51946425-joe-mizzi"
   order = 600
+[[params.social_links]]
+  name = "telegram"
+  href = "https://t.me/themizzinator"
+  order = 700
