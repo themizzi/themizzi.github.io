@@ -37,6 +37,11 @@
       <img src="/{{ .Site.Params.small_profile_image }}" alt="Profile Picture">
     </div>
     <h1>{{ .Site.Title }}</h1>
+    <div class="social-links">
+      {{ range sort .Site.Params.social_links "order" "asc" }}
+      <a href="{{ .href }}" class="{{ .name }}" target="_blank"><i class="fab fa-{{ .name }}"></i></a>
+      {{ end }}
+    </div>
     <p>
       Music: <a href="https://linktr.ee/thebollweevils" target="_blank">The Bollweevils</a>,
       <a href="https://linktr.ee/theironspiders" target="_blank">The Iron Spiders</a>,
@@ -49,11 +54,6 @@
     <p>
       Tech: PayPal, ex-Upstart, ex-Casechek
     </p>
-    <div class="social-links">
-      {{ range sort .Site.Params.social_links "order" "asc" }}
-      <a href="{{ .href }}" class="{{ .name }}" target="_blank"><i class="fab fa-{{ .name }}"></i></a>
-      {{ end }}
-    </div>
     <div class="appearances">
       {{ $currentTime := now.Format "2006-01-02T15:04:05-07:00" }}
       <h2>Appearances</h2>
