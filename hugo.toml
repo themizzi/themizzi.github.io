@@ -37,3 +37,7 @@ title = 'Joe Mizzi'
   name = "bluesky"
   href = "https://bsky.app/profile/themizzinator.bsky.social"
   order = 100
+[[params.social_links]]
+  name = "threads"
+  href = "https://www.threads.net/@themizzinator"
+  order = 150
