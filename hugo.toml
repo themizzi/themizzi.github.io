@@ -8,24 +8,24 @@ title = 'Joe Mizzi'
 [[params.social_links]]
   name = "mastodon"
   href = "https://mastodon.social/@themizzi"
-  order = 1
+  order = 100
 [[params.social_links]]
   name = "github"
   href = "https://github.com/themizzi"
-  order = 2
+  order = 200
 [[params.social_links]]
   name = "linkedin"
   href = "https://linkedin.com/in/joemizzi"
-  order = 3
+  order = 300
 [[params.social_links]]
   name = "facebook"
   href = "https://facebook.com/themizzi"
-  order = 4
+  order = 400
 [[params.social_links]]
   name = "instagram"
   href = "https://instagram.com/themizzinator"
-  order = 5
+  order = 500
 [[params.social_links]]
   name = "goodreads"
   href = "https://www.goodreads.com/user/show/51946425-joe-mizzi"
-  order = 6
+  order = 600
