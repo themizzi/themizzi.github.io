@@ -1,54 +1,47 @@
 /* Light theme colors */
 :root[data-theme="light"] {
-  --background-color: #ffffff;
-  --text-color: #000000;
+  --background-color: #fff;
+  --text-color: #000;
   --link-color: #fd0d0d;
 }
 
 /* Dark theme colors */
 :root[data-theme="dark"] {
   --background-color: #121212;
-  --text-color: #ffffff;
+  --text-color: #fff;
   --link-color: #fd0d0d;
   --tab-bg-color: #242424;
-  --tab-selected-color: #333333;
+  --tab-selected-color: #333;
 }
 
 /* Fallback for system based on media query */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --background-color: #121212;
-    --text-color: #ffffff;
+    --text-color: #fff;
     --link-color: #fd0d0d;
-    --tab-bg-color: #999999;
-    --tab-selected-color: #333333;
+    --tab-bg-color: #999;
+    --tab-selected-color: #333;
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    --background-color: #ffffff;
-    --text-color: #000000;
+    --background-color: #fff;
+    --text-color: #000;
     --link-color: #fd0d0d;
   }
 }
 
 :root {
   /* Light theme colors */
-  --background-color: #ffffff;
-  --text-color: #000000;
-  --link-color: #fd0d0d;
-}
-
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --background-color: #121212;
-  --text-color: #ffffff;
+  --background-color: #fff;
+  --text-color: #000;
   --link-color: #fd0d0d;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
 }
@@ -121,7 +114,7 @@ a:hover, a:focus {
   left: 50%; /* Positions the border in the middle */
   width: 100px; /* Width of the border */
   height: 1px; /* Height of the border */
-  background-color: #cccccc; /* Color of the border */
+  background-color: #ccc; /* Color of the border */
   transform: translateX(-50%); /* Centers the pseudo-element */
 }
 
