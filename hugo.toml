@@ -41,3 +41,7 @@ title = 'Joe Mizzi'
   name = "threads"
   href = "https://www.threads.net/@themizzinator"
   order = 150
+[[params.social_links]]
+  name = "signal-messenger"
+  href = "https://signal.me/#eu/RsNPXENWoya3LPHxYNQux0DR4C_REl1o1cyMPbNbxCT6YXFHBsdERbejvtdNMw5Z"
+  order = 650
