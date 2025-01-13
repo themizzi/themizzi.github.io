@@ -1,5 +1,10 @@
 {
   "type": "module",
+  "scripts": {
+    "lint:js": "eslint .",
+    "lint:css": "stylelint '**/*.{css,scss}'",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
     "@stylistic/eslint-plugin": "^2.12.1",
