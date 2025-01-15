@@ -1,37 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <title>{{ .Site.Title }}</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css">
-  <script src="/js/theme-toggle.js"></script>
-  <script src="/js/appearances.js"></script>
-  <script src="/js/newsletter.js"></script>
-  <script src="/js/gtag.js"></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMLSEPRS2B"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ .Site.Params.short_description }}">
-  <meta name="theme-color" id="theme-color-meta">
-  <meta property="og:title" content="{{ .Site.Title }}" />
-  <meta property="og:description" content="{{ .Site.Params.short_description }}" />
-  <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Site.Params.large_profile_image }}" />
-  <meta property="og:url" content="{{ .Site.BaseURL }}" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ .Site.Title }}">
-  <meta name="twitter:description" content="{{ .Site.Params.short_description }}">
-  <meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Site.Params.large_profile_image }}">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="me" href="https://mastodon.social/@themizzi">
-</head>
-
-<body>
+{{ define "main" }}
   <div class="container">
     <div class="profile-pic">
       <img src="/{{ .Site.Params.small_profile_image }}" alt="Profile Picture">
@@ -80,6 +47,4 @@
       <i id="theme-icon-dark" class="fas fa-moon" aria-hidden="true" title="Change Theme" style="display: none;"></i>
     </div>
   </div>
-</body>
-
-</html>
+{{ end }}
