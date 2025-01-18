@@ -28,3 +28,7 @@ RUN apt-get update && apt-get install -y ca-certificates openssl git curl && \
 
 # Hugo dev server port
 EXPOSE 1313
+
+RUN apt-get update && apt-get install -y stow zsh-antigen
+RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir /usr/local/bin -y
+RUN rm /home/node/.zshrc
