@@ -37,7 +37,8 @@
 				"budparr.language-hugo-vscode",
 				"yzhang.markdown-all-in-one",
 				"ms-azuretools.vscode-docker",
-				"stylelint.vscode-stylelint"
+				"stylelint.vscode-stylelint",
+				"eamodio.gitlens"
 			]
 		}
 	},
