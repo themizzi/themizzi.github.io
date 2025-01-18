@@ -13,5 +13,8 @@
             "comments": true,
             "strings": true
         }
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
     }
 }
