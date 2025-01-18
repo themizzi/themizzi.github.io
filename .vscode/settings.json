@@ -15,6 +15,6 @@
         }
     },
     "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    }
+        "editor.defaultFormatter": "vscode.json-language-features",
+    },
 }
