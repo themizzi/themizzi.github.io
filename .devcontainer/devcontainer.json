@@ -21,7 +21,7 @@
 		"vscode": {
 			"settings": {
 				"terminal.integrated.shell.linux": "zsh",
-				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.defaultProfile.linux": "zsh"
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
@@ -30,7 +30,7 @@
 				"budparr.language-hugo-vscode",
 				"yzhang.markdown-all-in-one",
 				"ms-azuretools.vscode-docker",
-				"stylelint.vscode-stylelint",
+				"stylelint.vscode-stylelint"
 			]
 		}
 	},
