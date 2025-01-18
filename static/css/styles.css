@@ -56,11 +56,15 @@ a:hover, a:focus {
 }
 
 .container {
-  text-align: center;
+  padding: 0 20px;
   margin-top: 50px;
   max-width: 600px; /* Set the maximum width of the container */
-    margin-left: auto; /* Center align the container */
-    margin-right: auto; /* Center align the container */
+  margin-left: auto; /* Center align the container */
+  margin-right: auto; /* Center align the container */
+}
+
+.container.home {
+  text-align: center;
 }
 
 .profile-pic img {
@@ -75,6 +79,12 @@ a:hover, a:focus {
   text-decoration: none;
   color: #555;
   font-size: 24px;
+}
+
+.navbar-menu a {
+  margin-left: 20px;
+  color: var(--link-color);
+  text-decoration: none;
 }
 
 .social-links a:hover {
@@ -167,4 +177,39 @@ a:hover, a:focus {
 .theme-button:focus, .theme-button:hover {
   outline: none;
   color: var(--link-color); /* Adjust for a hover effect */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.navbar-left {
+  flex: 1;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.navbar-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navbar-menu a:hover {
+  text-decoration: underline;
+}
+
+.container.page img {
+  width: 100%;
+  height: auto;
 }
