@@ -3,13 +3,15 @@
   "scripts": {
     "lint:js": "eslint .",
     "lint:css": "stylelint '**/*.{css,scss}'",
-    "lint": "npm run lint:js && npm run lint:css",
+    "lint:html": "htmlhint '**/*.html'",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
     "prepare": "husky"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
     "@stylistic/eslint-plugin": "^2.12.1",
     "eslint": "^9.18.0",
+    "htmlhint": "^1.1.4",
     "husky": "^9.1.7",
     "stylelint": "^16.13.0",
     "stylelint-config-standard": "^37.0.0"

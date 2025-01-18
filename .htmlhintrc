@@ -1,0 +1,8 @@
+{
+  "doctype-first": false,
+  "files": {
+    "layouts/_default/baseof.html": {
+      "doctype-first": true
+    }
+  }
+}
