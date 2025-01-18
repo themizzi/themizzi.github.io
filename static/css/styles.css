@@ -38,6 +38,7 @@
   --background-color: #fff;
   --text-color: #000;
   --link-color: #fd0d0d;
+  --navbar-margin: 10px;
 }
 
 body {
@@ -81,10 +82,23 @@ a:hover, a:focus {
   font-size: 24px;
 }
 
+.navbar-menu .theme-toggle {
+  cursor: pointer;
+  margin-left: var(--navbar-margin);
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}
+
 .navbar-menu a {
-  margin-left: 20px;
+  margin-left: var(--navbar-margin);
   color: var(--link-color);
   text-decoration: none;
+}
+
+.navbar-menu .navbar-divider {
+  margin-left: var(--navbar-margin);
+  color: #ccc;
 }
 
 .social-links a:hover {
@@ -156,27 +170,6 @@ a:hover, a:focus {
 .tab-content {
   display: none;
   padding: 6px 12px;
-}
-
-.theme-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
-.theme-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  color: var(--text-color); /* Adjust based on your theme */
-  font-size: 24px; /* Adjust size as needed */
-  margin: 0 5px;
-}
-
-.theme-button:focus, .theme-button:hover {
-  outline: none;
-  color: var(--link-color); /* Adjust for a hover effect */
 }
 
 .navbar {
