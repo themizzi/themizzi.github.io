@@ -39,7 +39,8 @@
 				"ms-azuretools.vscode-docker",
 				"stylelint.vscode-stylelint",
 				"eamodio.gitlens",
-				"rusnasonov.vscode-hugo"
+				"rusnasonov.vscode-hugo",
+				"HTMLHint.vscode-htmlhint"
 			]
 		}
 	},
