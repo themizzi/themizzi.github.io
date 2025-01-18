@@ -4,7 +4,11 @@
     </div>
     <div class="navbar-right">
         <nav class="navbar-menu">
-            <a href="/about/">About</a>
+            {{ range .Site.RegularPages }}
+            {{ if .Params.showInMenu }}
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ end }}
+            {{ end }}
             <span class="navbar-divider">|</span>
             <div class="theme-toggle">
                 <!-- System icon -->
