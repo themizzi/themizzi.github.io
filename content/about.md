@@ -1,7 +1,6 @@
 +++
 title = 'About'
 date = 2025-01-18T22:23:09Z
-draft = true
 showInMenu = true
 +++
 
