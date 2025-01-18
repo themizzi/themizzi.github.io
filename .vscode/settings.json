@@ -12,7 +12,9 @@
             "other": true,
             "comments": true,
             "strings": true
-        }
+        },
+        "editor.renderWhitespace": "all",
+        "editor.renderControlCharacters": true,
     },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features",
