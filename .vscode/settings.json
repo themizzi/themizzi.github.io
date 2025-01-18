@@ -3,5 +3,11 @@
     "[css]": {
         "editor.defaultFormatter": "stylelint.vscode-stylelint"
     },
+    "[markdown]": {
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": true,
+            "strings": true
+        }
+    }
 }
-  
