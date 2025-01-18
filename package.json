@@ -4,15 +4,19 @@
     "lint:js": "eslint .",
     "lint:css": "stylelint '**/*.{css,scss}'",
     "lint:html": "htmlhint '**/*.html'",
-    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
+    "lint:md": "markdownlint-cli2 'content/**/*.md'",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:html && npm run lint:md",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@davidsneighbour/markdownlint-config": "^2025.0.1",
     "@eslint/compat": "^1.2.5",
     "@stylistic/eslint-plugin": "^2.12.1",
     "eslint": "^9.18.0",
     "htmlhint": "^1.1.4",
     "husky": "^9.1.7",
+    "markdownlint": "^0.37.4",
+    "markdownlint-cli2": "^0.17.2",
     "stylelint": "^16.13.0",
     "stylelint-config-standard": "^37.0.0"
   }
