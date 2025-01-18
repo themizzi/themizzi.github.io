@@ -1,7 +1,11 @@
 {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "html.format.templating": true,
     "[css]": {
         "editor.defaultFormatter": "stylelint.vscode-stylelint"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[markdown]": {
         "editor.quickSuggestions": {
