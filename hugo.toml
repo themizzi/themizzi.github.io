@@ -1,6 +1,8 @@
 baseURL = 'https://joemizzi.com/'
 languageCode = 'en-us'
 title = 'Joe Mizzi'
+[taxonomies]
+  tag = "tags"
 [params]
   short_description = "Music, Software, Midwest"
   large_profile_image = "images/profile-large.png"

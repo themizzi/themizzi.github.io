@@ -10,10 +10,10 @@ draft = true
 
 💾 Senior Engineering Manager @ PayPal  
 🎸 Bands: The Mizzerables, The Bollweevils, The Iron Spiders  
-🎹 #Guitar, #bass, #violin, #piano, things with strings  
-🖖 #Trekkie, #physics enthusiast  
-🏙️ #Detroit born, #Chicago since 2006  
-👶 Soon-to-be #dad  
+🎹 [#Guitar](/tags/guitar), [#bass](/tags/bass), [#violin](/tags/violin), [#piano](/tags/piano), things with strings  
+🖖 [#Trekkie](/tags/trekkie), [#physics](/tags/physics) enthusiast  
+🏙️ [#Detroit](/tags/detroit) born, [#Chicago](/tags/chicago) since 2006  
+👶 Soon-to-be [#dad]
 
 Riffs, regex, or raising kids—I’m game!
 
