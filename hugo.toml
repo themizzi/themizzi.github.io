@@ -1,6 +1,6 @@
 baseURL = 'https://joemizzi.com/'
 languageCode = 'en-us'
-title = 'Joe Mizzi'
+title = 'Mizzi'
 [taxonomies]
   tag = "tags"
 [params]
