@@ -18,7 +18,8 @@
 <script src="/js/gtag.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMLSEPRS2B"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{{ .Site.Params.short_description }}">
+{{ $description := .Description | default .Site.Params.description }}
+<meta name="description" content="{{ $description }}">
 <meta name="theme-color" id="theme-color-meta">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -30,12 +31,13 @@
 <meta name="twitter:title"
     content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} &middot; {{ .Site.Title }}{{ end }}">
 <meta name="twitter:description"
-    content="{{ if .IsHome }}{{ .Description }}{{ else }}{{ htmlEscape .Summary }}{{ end }}">
+    content="{{ $description }}">
+{{ $image := resources.Get "images/profile-large.png" }}
 {{ if .Params.featured_image }}
 {{ $image := .Resources.GetMatch .Params.featured_image }}
+{{ end }}
 {{ with $image }}
 <meta name="twitter:image" content="{{ .Permalink }}">
-{{ end }}
 {{ end }}
 
 <meta property="og:locale" content="en_GB">
@@ -43,7 +45,7 @@
 <meta property="og:title"
     content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} &middot; {{ .Site.Title }}{{ end }}">
 <meta property="og:description"
-    content="{{ if .IsHome }}{{ .Description }}{{ else }}{{ htmlEscape .Summary }}{{ end }}">
+    content="{{ $description }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 {{ $image := resources.Get "images/profile-large.png" }}
@@ -58,6 +60,8 @@
 <meta property="og:image:height" content="{{ .Height }}">
 {{ end }}
 {{ range .Params.categories }}
-<meta property="article:section" content="{{ . }}">{{ end }}
+<meta property="article:section" content="{{ . }}">
+{{ end }}
 {{ if isset .Params "date" }}
-<meta property="article:published_time" content="{{ (time .Date).Format "2006-01-02T15:04:05Z" }}">{{ end }}
+<meta property="article:published_time" content="{{ (time .Date).Format "2006-01-02T15:04:05Z" }}">
+{{ end }}
