@@ -12,11 +12,14 @@
     "@davidsneighbour/markdownlint-config": "^2025.0.1",
     "@eslint/compat": "^1.2.5",
     "@stylistic/eslint-plugin": "^2.12.1",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.18.0",
     "htmlhint": "^1.1.4",
     "husky": "^9.1.7",
     "markdownlint": "^0.37.4",
     "markdownlint-cli2": "^0.17.2",
+    "postcss": "^8.5.1",
+    "postcss-cli": "^11.0.0",
     "stylelint": "^16.13.0",
     "stylelint-config-standard": "^37.0.0"
   }
