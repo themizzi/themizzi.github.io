@@ -4,7 +4,7 @@ title = 'Mizzi'
 [taxonomies]
   tag = "tags"
 [params]
-  short_description = "Music, Software, Midwest"
+  description = "Music, Software, Midwest"
   large_profile_image = "images/profile-large.png"
   small_profile_image = "images/profile-small.png"
 [[params.social_links]]
