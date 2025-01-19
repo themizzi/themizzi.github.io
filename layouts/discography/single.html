@@ -3,7 +3,7 @@
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
-    <p>{{ .Params.artist }}</p>
+    <p>by {{ .Params.artist }}</p>
     {{ $releaseDate := "" }}
     {{ if .Params.releaseDate }}
     {{ $releaseDate = time.Format "January 1, 2006" .Params.releaseDate }}
@@ -13,7 +13,7 @@
     {{ end }}
     {{ end }}
     {{ if $releaseDate }}
-    <p>{{ $releaseDate }}<p>
+    <p>released on {{ $releaseDate }}<p>
     {{ end }}
     <ul class="links">
         {{ range $key, $link := .Params.links }}
