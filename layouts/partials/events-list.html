@@ -1,14 +1,20 @@
 <ul>
-  <!-- Loop through each event -->
-  {{ range sort . "date" "asc" }}
+  {{ range sort .events "date" "asc" }}
   {{ $eventDate := .date | dateFormat "January 2, 2006" }}
   <li>
-    <!-- Event title -->
-    <strong>{{ $eventDate }}:</strong> {{ .title }}
-    
-    <!-- Event link-->
-    <a href="{{ .link }}" class="info-link" aria-label="More Info" target="_blank"><i
-        class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      {{ if .title }}
+      <strong>{{ .title }}</strong><br>
+      {{ end }}
+      {{ if .artist }}
+      {{ if not .title }}<strong>{{end}}{{ .artist }}{{ if not .title }}</strong>{{end}}<br>
+      {{ end}}
+      📅 {{ $eventDate }}<br>
+      {{ if .location }}
+      {{ $location := index $.locations .location }}
+      📍 {{ $location.name }}, {{ $location.address }}<br>
+      {{ end }}
+      <a href="{{ .link }}" class="info-link" aria-label="More Info" target="_blank">More <i
+          class="fa-solid fa-arrow-up-right-from-square"></i></a>
   </li>
   {{ end }}
 </ul>
