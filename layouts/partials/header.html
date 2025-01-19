@@ -9,6 +9,9 @@
             <a href="{{ .Permalink }}">{{ .Title }}</a>
             {{ end }}
             {{ end }}
+            {{ range .Site.Sections }}
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ end }}
             <span class="navbar-divider">|</span>
             <div class="theme-toggle">
                 <!-- System icon -->

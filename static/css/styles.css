@@ -39,6 +39,7 @@
   --text-color: #000;
   --link-color: #fd0d0d;
   --navbar-margin: 10px;
+  --breadcrumb-active-color: #6c757d;
 }
 
 body {
@@ -73,6 +74,10 @@ a:hover, a:focus {
   height: 120px;
   border-radius: 50%;
   margin-bottom: 10px;
+}
+
+.breadcrumb-item a {
+  text-decoration: none;
 }
 
 .social-links a {
@@ -114,15 +119,6 @@ a:hover, a:focus {
   list-style-type: none; /* Removes bullets */
   padding-left: 0; /* Removes the default padding */
   margin-left: 0; /* Adjust as needed, depending on your site's layout */
-}
-
-.appearances .info-link {
-  color: inherit; /* Or any color you prefer */
-}
-
-.appearances .info-link:hover,
-.appearances .info-link:focus {
-  color: #007bff; /* Or any hover color you prefer */
 }
 
 .appearances ul li:not(:last-child) {
@@ -205,4 +201,27 @@ a:hover, a:focus {
 .container.page img {
   width: 100%;
   height: auto;
+}
+
+.breadcrumb {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: none;
+}
+
+.breadcrumb-item {
+  margin-right: 1rem;
+}
+
+.breadcrumb-item.active {
+  color: var(--breadcrumb-active-color);
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  position: relative;
+  left: -0.5rem;
+  color: var(--breadcrumb-active-color);
 }

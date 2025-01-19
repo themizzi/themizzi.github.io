@@ -1,5 +1,6 @@
 {{ define "main" }}
 <div class="container page">
+    {{ partial "breadcrumbs.html" . }}
     {{ .Content }}
 </div>
 {{ end }}

@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="container page">
+    {{ partial "breadcrumbs.html" . }}
+    {{ if .Title }}
+    <h1>{{ .Title }}</h1>
+    {{ end }}
+    {{ if .Params.artist }}
+    {{ if .Title }}
+    <h2>{{ .Params.artist }}</h2>
+    {{ else }}
+    <h1>{{ .Params.artist }}</h1>
+    {{ end }}
+    {{ end }}
+    <p>📅 {{ .Params.doors | dateFormat "January 2, 2006" }}</p>
+    {{ with .Params.location }}
+    <p>🏛️ {{ . }}</p>
+    {{ end }}
+    {{ $address := printf "%s, %s, %s %s" .Params.address .Params.city .Params.state .Params.zip }}
+    <p>📍 <a href="https://www.google.com/maps/search/?api=1&query={{ $address | urlquery }}" target="_blank">{{ $address }}</a></p>
+    {{ with .Params.link }}
+    <p>🔗 <a href="{{ . }}" target="_blank">More Info</a></p>
+    {{ end }}
+    <div class="content">
+        {{ .Content }}
+    </div>
+</div>
+{{ end }}
