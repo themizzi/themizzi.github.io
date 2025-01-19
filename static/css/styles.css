@@ -266,3 +266,12 @@ header nav span.divider {
 .discography-single .links li:last-of-type {
   margin-right: 0;
 }
+
+.theme-toggle {
+  -webkit-user-select: none; /* Safari */
+  user-select: none;
+  cursor: pointer;
+  justify-content: center;
+  width: 1.5rem;
+  text-align: center;
+}
