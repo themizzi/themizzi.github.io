@@ -5,7 +5,7 @@ draft = false
 artist = 'The Mizzerables'
 releaseDate = 2025-01-19T00:00:00-05:00
 cover = '85.png'
-summary = '85 by The Mizzerables'
+description = '2 track album by The Mizzerables released October 25th, 2025'
 featured_image = '85.png'
 [links]
     bandcamp = 'https://themizzerables.bandcamp.com/album/85'
