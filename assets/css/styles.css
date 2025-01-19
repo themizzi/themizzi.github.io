@@ -266,6 +266,8 @@ input.show-lyrics {
 
 label.show-lyrics {
   cursor: pointer;
+  -webkit-user-select: none;;
+  user-select: none;
   color: var(--link-color);
 }
 
