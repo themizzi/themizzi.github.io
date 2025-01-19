@@ -1,7 +1,7 @@
 ---
 title: '85'
 date: 2025-01-19T04:18:07Z
-draft: true
+draft: false
 artist: 'The Mizzerables'
 releaseDate: 2025-01-19T00:00:00-05:00
 links:
