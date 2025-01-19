@@ -1,18 +1,9 @@
-<header class="navbar">
-    <div class="navbar-left">
-        <a href="/" class="navbar-brand">MIZZI</a>
-    </div>
-    <div class="navbar-right">
-        <nav class="navbar-menu">
-            {{ range .Site.RegularPages }}
-            {{ if .Params.showInMenu }}
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            {{ end }}
-            {{ end }}
-            {{ range .Site.Sections }}
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            {{ end }}
-            <span class="navbar-divider">|</span>
+<header>
+    <nav>
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">MIZZI</a>
+        </div>
+        <div class="navbar-right">
             <div class="theme-toggle">
                 <!-- System icon -->
                 <i id="theme-icon-system" class="fas fa-adjust" aria-hidden="true" title="Change Theme"
@@ -24,6 +15,27 @@
                 <i id="theme-icon-dark" class="fas fa-moon" aria-hidden="true" title="Change Theme"
                     style="display: none;"></i>
             </div>
-        </nav>
+            <span class="divider">|</span>
+            <label for="menu" tabindex="0">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            <input id="menu" type="checkbox" />
+            <ul>
+                <!-- add a close button -->
+                <label for="menu" class="close">
+                    <i class="fa-solid fa-times"></i>
+                </label>
+                <li><a href="/">Home</a></li>
+                {{ range .Site.RegularPages }}
+                {{ if .Params.showInMenu }}
+                <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                {{ end }}
+                {{ end }}
+                {{ range .Site.Sections }}
+                <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    </nav>
     </div>
 </header>
