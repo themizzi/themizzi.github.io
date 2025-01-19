@@ -13,3 +13,5 @@ featured_image = '85.png'
     apple = 'https://music.apple.com/us/album/85-single/1773569042'
     youtube = 'https://music.youtube.com/playlist?list=OLAK5uy_lRS0R_xI67Qg_NHnN8Kvz4D6Dr6bmS48A&si=7SK6V7cSlfaWa7RT'
 +++
+
+{{< bandcamp 328173695 "85 by The Mizzerables" "<https://themizzerables.bandcamp.com/album/85>" 220px >}}
