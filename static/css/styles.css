@@ -12,6 +12,7 @@
   --link-color: #fd0d0d;
   --tab-bg-color: #242424;
   --tab-selected-color: #333;
+  --slide-out-background-color: #FFF;
 }
 
 /* Fallback for system based on media query */
@@ -22,6 +23,7 @@
     --link-color: #fd0d0d;
     --tab-bg-color: #999;
     --tab-selected-color: #333;
+    --slide-out-background-color: #FFF;
   }
 }
 
@@ -87,25 +89,6 @@ a:hover, a:focus {
   font-size: 24px;
 }
 
-.navbar-menu .theme-toggle {
-  cursor: pointer;
-  margin-left: var(--navbar-margin);
-  display: inline-block;
-  width: 20px;
-  text-align: center;
-}
-
-.navbar-menu a {
-  margin-left: var(--navbar-margin);
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-.navbar-menu .navbar-divider {
-  margin-left: var(--navbar-margin);
-  color: #ccc;
-}
-
 .social-links a:hover {
   color: #fd0d0d;
 }
@@ -113,29 +96,6 @@ a:hover, a:focus {
 .social-links {
   text-align: center;
   margin-top: 20px;
-}
-
-.appearances ul {
-  list-style-type: none; /* Removes bullets */
-  padding-left: 0; /* Removes the default padding */
-  margin-left: 0; /* Adjust as needed, depending on your site's layout */
-}
-
-.appearances ul li:not(:last-child) {
-  position: relative; /* Establishes a positioning context for pseudo-elements */
-  padding-bottom: 15px; /* Space between the content and the border */
-  margin-bottom: 15px; /* Space between items */
-}
-
-.appearances ul li:not(:last-child::after) {
-  content: ""; /* Necessary for a pseudo-element */
-  position: absolute;
-  bottom: 0; /* Aligns the pseudo-element at the bottom of the li */
-  left: 50%; /* Positions the border in the middle */
-  width: 100px; /* Width of the border */
-  height: 1px; /* Height of the border */
-  background-color: #ccc; /* Color of the border */
-  transform: translateX(-50%); /* Centers the pseudo-element */
 }
 
 .tabs {
@@ -166,36 +126,6 @@ a:hover, a:focus {
 .tab-content {
   display: none;
   padding: 6px 12px;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-.navbar-left {
-  flex: 1;
-}
-
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-.navbar-right {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.navbar-menu a:hover {
-  text-decoration: underline;
 }
 
 .container.page img {
@@ -236,3 +166,87 @@ header {
   position: sticky;
   top: 0;
 }
+
+
+header nav input[type="checkbox"] {
+  display: none;
+}
+
+header nav label[for="menu"] {
+  display: none;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--background-color);
+}
+
+header nav .navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+header nav .navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+header nav ul {
+  display: inline-flex;
+  flex-flow: row nowrap;
+  padding-left: 0;
+}
+
+header nav ul li {
+  list-style: none;
+  margin-right: 10px;
+}
+
+header nav ul li:last-of-type {
+  margin-right: 0;
+}
+
+header nav ul li:has(>a[href="/"]) {
+  display: none;
+} 
+
+header nav label.close {
+  color: var(--background-color);
+}
+
+header nav span.divider {
+  margin: 0 10px;
+}
+
+@media screen and (width <= 768px) {
+  header nav label[for="menu"] {
+    display: block;
+  }
+
+  header nav ul {
+    display: none;
+  }
+  
+  header nav ul li {
+    text-align: right;
+    margin: 10px 0;
+  }
+
+  header nav input[type="checkbox"]:checked ~ ul {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: var(--slide-out-background-color);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
+    z-index: 1;
+    margin: 0;
+    height: 100vh;
+    padding: 20px;
+  }  
+}
+
