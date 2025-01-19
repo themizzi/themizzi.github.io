@@ -259,3 +259,27 @@ ul.share {
   padding: 0;
   margin-left: 5px;
 }
+
+input.show-lyrics {
+  display: none;
+}
+
+label.show-lyrics {
+  cursor: pointer;
+  color: var(--link-color);
+}
+
+.lyrics {
+  display: none;
+}
+
+input.show-lyrics:checked ~ .lyrics {
+  display: block;
+}
+
+.tracks .track {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}

@@ -3,8 +3,18 @@
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
-    <h2>{{ .Params.artist }}</h2>
-    <h3>{{ time.Format "January 1, 2006" .Params.releaseDate }}</h3>
+    <p>{{ .Params.artist }}</p>
+    {{ $releaseDate := "" }}
+    {{ if .Params.releaseDate }}
+    {{ $releaseDate = time.Format "January 1, 2006" .Params.releaseDate }}
+    {{ else }}
+    {{ if $.Page.Parent.Params.releaseDate }}
+    {{ $releaseDate = time.Format "January 1, 2006" $.Page.Parent.Params.releaseDate }}
+    {{ end }}
+    {{ end }}
+    {{ if $releaseDate }}
+    <p>{{ $releaseDate }}<p>
+    {{ end }}
     <ul class="links">
         {{ range $key, $link := .Params.links }}
         <li>
@@ -13,6 +23,40 @@
         {{ end }}
     </ul>
     <img src="{{ .Params.cover }}" alt="{{ .Title }}" />
+    <!-- render the content in credits.md in the page bundle -->
+    {{ with .Resources.Get "credits.md" }}
+    {{ if .Content }}
+    <h2>Credits</h2>
     {{ .Content }}
+    {{ end }}
+    {{ end }}
+    <h2>Tracklist</h2>
+    <ol class="tracks">
+        {{ $resources := .Resources }}
+        {{ $count := 0 }}
+        {{ range $key, $track := .Params.tracks }}
+        {{ $count = add $count 1 }}
+        {{ $trackNumber := printf "%02d" $count }}
+        {{ $fileName := (printf "lyrics/%s-%s.md" $trackNumber $key) }}
+        {{ with $resources.GetMatch $fileName }}
+        <li>
+            <div class="track">
+                {{ $track.Title }} {{ if .Content }}<span><label class="show-lyrics" for="{{ $key }}">lyrics</label></span>{{ end }}
+            </div>
+            {{ if .Content }}
+            <input id="{{ $key }}" class="show-lyrics" type="checkbox">
+            <div class="lyrics">
+                {{ .Content }}
+            </div>
+            {{ end }}
+        </li>
+        {{ end }}
+        {{ end }}
+    </ol>
+    <div class="embed video-player">
+        <iframe style="border: 0; width: 100%; height: {{ .Params.bandcamp.height | default "422px" }};"
+            src="https://bandcamp.com/EmbeddedPlayer/album={{ .Params.bandcamp.id }}/size=large/bgcol=ffffff/linkcol=de270f/artwork=none/transparent=true/"
+            seamless><a href="{{ .Params.bandcamp.href }}">{{ .Params.bandcamp.description }}</a></iframe>
+    </div>
 </div>
 {{ end }}

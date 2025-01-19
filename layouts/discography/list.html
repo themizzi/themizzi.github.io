@@ -2,8 +2,6 @@
 <div class="container">
     {{ partial "breadcrumbs.html" . }}
     <h1>{{ .Title }}</h1>
-    {{ range .Pages.GroupByParam "artist" }}
-    <h2>{{ .Key }}</h2>
     <ul>
         {{ range .Pages }}
         <li>
@@ -11,6 +9,5 @@
         </li>
         {{ end }}
     </ul>
-    {{ end }}
 </div>
 {{ end }}
