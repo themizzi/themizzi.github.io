@@ -10,8 +10,6 @@
   --background-color: #121212;
   --text-color: #fff;
   --link-color: #fd0d0d;
-  --tab-bg-color: #242424;
-  --tab-selected-color: #333;
   --slide-out-background-color: #FFF;
 }
 
@@ -21,8 +19,6 @@
     --background-color: #121212;
     --text-color: #fff;
     --link-color: #fd0d0d;
-    --tab-bg-color: #999;
-    --tab-selected-color: #333;
     --slide-out-background-color: #FFF;
   }
 }
@@ -96,36 +92,6 @@ a:hover, a:focus {
 .social-links {
   text-align: center;
   margin-top: 20px;
-}
-
-.tabs {
-  overflow: hidden;
-  text-align: center;
-}
-
-.tab-button {
-  background-color: inherit;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: background-color 0.3s;
-  color: var(--link-color); /* Set the default color to link color */
-  font-size: 1rem;
-}
-
-.tab-button:hover {
-  background-color: var(--tab-selected-color, #ddd); /* Dark theme or fallback to light theme color */
-}
-
-.tab-button.active {
-  background-color: var(--tab-selected-color, #ccc); /* Dark theme or fallback to light theme color */
-  color: var(--text-color); /* Set the active tab to use the normal text color */
-}
-
-.tab-content {
-  display: none;
-  padding: 6px 12px;
 }
 
 .container.page img {
