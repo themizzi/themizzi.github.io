@@ -46,15 +46,16 @@
     content="{{ if .IsHome }}{{ .Description }}{{ else }}{{ htmlEscape .Summary }}{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
+{{ $image := resources.Get "images/profile-large.png" }}
 {{ if .Params.featured_image }}
-{{ $image := .Resources.GetMatch .Params.featured_image }}
+{{ $image = .Resources.GetMatch .Params.featured_image }}
+{{ end }}
 {{ with $image }}
 <meta property="og:image" content="{{ .Permalink }}">
 <meta property="og:image:secure_url" content="{{ .Permalink }}">
 <meta property="og:image:type" content="{{ .MediaType.Type }}">
 <meta property="og:image:width" content="{{ .Width }}">
 <meta property="og:image:height" content="{{ .Height }}">
-{{ end }}
 {{ end }}
 {{ range .Params.categories }}
 <meta property="article:section" content="{{ . }}">{{ end }}

@@ -1,7 +1,10 @@
 {{ define "main" }}
   <div class="container home">
     <div class="profile-pic">
-      <img src="/{{ .Site.Params.small_profile_image }}" alt="Profile Picture">
+      {{ $profile_image := resources.Get .Site.Params.small_profile_image }}
+      {{ with $profile_image}}
+      <img src="{{ .RelPermalink }}" alt="Profile Picture">
+      {{ end }}
     </div>
     <h1>{{ .Site.Title }}</h1>
     <div class="social-links">
