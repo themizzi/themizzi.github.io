@@ -2,6 +2,7 @@
 title = 'About'
 date = 2025-01-18T22:23:09Z
 showInMenu = true
+tags = ["guitar", "bass", "violin", "piano", "trekkie", "physics", "detroit", "chicago", "dad"]
 +++
 
 # About
@@ -13,7 +14,7 @@ showInMenu = true
 🎹 [#Guitar](/tags/guitar), [#bass](/tags/bass), [#violin](/tags/violin), [#piano](/tags/piano), things with strings  
 🖖 [#Trekkie](/tags/trekkie), [#physics](/tags/physics) enthusiast  
 🏙️ [#Detroit](/tags/detroit) born, [#Chicago](/tags/chicago) since 2006  
-👶 Soon-to-be [#dad]
+👶 Soon-to-be [#dad](/tags/dad)
 
 Riffs, regex, or raising kids—I’m game!
 
