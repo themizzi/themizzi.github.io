@@ -127,7 +127,7 @@ a:hover, a:focus {
   margin-bottom: 15px; /* Space between items */
 }
 
-.appearances ul li:not(:last-child)::after {
+.appearances ul li:not(:last-child::after) {
   content: ""; /* Necessary for a pseudo-element */
   position: absolute;
   bottom: 0; /* Aligns the pseudo-element at the bottom of the li */
@@ -224,4 +224,10 @@ a:hover, a:focus {
   position: relative;
   left: -0.5rem;
   color: var(--breadcrumb-active-color);
+}
+
+.footer {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-color);
 }
