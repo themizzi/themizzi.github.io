@@ -11,7 +11,9 @@
 <link rel="stylesheet" href="{{ .RelPermalink }}">
 {{ end }}
 {{ end }}
-<script src="/js/theme-toggle.js"></script>
+{{ with resources.Get "scripts/main.ts" | js.Build }}
+<script src='{{ .RelPermalink }}'></script>
+{{ end }}
 <script src="/js/newsletter.js"></script>
 <script src="/js/gtag.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SMLSEPRS2B"></script>
