@@ -4,5 +4,6 @@
     "layouts/_default/baseof.html": {
       "doctype-first": true
     }
-  }
+  },
+  "ignores": ["node_modules/**/*", "public/**/*"]
 }
