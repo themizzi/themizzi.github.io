@@ -3,6 +3,7 @@
   --background-color: #fff;
   --text-color: #000;
   --link-color: #fd0d0d;
+  --slide-out-background-color: #000;
 }
 
 /* Dark theme colors */
@@ -28,6 +29,7 @@
     --background-color: #fff;
     --text-color: #000;
     --link-color: #fd0d0d;
+    --slide-out-background-color: #000;
   }
 }
 
