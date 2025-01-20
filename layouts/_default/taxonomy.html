@@ -1,10 +1,15 @@
 {{ define "main" }}
 <div class="container">
     <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    {{ range .Pages.GroupBy "Section" }}
+    {{ $section := $.Site.GetPage "section" .Key}}
+    <h2>{{ $section.Title }}</h2>
     {{ range .Pages }}
     <div>
         <a href="{{ .Permalink }}">{{ .Title }}</a>
     </div>
+    {{ end }}
     {{ end }}
 </div>
 {{ end}}

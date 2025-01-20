@@ -3,6 +3,7 @@ languageCode = 'en-us'
 title = 'Mizzi'
 [taxonomies]
   tag = "tags"
+  artist = "artists"
 [params]
   description = "Music, Software, Midwest"
   large_profile_image = "images/profile-large.png"

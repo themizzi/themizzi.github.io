@@ -5,13 +5,19 @@
     {{ if .Title }}
     <h1>{{ .Title }}</h1>
     {{ end }}
-    {{ if .Params.artist }}
-    {{ if .Title }}
-    <h2>{{ .Params.artist }}</h2>
-    {{ else }}
-    <h1>{{ .Params.artist }}</h1>
+    
+    {{ with .Params.artists }}
+    <p>
+        {{ range $i, $artist := . }}
+        {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
+        {{ with $artistPage }}
+        {{ if $i }}, {{ end }}
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{ end }}
+        {{ end }}
+    </p>
     {{ end }}
-    {{ end }}
+
     <p>📅 {{ .Params.doors | dateFormat "January 2, 2006" }}</p>
     {{ with .Params.location }}
     <p>🏛️ {{ . }}</p>
