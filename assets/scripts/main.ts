@@ -20,3 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('One or more theme elements are missing');
   }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  // show all elements with .javascript-enable class
+  const elements = document.querySelectorAll('.javascript-enable');
+  elements.forEach((element) => {
+    // remove the hidden attribute
+    element.removeAttribute('hidden');
+  });
+});
