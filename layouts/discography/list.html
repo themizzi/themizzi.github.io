@@ -1,6 +1,7 @@
 {{ define "main" }}
 <div class="container">
     {{ partial "breadcrumbs.html" . }}
+    {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
     <ul>
         {{ range .Pages }}
