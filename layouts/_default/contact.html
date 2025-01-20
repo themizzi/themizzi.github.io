@@ -1,9 +1,18 @@
 {{ define "main" }}
+
 <div class="container page">
     {{ partial "breadcrumbs.html" . }}
     <h1>{{ .Title }}</h1>
 
-    <form class="contact" action="https://api.web3forms.com/submit" method="POST">
+    {{ partial "socials.html" . }}
+
+    {{ .Content }}
+
+    <div class="javascript-disable">
+        <p>JavaScript is disabled on your browser.</p>
+    </div>
+    
+    <form class="contact javascript-enable" action="https://api.web3forms.com/submit" method="POST" hidden>
         <!-- Replace with your Access Key -->
         <input type="hidden" name="access_key" value="1f1cf26c-91a5-4d12-bd99-b1ce61f28d95">
 
@@ -12,8 +21,8 @@
         <input type="email" name="email" placeholder="Email" required>
         <textarea name="message" placeholder="Message" required></textarea>
 
-        <!-- Honeypot Spam Protection -->
-        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+        <!-- h-captcha element -->
+        <div class="h-captcha" data-captcha="true"></div>
 
         <!-- Custom Confirmation / Success Page -->
         <!-- get the contact-success page from hugo and use the permalink -->
@@ -24,4 +33,5 @@
         <button type="submit">Submit Form</button>
     </form>
 </div>
+<script src="https://web3forms.com/client/script.js" async defer></script>
 {{ end }}
