@@ -292,3 +292,8 @@ input.show-lyrics:checked ~ .lyrics {
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 10px;
 }
+
+.videos video {
+  width: 100%;
+  height: auto;
+}
