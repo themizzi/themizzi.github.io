@@ -21,8 +21,26 @@
     {{ with .Params.link }}
     <p>🔗 <a href="{{ . }}" target="_blank">More Info</a></p>
     {{ end }}
-    <div class="content">
-        {{ .Content }}
+    {{ if .Params.featured_image }}
+    {{ with .Resources.GetMatch .Params.featured_image }}
+    <a href="{{ .RelPermalink }}" target="_blank">
+        {{ with .Fill "600x600"}}
+        <img src="{{ .RelPermalink }}" alt="{{ .Title }}" />
+        {{ end }}
+    </a>
+    {{ end }}
+    {{ end }}
+    {{ with .Resources.Match "images/*" }}
+    <h2>Photos</h2>
+    <div class="photos">
+        {{ range . }}
+        <a href="{{ .RelPermalink }}" target="_blank">
+            {{ with .Fill "300x300"}}
+            <img src="{{ .RelPermalink }}" alt="{{ .Title }}">
+            {{ end}}
+        </a>    
+        {{ end }}
     </div>
+    {{ end }}
 </div>
 {{ end }}

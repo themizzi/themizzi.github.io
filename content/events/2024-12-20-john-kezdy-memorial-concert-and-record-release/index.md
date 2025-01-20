@@ -10,6 +10,5 @@ city = 'Chicago'
 state = 'IL'
 zip = '60613'
 doors = 2024-12-20T17:00:00-05:00
+featured_image = 'flyer.png'
 +++
-
-This is a test
