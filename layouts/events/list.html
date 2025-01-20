@@ -3,9 +3,7 @@
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
-    {{ template "_internal/pagination.html" . }}
-    {{ $events := .Paginator.Pages }}
-    {{ $eventsByYear := $events.GroupByParamDate "doors" "2006" "2006" }}
+    {{ $eventsByYear := .Pages.GroupByParamDate "doors" "2006" "2006" }}
     {{ range $eventsByYear }}
     <h2>{{ .Key }}</h2>
     {{ $eventsByMonth := .Pages.GroupByParamDate "doors" "January" "January" }}
@@ -37,6 +35,5 @@
     </ul>
     {{ end }}
     {{ end }}
-    {{ template "_internal/pagination.html" . }}
 </div>
 {{ end }}
