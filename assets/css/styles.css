@@ -325,3 +325,20 @@ form.contact textarea {
   padding: 10px;
   height: 20rem;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.pagination .active a {
+  color: var(--breadcrumb-active-color);
+}
+
+.pagination .disabled a {
+  color: var(--breadcrumb-active-color);
+}
+
