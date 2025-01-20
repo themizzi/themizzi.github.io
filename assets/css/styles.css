@@ -285,3 +285,10 @@ input.show-lyrics:checked ~ .lyrics {
   align-items: center;
   padding: 10px 0;
 }
+
+/* .photos should show a grid of images */
+.photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
