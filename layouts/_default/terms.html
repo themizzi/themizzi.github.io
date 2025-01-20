@@ -1,11 +1,11 @@
 {{ define "main"}}
 <div class="container">
-    <h1>All Terms</h1>
-    {{ range .Data.Terms.Alphabetical }}
-    <div>
-        <a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
-        ({{ .Count }})
-    </div>
-    {{ end }}
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    <ul>
+        {{ range .Data.Terms.Alphabetical }}
+        <li><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a> ({{ .Count }})</h2></li>
+        {{ end }}
+    </ul>
 </div>
 {{ end }}
