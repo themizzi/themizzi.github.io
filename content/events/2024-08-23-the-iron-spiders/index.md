@@ -3,7 +3,7 @@ title = "The Iron Spiders"
 date = 2025-01-08
 link = "https://www.ticketweb.com/event/the-iron-spiders-the-reaganomics-reggies-music-joint-tickets/13696413?REFERRAL_ID=tmfeed"
 draft = false
-artist = 'The Iron Spiders'
+artists = ['theironspiders']
 location = 'Reggies Music Joint'
 address = '2105 S State St'
 city = 'Chicago'
