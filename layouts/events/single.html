@@ -24,7 +24,7 @@
     {{ if .Params.featured_image }}
     {{ with .Resources.GetMatch .Params.featured_image }}
     <a href="{{ .RelPermalink }}" target="_blank">
-        {{ with .Fill "600x600"}}
+        {{ with .Resize "600x"}}
         <img src="{{ .RelPermalink }}" alt="{{ .Title }}" />
         {{ end }}
     </a>
