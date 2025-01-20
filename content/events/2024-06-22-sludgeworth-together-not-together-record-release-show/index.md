@@ -3,7 +3,7 @@ title = "Sludgeworth \"Together Not Together\" Record Release Show"
 date = 2025-01-08
 link = "https://wl.seetickets.us/event/sludgeworth/597391?afflky=KickstandProductions"
 draft = false
-artist = 'The Bollweevils'
+artists = ['thebollweevils']
 location = 'Beat Kitchen'
 address = '2100 W Belmont Ave'
 city = 'Chicago'
