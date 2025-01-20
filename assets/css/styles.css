@@ -297,3 +297,30 @@ input.show-lyrics:checked ~ .lyrics {
   width: 100%;
   height: auto;
 }
+
+form.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form.contact button {
+  padding: 10px;
+  background-color: var(--link-color);
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+}
+
+form.contact button:hover {
+  background-color: #f00;
+}
+
+form.contact input {
+  padding: 10px;
+}
+
+form.contact textarea {
+  padding: 10px;
+  height: 20rem;
+}

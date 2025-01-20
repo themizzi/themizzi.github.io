@@ -26,13 +26,13 @@
                     <i class="fa-solid fa-times"></i>
                 </label>
                 <li><a href="/">Home</a></li>
-                {{ range .Site.RegularPages }}
+                {{ $pages := .Site.RegularPages }}
+                {{ $sections := .Site.Sections }}
+                {{ $pages = append $pages $sections }}
+                {{ range $pages.ByWeight }}
                 {{ if .Params.showInMenu }}
                 <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
                 {{ end }}
-                {{ end }}
-                {{ range .Site.Sections }}
-                <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
                 {{ end }}
             </ul>
         </div>

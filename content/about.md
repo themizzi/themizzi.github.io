@@ -2,6 +2,7 @@
 title = 'About'
 date = 2025-01-18T22:23:09Z
 showInMenu = true
+weight = 1000
 tags = ["guitar", "bass", "violin", "piano", "trekkie", "physics", "detroit", "chicago", "dad"]
 +++
 
