@@ -302,6 +302,7 @@ form.contact {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 20px;
 }
 
 form.contact button {

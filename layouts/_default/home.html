@@ -7,11 +7,7 @@
       {{ end }}
     </div>
     <h1>{{ .Site.Title }}</h1>
-    <div class="social-links">
-      {{ range sort .Site.Params.social_links "order" "asc" }}
-      <a href="{{ .href }}" class="{{ .name }}" target="_blank"><i class="fab fa-{{ .name }}"></i></a>
-      {{ end }}
-    </div>
+    {{ partial "socials.html" . }}
     <p>
       Member of <a href="https://linktr.ee/thebollweevils" target="_blank">The Bollweevils</a>,
       <a href="https://linktr.ee/theironspiders" target="_blank">The Iron Spiders</a>,
