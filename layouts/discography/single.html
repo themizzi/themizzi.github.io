@@ -3,7 +3,18 @@
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
-    <p>by {{ .Params.artist }}</p>
+    {{ with .Params.artists }}
+    <p>
+        by
+        {{ range $i, $artist := . }}
+        {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
+        {{ with $artistPage }}
+        {{ if $i }}, {{ end }}
+        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{ end }}
+        {{ end }}
+    </p>
+    {{ end }}
     {{ $releaseDate := "" }}
     {{ if .Params.releaseDate }}
     {{ $releaseDate = time.Format "January 1, 2006" .Params.releaseDate }}
@@ -32,25 +43,19 @@
     {{ end }}
     <h2>Tracklist</h2>
     <ol class="tracks">
-        {{ $resources := .Resources }}
         {{ $count := 0 }}
-        {{ range $key, $track := .Params.tracks }}
+        {{ range $key, $track := .Resources.Match "tracks/*.md" }}
         {{ $count = add $count 1 }}
         {{ $trackNumber := printf "%02d" $count }}
-        {{ $fileName := (printf "lyrics/%s-%s.md" $trackNumber $key) }}
-        {{ with $resources.GetMatch $fileName }}
         <li>
             <div class="track">
-                {{ $track.Title }} {{ if .Content }}<span><label class="show-lyrics" for="{{ $key }}">lyrics</label></span>{{ end }}
+                {{ $track.Title }}<span><label class="show-lyrics" for="{{ $key }}">lyrics</label></span>
             </div>
-            {{ if .Content }}
             <input id="{{ $key }}" class="show-lyrics" type="checkbox">
             <div class="lyrics">
-                {{ .Content }}
+                {{ $track.Content }}
             </div>
-            {{ end }}
         </li>
-        {{ end }}
         {{ end }}
     </ol>
     <div class="embed video-player">
