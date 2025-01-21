@@ -1,5 +1,8 @@
 {
 	"name": "Hugo (Community)",
+	"mounts": [
+		"source=themizzi-github-io-zsh-history,target=/home/node/.zsh_history,type=volume,consistency=cached"
+	],
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
