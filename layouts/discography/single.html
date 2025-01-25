@@ -44,7 +44,7 @@
     <h2>Tracklist</h2>
     <ol class="tracks">
         {{ $count := 0 }}
-        {{ range $key, $track := .Resources.Match "tracks/*.md" }}
+        {{ range $key, $track := sort (.Resources.Match "tracks/*.md") "Name" }}
         {{ $count = add $count 1 }}
         {{ $trackNumber := printf "%02d" $count }}
         <li>
