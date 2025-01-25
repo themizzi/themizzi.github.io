@@ -11,7 +11,7 @@ title = 'Mizzi'
 [[params.social_links]]
   name = "mastodon"
   href = "https://mastodon.social/@themizzi"
-  order = 550
+  order = 150
 [[params.social_links]]
   name = "github"
   href = "https://github.com/themizzi"
@@ -19,15 +19,7 @@ title = 'Mizzi'
 [[params.social_links]]
   name = "linkedin"
   href = "https://linkedin.com/in/joemizzi"
-  order = 300
-[[params.social_links]]
-  name = "facebook"
-  href = "https://facebook.com/themizzi"
-  order = 400
-[[params.social_links]]
-  name = "instagram"
-  href = "https://instagram.com/themizzinator"
-  order = 500
+  order = 175
 [[params.social_links]]
   name = "goodreads"
   href = "https://www.goodreads.com/user/show/51946425-joe-mizzi"
@@ -40,10 +32,6 @@ title = 'Mizzi'
   name = "bluesky"
   href = "https://bsky.app/profile/themizzinator.bsky.social"
   order = 100
-[[params.social_links]]
-  name = "threads"
-  href = "https://www.threads.net/@themizzinator"
-  order = 150
 [[params.social_links]]
   name = "signal-messenger"
   href = "https://signal.me/#eu/RsNPXENWoya3LPHxYNQux0DR4C_REl1o1cyMPbNbxCT6YXFHBsdERbejvtdNMw5Z"
