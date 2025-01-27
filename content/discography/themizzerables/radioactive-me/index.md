@@ -1,9 +1,8 @@
 +++
 title = 'Radioactive Me'
-date = 2025-01-19T04:18:07Z
+date = 2024-09-20T00:00:00-05:00
 draft = false
 artists = ['themizzerables']
-releaseDate = 2024-09-20T00:00:00-05:00
 cover = 'radioactive-me.png'
 description = '2 track album by The Mizzerables released October 11th, 2025'
 featured_image = 'sad-face.png'
