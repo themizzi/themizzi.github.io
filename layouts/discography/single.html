@@ -15,16 +15,16 @@
         {{ end }}
     </p>
     {{ end }}
-    {{ $releaseDate := "" }}
-    {{ if .Params.releaseDate }}
-    {{ $releaseDate = time.Format "January 1, 2006" .Params.releaseDate }}
+    {{ $date := "" }}
+    {{ if .Params.date }}
+    {{ $date = time.Format "January 1, 2006" .Params.date }}
     {{ else }}
-    {{ if $.Page.Parent.Params.releaseDate }}
-    {{ $releaseDate = time.Format "January 1, 2006" $.Page.Parent.Params.releaseDate }}
+    {{ if $.Page.Parent.Params.date }}
+    {{ $date = time.Format "January 1, 2006" $.Page.Parent.Params.date }}
     {{ end }}
     {{ end }}
-    {{ if $releaseDate }}
-    <p>released on {{ $releaseDate }}<p>
+    {{ if $date }}
+    <p>released on {{ $date }}<p>
     {{ end }}
     <ul class="links">
         {{ range $key, $link := .Params.links }}
