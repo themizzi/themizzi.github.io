@@ -1,41 +1,24 @@
-<header>
-    <nav>
-        <div class="navbar-left">
-            <strong><a href="/">MIZZI</a></strong>
-        </div>
-        <div class="navbar-right">
-            <div class="javascript-enable theme-toggle" hidden>
-                <!-- System icon -->
-                <i id="theme-icon-system" class="fas fa-adjust" aria-hidden="true" title="Change Theme"
-                    style="display: none;"></i>
-                <!-- Light icon -->
-                <i id="theme-icon-light" class="fas fa-sun" aria-hidden="true" title="Change Theme"
-                    style="display: none;"></i>
-                <!-- Dark icon -->
-                <i id="theme-icon-dark" class="fas fa-moon" aria-hidden="true" title="Change Theme"
-                    style="display: none;"></i>
-            </div>
-            <span class="javascript-enable divider" hidden>|</span>
-            <label for="menu" tabindex="0">
-                <i class="fa-solid fa-bars"></i>
-            </label>
-            <input id="menu" type="checkbox" />
-            <ul>
-                <!-- add a close button -->
-                <label for="menu" class="close">
-                    <i class="fa-solid fa-times"></i>
-                </label>
-                <li><a href="/">Home</a></li>
-                {{ $pages := .Site.RegularPages }}
-                {{ $sections := .Site.Sections }}
-                {{ $pages = append $pages $sections }}
-                {{ range $pages.ByWeight }}
-                {{ if .Params.showInMenu }}
-                <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
-                {{ end }}
-                {{ end }}
-            </ul>
-        </div>
-    </nav>
+<div class="header-left">
+    <strong><a href="/">MIZZI</a></strong>
+</div>
+<div class="header-right">
+    <!-- add a close button -->
+    <div class="javascript-enable theme-toggle" hidden>
+        <!-- System icon -->
+        <i id="theme-icon-system" class="fas fa-adjust" aria-hidden="true" title="Change Theme"
+            style="display: none;"></i>
+        <!-- Light icon -->
+        <i id="theme-icon-light" class="fas fa-sun" aria-hidden="true" title="Change Theme" style="display: none;"></i>
+        <!-- Dark icon -->
+        <i id="theme-icon-dark" class="fas fa-moon" aria-hidden="true" title="Change Theme" style="display: none;"></i>
     </div>
-</header>
+    <span class="javascript-enable divider" hidden>|</span>
+    <input id="menu" type="checkbox" />
+    <label for="menu">
+        <i class="fa-solid fa-bars"></i>
+    </label>
+    <label for="menu">
+        <i class="fa-solid fa-times"></i>
+    </label>
+    {{ partial "menu.html" (dict "page" . "menuID" "main") }}
+</div>

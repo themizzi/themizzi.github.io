@@ -38,7 +38,6 @@
   --background-color: #fff;
   --text-color: #000;
   --link-color: #fd0d0d;
-  --navbar-margin: 10px;
   --breadcrumb-active-color: #6c757d;
 }
 
@@ -134,17 +133,6 @@ header {
   position: sticky;
   top: 0;
   font-size: 1.25rem;
-}
-
-header nav input[type="checkbox"] {
-  display: none;
-}
-
-header nav label[for="menu"] {
-  display: none;
-}
-
-header nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -152,12 +140,20 @@ header nav {
   background-color: var(--background-color);
 }
 
-header nav .navbar-left {
+header input[type="checkbox"] {
+  display: none;
+}
+
+header label[for="menu"] {
+  display: none;
+}
+
+header .header-left {
   display: flex;
   align-items: center;
 }
 
-header nav .navbar-right {
+header .header-right {
   display: flex;
   align-items: center;
 }
@@ -195,20 +191,24 @@ ul.share li:last-of-type {
   margin-right: 0;
 }
 
-header nav label.close {
+header label.close {
   color: var(--background-color);
 }
 
-header nav span.divider {
+header span.divider {
   margin: 0 10px;
 }
 
 @media screen and (width <= 768px) {
-  header nav label[for="menu"] {
+  header label[for="menu"]:nth-of-type(1) {
     display: block;
   }
 
-  header nav ul {
+  header label[for="menu"]:nth-of-type(2) {
+    display: none;
+  }
+
+  header nav {
     display: none;
   }
   
@@ -217,7 +217,21 @@ header nav span.divider {
     margin: 10px 0;
   }
 
-  header nav input[type="checkbox"]:checked ~ ul {
+  header input[type="checkbox"]:checked ~ nav {
+    display: block;
+  }
+
+  header input[type="checkbox"]:checked ~ label:nth-of-type(2) {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: var(--background-color);
+    z-index: 5000;
+    font-size: 1.25rem;
+  }
+
+  header input[type="checkbox"]:checked ~ nav ul {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -229,7 +243,7 @@ header nav span.divider {
     margin: 0;
     height: 100vh;
     padding: 20px;
-    min-width: 33%;
+    min-width: 100%;
   }  
 }
 
