@@ -331,7 +331,7 @@ form.contact button {
 }
 
 form.contact button:hover {
-  background-color: #f00;
+  background-color: var(--link-color);
 }
 
 form.contact input {
