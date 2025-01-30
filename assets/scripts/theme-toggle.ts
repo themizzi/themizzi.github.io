@@ -6,8 +6,7 @@ export class ThemeToggle {
     private themeIconDark: HTMLElement,
     private documentElement: HTMLElement,
   ) {
-    const savedTheme = localStorage.getItem('theme') || 'system';
-    this.setTheme(savedTheme);
+    this.setTheme(localStorage.getItem('theme') || 'system');
     this.themeIconSystem.addEventListener('click', () => this.setTheme('light'));
     this.themeIconLight.addEventListener('click', () => this.setTheme('dark'));
     this.themeIconDark.addEventListener('click', () => this.setTheme('system'));
