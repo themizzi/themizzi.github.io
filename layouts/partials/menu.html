@@ -1,8 +1,14 @@
 {{- $page := .page }}
 {{- $menuID := .menuID }}
+{{- $closeFor := .closeFor }}
 
 {{- with index site.Menus $menuID }}
   <nav>
+    {{- with $closeFor }}
+    <label for="{{ . }}">
+        <i class="fa-solid fa-times"></i>
+    </label>
+    {{- end }}
     <ul>
       {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
     </ul>
