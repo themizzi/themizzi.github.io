@@ -6,13 +6,11 @@ export class ThemeToggle {
     private themeIconDark: HTMLElement,
     private documentElement: HTMLElement,
   ) {
-    this.initializeTheme();
-    this.addEventListeners();
-  }
-
-  private setThemeColor(): void {
-    const backgroundColor = getComputedStyle(this.documentElement).getPropertyValue('--background-color').trim();
-    this.themeColorMeta.setAttribute('content', backgroundColor);
+    const savedTheme = localStorage.getItem('theme') || 'system';
+    this.setTheme(savedTheme);
+    this.themeIconSystem.addEventListener('click', () => this.setTheme('light'));
+    this.themeIconLight.addEventListener('click', () => this.setTheme('dark'));
+    this.themeIconDark.addEventListener('click', () => this.setTheme('system'));
   }
 
   private setTheme(theme: string): void {
@@ -40,17 +38,7 @@ export class ThemeToggle {
       this.themeIconSystem.style.display = 'inline';
     }
 
-    this.setThemeColor();
-  }
-
-  private initializeTheme(): void {
-    const savedTheme = localStorage.getItem('theme') || 'system';
-    this.setTheme(savedTheme);
-  }
-
-  private addEventListeners(): void {
-    this.themeIconSystem.addEventListener('click', () => this.setTheme('light'));
-    this.themeIconLight.addEventListener('click', () => this.setTheme('dark'));
-    this.themeIconDark.addEventListener('click', () => this.setTheme('system'));
+    const backgroundColor = getComputedStyle(this.documentElement).getPropertyValue('--background-color').trim();
+    this.themeColorMeta.setAttribute('content', backgroundColor);
   }
 }
