@@ -95,7 +95,7 @@ a:hover, a:focus {
 }
 
 .social-links a:hover {
-  color: #fd0d0d;
+  color: var(--link-color);
 }
 
 .container.page img {
