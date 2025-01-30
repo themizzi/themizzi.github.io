@@ -1,5 +1,7 @@
-<div class="social-links">
+<ul class="social-links">
     {{ range sort .Site.Params.social_links "order" "asc" }}
-    <a href="{{ .href }}" class="{{ .name }}" target="_blank"><i class="fab fa-{{ .name }}"></i></a>
+    <li>
+        <a href="{{ .href }}" class="{{ .name }}" target="_blank"><i class="fab fa-{{ .name }}"></i></a>
+    </li>
     {{ end }}
-</div>
+</ul>

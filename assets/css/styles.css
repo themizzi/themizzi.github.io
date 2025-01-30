@@ -79,6 +79,14 @@ a:hover, a:focus {
   text-decoration: none;
 }
 
+.social-links {
+  display: flex;
+  padding: 0;
+  list-style: none;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .social-links a {
   margin: 0 10px;
   text-decoration: none;
@@ -88,11 +96,6 @@ a:hover, a:focus {
 
 .social-links a:hover {
   color: #fd0d0d;
-}
-
-.social-links {
-  text-align: center;
-  margin-top: 20px;
 }
 
 .container.page img {
