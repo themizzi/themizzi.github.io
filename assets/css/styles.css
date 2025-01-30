@@ -1,44 +1,22 @@
-/* Light theme colors */
+:root,
 :root[data-theme="light"] {
+  --link-color: #fd0d0d;
+  --breadcrumb-active-color: #6c757d;
+  --slide-out-background-color: #FFF;
   --background-color: #fff;
   --text-color: #000;
-  --link-color: #fd0d0d;
-  --slide-out-background-color: #000;
 }
 
-/* Dark theme colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #121212;
+    --text-color: #fff;
+  }
+}
+
 :root[data-theme="dark"] {
   --background-color: #121212;
   --text-color: #fff;
-  --link-color: #fd0d0d;
-  --slide-out-background-color: #FFF;
-}
-
-/* Fallback for system based on media query */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --background-color: #121212;
-    --text-color: #fff;
-    --link-color: #fd0d0d;
-    --slide-out-background-color: #FFF;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --background-color: #fff;
-    --text-color: #000;
-    --link-color: #fd0d0d;
-    --slide-out-background-color: #000;
-  }
-}
-
-:root {
-  /* Light theme colors */
-  --background-color: #fff;
-  --text-color: #000;
-  --link-color: #fd0d0d;
-  --breadcrumb-active-color: #6c757d;
 }
 
 body {
