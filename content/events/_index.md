@@ -1,5 +1,4 @@
 +++
 title = 'Events'
-showInMenu = true
-weight = 3000
+menus = { main = { weight = 3000 } }
 +++
