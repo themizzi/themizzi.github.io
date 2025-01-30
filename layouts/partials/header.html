@@ -17,8 +17,5 @@
     <label for="menu">
         <i class="fa-solid fa-bars"></i>
     </label>
-    <label for="menu">
-        <i class="fa-solid fa-times"></i>
-    </label>
-    {{ partial "menu.html" (dict "page" . "menuID" "main") }}
+    {{ partial "menu.html" (dict "page" . "menuID" "main" "closeFor" "menu") }}
 </div>
