@@ -16,7 +16,12 @@ export class ThemeToggle {
   }
 
   private setTheme(theme: string): void {
-    document.documentElement.setAttribute('data-theme', theme);
+    if (theme !== 'system') {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+    else {
+      document.documentElement.removeAttribute('data-theme');
+    }
     localStorage.setItem('theme', theme);
 
     // Hide all icons initially
