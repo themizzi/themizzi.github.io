@@ -1,6 +1,7 @@
 +++
 title = 'Sad Face'
 type = 'track'
+weight = 1
 +++
 Crowded in an empty room
 Every ticks a never ending boom
