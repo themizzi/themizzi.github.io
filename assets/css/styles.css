@@ -1,5 +1,5 @@
 :root,
-:root[data-theme="light"] {
+:root:has(input[type="radio"][name="theme"][value="light"]:checked) {
   --link-color: #fd0d0d;
   --breadcrumb-active-color: #6c757d;
   --slide-out-background-color: #FFF;
@@ -14,9 +14,13 @@
   }
 }
 
-:root[data-theme="dark"] {
+:root:has(input[type="radio"][name="theme"][value="dark"]:checked) {
   --background-color: #121212;
   --text-color: #fff;
+}
+
+input[type="radio"][name="theme"]:not(:checked) + label {
+  display: none;
 }
 
 body {
