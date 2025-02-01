@@ -3,7 +3,6 @@ title = 'Sad Face'
 date = 2024-10-11T00:00:00-05:00
 draft = false
 artists = ['themizzerables']
-cover = 'sad-face.png'
 description = '2 track album by The Mizzerables released October 11th, 2025'
 featured_image = 'sad-face.png'
 [links]
