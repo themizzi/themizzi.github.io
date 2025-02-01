@@ -3,12 +3,19 @@
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
+    {{ $section := .Section }}
+    {{ range $name, $taxonomy := .Site.Taxonomies.artists }}
+    {{ with where $taxonomy.Pages "Section" $section }}
+    {{ $artist := $.Site.GetPage "artists" $name }}
+    <h2>{{ $artist.Title }}</h2>
     <ul>
-        {{ range .Pages }}
+        {{ range . }}
         <li>
             <a href="{{ .Permalink }}">{{ .Title }}</a>
         </li>
         {{ end }}
     </ul>
+    {{ end }}
+    {{ end }}
 </div>
 {{ end }}
