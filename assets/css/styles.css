@@ -110,6 +110,7 @@ nav ul {
   content: "/";
   position: relative;
   left: -0.5rem;
+  z-index: -1;
   color: var(--breadcrumb-active-color);
 }
 
