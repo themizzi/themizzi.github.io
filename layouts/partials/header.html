@@ -3,16 +3,26 @@
 </div>
 <div class="header-right">
     <!-- add a close button -->
-    <div class="javascript-enable theme-toggle" hidden>
+    <div class="theme-toggle">
         <!-- System icon -->
-        <i id="theme-icon-system" class="fas fa-adjust" aria-hidden="true" title="Change Theme"
-            style="display: none;"></i>
+        <input type="radio" name="theme" id="theme-system" value="system" checked hidden />
+        <label for="theme-dark">
+            <i class="fas fa-adjust" aria-hidden="true" title="System Theme"></i>
+        </label>
+
         <!-- Light icon -->
-        <i id="theme-icon-light" class="fas fa-sun" aria-hidden="true" title="Change Theme" style="display: none;"></i>
+        <input type="radio" name="theme" id="theme-light" value="light" hidden />
+        <label for="theme-system">
+            <i class="fas fa-sun" aria-hidden="true" title="Light Theme"></i>
+        </label>
+
         <!-- Dark icon -->
-        <i id="theme-icon-dark" class="fas fa-moon" aria-hidden="true" title="Change Theme" style="display: none;"></i>
+        <input type="radio" name="theme" id="theme-dark" value="dark" hidden />
+        <label for="theme-light">
+            <i class="fas fa-moon" aria-hidden="true" title="Dark Theme"></i>
+        </label>
     </div>
-    <span class="javascript-enable divider" hidden>|</span>
+    <span class="divider">|</span>
     <input id="menu" type="checkbox" />
     <label for="menu">
         <i class="fa-solid fa-bars"></i>
