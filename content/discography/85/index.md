@@ -1,6 +1,6 @@
 +++
 title = '85'
-date = 2024-10-05T00:00:00-05:00
+date = 2024-10-25T00:00:00-05:00
 draft = false
 artists = ['themizzerables']
 cover = '85.png'
