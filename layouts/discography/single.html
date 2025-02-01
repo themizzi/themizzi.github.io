@@ -41,23 +41,31 @@
     {{ .Content }}
     {{ end }}
     {{ end }}
+    {{ $tracks := .Resources.Match "tracks/*.md" }}
+    {{ with $tracks }}
     <h2>Tracklist</h2>
     <ol class="tracks">
-        {{ $count := 0 }}
-        {{ range $key, $track := sort (.Resources.Match "tracks/*.md") "Name" }}
-        {{ $count = add $count 1 }}
-        {{ $trackNumber := printf "%02d" $count }}
-        <li>
+        {{ range $key, $track := sort $tracks "Weight" }}
+        {{ $trackNumber := printf "%02d" $track.Weight }}
+        <li value="{{ $trackNumber }}">
             <div class="track">
-                {{ $track.Title }}<span><label class="show-lyrics" for="{{ $key }}">lyrics</label></span>
+                {{ $track.Title }}
+                {{ with $track.Content }}
+                <span>
+                    <label class="show-lyrics" for="{{ $key }}">lyrics</label>
+                </span>
+                {{ end }}
             </div>
+            {{ with $track.Content }}
             <input id="{{ $key }}" class="show-lyrics" type="checkbox">
             <div class="lyrics">
                 {{ $track.Content }}
             </div>
+            {{ end }}
         </li>
         {{ end }}
     </ol>
+    {{ end }}
     <div class="embed video-player">
         <iframe style="border: 0; width: 100%; height: {{ .Params.bandcamp.height | default "422px" }};"
             src="https://bandcamp.com/EmbeddedPlayer/album={{ .Params.bandcamp.id }}/size=large/bgcol=ffffff/linkcol=de270f/artwork=none/transparent=true/"

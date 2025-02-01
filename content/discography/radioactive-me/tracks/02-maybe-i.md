@@ -1,6 +1,7 @@
 +++
 title = 'Maybe I'
 type = 'track'
+weight = 2
 +++
 My fuse is lit up on north state st  
 Lost connection, with reality  
