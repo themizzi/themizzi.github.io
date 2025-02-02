@@ -5,23 +5,25 @@
     {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
     {{ $section := .Section }}
-    {{ range $name, $taxonomy := .Site.Taxonomies.artists }}
-    {{ with where $taxonomy.Pages "Section" $section }}
+    {{ range $name, $term := .Site.Taxonomies.artists }}
     {{ $artist := $.Site.GetPage "artists" $name }}
     {{ if $artist.Params.roles }}
     <h2>{{ $artist.Title }}</h2>
     <ul>
         {{ $albums := slice }}
-        {{ range where . "Kind" "page" }}
+        {{ with $term.Pages }}
+        {{ range . }}
+        {{ if eq $.FirstSection .FirstSection }}
         {{ $albums = union $albums (slice .Parent) }}
         {{ end }}
-        {{ range $albums }}
+        {{ end }}
+        {{ range sort $albums "Date" "desc" }}
         <li>
             <a href="{{ .Permalink }}">{{ .Title }}</a>
         </li>
         {{ end }}
+        {{ end }}
     </ul>
-    {{ end }}
     {{ end }}
     {{ end }}
 </div>

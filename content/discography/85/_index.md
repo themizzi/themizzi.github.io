@@ -14,9 +14,10 @@ id = '328173695'
 height = '220px'
 href = 'https://themizzerables.bandcamp.com/album/85'
 description = '85 by The Mizzerables'
-[cascade]
-_target = { kind = "page" }
-artists = ["themizzerables"]
+[[cascade]]
+    artists = ["themizzerables"]
+    [cascade._target]
+        kind = "page"
 +++
 "85" Engineered, Mixed, and Mastered by Brian Chamberlain  
 "85" Recorded at [Third Class Studios](https://thirdclassstudios.com) in Traverse City, MI  
