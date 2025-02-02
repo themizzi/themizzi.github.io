@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ if (eq .CurrentSection .FirstSection) }}
 <div class="container">
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
@@ -7,9 +8,14 @@
     {{ range $name, $taxonomy := .Site.Taxonomies.artists }}
     {{ with where $taxonomy.Pages "Section" $section }}
     {{ $artist := $.Site.GetPage "artists" $name }}
+    {{ if $artist.Params.roles }}
     <h2>{{ $artist.Title }}</h2>
     <ul>
-        {{ range . }}
+        {{ $albums := slice }}
+        {{ range where . "Kind" "page" }}
+        {{ $albums = union $albums (slice .Parent) }}
+        {{ end }}
+        {{ range $albums }}
         <li>
             <a href="{{ .Permalink }}">{{ .Title }}</a>
         </li>
@@ -17,5 +23,101 @@
     </ul>
     {{ end }}
     {{ end }}
+    {{ end }}
 </div>
+{{ else }}
+<div class="container page discography-single">
+    {{ partial "breadcrumbs.html" . }}
+    {{ partial "share.html" . }}
+    <h1>{{ .Title }}</h1>
+    {{ $artists := slice }}
+    {{ with .RegularPages }}
+      <!-- push the first pages artists on to the slice -->
+    {{ $artists = (index . 0).Params.artists }}
+    {{ range . }}
+    {{ $artists = (union $artists .Params.artists) }}
+    {{ end }}
+    {{ end }}
+    {{ with $artists }}
+    <p>
+        by
+        {{ range $i, $artist := . -}}
+        {{- $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) -}}
+        {{- with $artistPage -}}
+        {{- if $i -}}, {{ end }}<a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{- end -}}
+        {{- end -}}
+    </p>
+    {{ end }}
+    {{ $date := "" }}
+    {{ if .Params.date }}
+    {{ $date = time.Format "January 1, 2006" .Params.date }}
+    {{ else }}
+    {{ if $.Page.Parent.Params.date }}
+    {{ $date = time.Format "January 1, 2006" $.Page.Parent.Params.date }}
+    {{ end }}
+    {{ end }}
+    {{ if $date }}
+    <p>released on {{ $date }}<p>
+    {{ end }}
+    <ul class="links">
+        {{ range $key, $link := .Params.links }}
+        <li>
+            <a href="{{ $link }}" target="_blank"><i class="fab fa-{{ $key }}"></i></a>
+        </li>
+        {{ end }}
+    </ul>
+    <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" />
+    <!-- render the content in credits.md in the page bundle -->
+    {{ with .Resources.Get "credits.md" }}
+    {{ if .Content }}
+    <h2>Credits</h2>
+    {{ .Content }}
+    {{ end }}
+    {{ end }}
+    {{ with .Pages }}
+    <h2>Tracklist</h2>
+    <ol class="tracks">
+        {{ range $key, $track := sort . "Weight" }}
+        {{ $trackNumber := printf "%02d" $track.Weight }}
+        <li value="{{ $trackNumber }}">
+            <div class="track">
+                <span>
+                    {{ with $track.Params.artists }}
+                    <span class="artists">
+                        {{ range $i, $artist := . }}
+                        {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
+                        {{ with $artistPage }}
+                        {{ if $i }}, {{ end }}
+                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+                        {{ end }}
+                        {{ end }}
+                        -
+                    </span>
+                    {{ end }}
+                    <span class="title">{{ $track.Title }}</span>
+                </span>
+                {{ with $track.Content }}
+                <span class="show-lyrics">
+                    <label class="show-lyrics" for="{{ $key }}">lyrics</label>
+                </span>
+                {{ end }}
+            </div>
+            {{ with $track.Content }}
+            <input id="{{ $key }}" class="show-lyrics" type="checkbox">
+            <div class="lyrics">
+                {{ $track.Content }}
+            </div>
+            {{ end }}
+        </li>
+        {{ end }}
+    </ol>
+    {{ end }}
+    <div class="embed video-player">
+        <iframe style="border: 0; width: 100%; height: {{ .Params.bandcamp.height | default "422px" }};"
+            src="https://bandcamp.com/EmbeddedPlayer/album={{ .Params.bandcamp.id }}/size=large/bgcol=ffffff/linkcol=de270f/artwork=none/transparent=true/"
+            seamless><a href="{{ .Params.bandcamp.href }}">{{ .Params.bandcamp.description }}</a></iframe>
+    </div>
+</div>
+{{ end }}
 {{ end }}

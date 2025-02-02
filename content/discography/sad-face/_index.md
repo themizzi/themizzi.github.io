@@ -15,4 +15,11 @@ id = '3222108006'
 height = '220px'
 href = 'https://themizzerables.bandcamp.com/album/sad-face'
 description = 'Sad Face by The Mizzerables'
+[cascade]
+_target = { kind = "page" }
+artists = ["themizzerables"]
 +++
+Engineered, Mixed, and Mastered by Brian Chamberlain  
+Recorded at [Third Class Studios](https://thirdclassstudios.com) in Traverse City, MI  
+Additional backing vocals by Kevin Sierzega  
+Artwork by [Anderson Mets](https://capsulalab.46graus.com)
