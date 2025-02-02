@@ -11,5 +11,3 @@ state = 'IL'
 zip = '60181'
 doors = 2025-03-07T19:00:00-05:00
 +++
-
-This is a test
