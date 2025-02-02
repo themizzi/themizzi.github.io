@@ -2,7 +2,6 @@
 title = 'Radioactive Me'
 date = 2024-09-20T00:00:00-05:00
 draft = false
-artists = ['themizzerables']
 description = '2 track album by The Mizzerables released October 11th, 2025'
 featured_image = 'radioactive-me.png'
 [links]
@@ -15,9 +14,10 @@ id = '3222108006'
 height = '220px'
 href = 'https://themizzerables.bandcamp.com/album/sad-face'
 description = 'Sad Face by The Mizzerables'
-[cascade]
-_target = { kind = "page" }
-artists = ["themizzerables"]
+[[cascade]]
+    artists = ["themizzerables"]
+    [cascade._target]
+        kind = "page"
 +++
 Engineered, Mixed, and Mastered by Brian Chamberlain  
 Recorded at [Third Class Studios](https://thirdclassstudios.com) in Traverse City, MI  

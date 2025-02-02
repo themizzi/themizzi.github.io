@@ -2,10 +2,10 @@
 title = 'Discography'
 summary = "Mizzi's Discography"
 menus = { main = { weight = 4000 } }
-[cascade]
+[[cascade]]
 _target = { kind = "page" }
 [cascade.build]
-list = 'local'
+list = 'always'
 publishResources = true
-render = 'never'
+render = 'always'
 ++++
