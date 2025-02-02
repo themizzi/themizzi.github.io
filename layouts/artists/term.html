@@ -5,8 +5,8 @@
     {{ range .Pages.GroupBy "Section" }}
     {{ $section := $.Site.GetPage "section" .Key}}
     <h2>{{ $section.Title }}</h2>
-    {{ if eq .Key "discography" }}
     <ul>
+        {{ if eq .Key "discography" }}
         {{ $albums := slice }}
         {{ range $section.RegularPagesRecursive }}
         {{ if in .Params.artists $.Data.Term }}
@@ -18,14 +18,14 @@
             <a href="{{ .Permalink }}">{{ .Title }}</a>
         </li>
         {{ end }}
+        {{ else }}
+        {{ range sort .Pages "Date" "desc" }}
+        <li>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+        {{ end }}
     </ul>
-    {{ else }}
-    {{ range .Pages }}
-    <div>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
-    </div>
-    {{ end }}
-    {{ end }}
     {{ end }}
 </div>
 {{ end}}
