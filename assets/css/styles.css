@@ -4,6 +4,7 @@
   --breadcrumb-active-color: #6c757d;
   --background-color: #fff;
   --text-color: #000;
+  --padding-size: 20px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,7 +39,7 @@ body {
   font-family: Poppins, sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
-  margin: 20px;
+  margin: 0;
 }
 
 a {
@@ -56,7 +57,7 @@ nav ul {
 
 .container {
   padding: 0;
-  margin-top: 50px;
+  margin-top: calc(40px - var(--padding-size));
   max-width: 600px; /* Set the maximum width of the container */
   margin-left: auto; /* Center align the container */
   margin-right: auto; /* Center align the container */
@@ -125,10 +126,11 @@ nav ul {
   color: var(--breadcrumb-active-color);
 }
 
-.footer {
+footer {
     text-align: center;
     font-size: 14px;
     color: var(--text-color);
+    padding: var(--padding-size);
 }
 
 header {
@@ -139,6 +141,11 @@ header {
   justify-content: space-between;
   align-items: center;
   background-color: var(--background-color);
+  padding: var(--padding-size);
+}
+
+main {
+  padding: var(--padding-size);
 }
 
 header input[type="checkbox"] {
