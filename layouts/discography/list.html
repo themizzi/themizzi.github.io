@@ -8,7 +8,7 @@
     {{ range $name, $term := .Site.Taxonomies.artists }}
     {{ $artist := $.Site.GetPage "artists" $name }}
     {{ if $artist.Params.roles }}
-    <h2>{{ $artist.Title }}</h2>
+    <h2><a href="{{ $artist.Permalink }}">{{ $artist.Title }}</a></h2>
     <ul>
         {{ $albums := slice }}
         {{ with $term.Pages }}
