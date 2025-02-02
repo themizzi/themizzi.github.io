@@ -1,6 +1,7 @@
 +++
 title = 'Bury Me'
 weight = 2
+type = 'track'
 +++
 Remember when we were kings and queens, young and mean burning through gasoline  
 Chasing fire and dreaming out loud hearts alive in a rusty machine  

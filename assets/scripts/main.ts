@@ -35,4 +35,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // add the hidden attribute
     element.setAttribute('hidden', '');
   });
+
+  const audios = document.querySelectorAll('audio');
+  console.log(audios);
+  audios.forEach((audio) => {
+    audio.addEventListener('play', () => {
+      audios.forEach((otherAudio) => {
+        if (otherAudio !== audio) {
+          otherAudio.pause();
+        }
+      });
+    });
+  });
 });
