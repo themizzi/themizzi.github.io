@@ -70,7 +70,7 @@
         {{ end }}
     </ul>
     <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" />
-    {{ with .Pages }}
+    {{ with .RegularPagesRecursive }}
     <h2>Tracklist</h2>
     <ol class="tracks">
         {{ range $key, $track := sort (where . "Type" "track") "Weight" }}
@@ -100,6 +100,13 @@
             </div>
             {{ with $track.Content }}
             <input id="{{ $key }}" class="show-lyrics" type="checkbox">
+            {{ with $track.Resources.Match "audio.*" }}
+            <audio controls>
+                {{ range . }}
+                <source src="{{ .RelPermalink }}" type="{{ .MediaType.Type }}">
+                {{ end }}
+            </audio>
+            {{ end }}
             <div class="lyrics">
                 {{ $track.Content }}
             </div>
