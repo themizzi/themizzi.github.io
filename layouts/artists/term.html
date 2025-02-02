@@ -13,7 +13,7 @@
         {{ $albums = union $albums (slice .Parent) }}
         {{ end}}
         {{ end }}
-        {{ range $albums }}
+        {{ range sort $albums "Date" "desc" }}
         <li>
             <a href="{{ .Permalink }}">{{ .Title }}</a>
         </li>
