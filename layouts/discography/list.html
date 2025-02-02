@@ -68,13 +68,6 @@
         {{ end }}
     </ul>
     <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" />
-    <!-- render the content in credits.md in the page bundle -->
-    {{ with .Resources.Get "credits.md" }}
-    {{ if .Content }}
-    <h2>Credits</h2>
-    {{ .Content }}
-    {{ end }}
-    {{ end }}
     {{ with .Pages }}
     <h2>Tracklist</h2>
     <ol class="tracks">
@@ -112,6 +105,10 @@
         </li>
         {{ end }}
     </ol>
+    {{ end }}
+    {{ if .Content }}
+    <h2>Credits</h2>
+    {{ .Content }}
     {{ end }}
     <div class="embed video-player">
         <iframe style="border: 0; width: 100%; height: {{ .Params.bandcamp.height | default "422px" }};"
