@@ -10,10 +10,4 @@ featured_image = ''
     spotify = ''
     apple = ''
     youtube = ''
-[bandcamp]
-id = ''
-height = ''
-href = ''
-description = ''
-compilation = false
 +++

@@ -119,11 +119,6 @@
     <h2>Credits</h2>
     {{ .Content }}
     {{ end }}
-    <div class="embed video-player">
-        <iframe style="border: 0; width: 100%; height: {{ .Params.bandcamp.height | default "422px" }};"
-            src="https://bandcamp.com/EmbeddedPlayer/album={{ .Params.bandcamp.id }}/size=large/bgcol=ffffff/linkcol=de270f/artwork=none/transparent=true/"
-            seamless><a href="{{ .Params.bandcamp.href }}">{{ .Params.bandcamp.description }}</a></iframe>
-    </div>
 </div>
 {{ end }}
 {{ end }}
