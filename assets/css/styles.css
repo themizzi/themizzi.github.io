@@ -357,3 +357,14 @@ form.contact textarea {
   color: var(--breadcrumb-active-color);
 }
 
+audio::-webkit-media-controls-enclosure {
+  background-color: var(--link-color);
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: var(--link-color);
+}
+
+audio {
+  background-color: red;
+}
