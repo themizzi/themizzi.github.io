@@ -73,7 +73,7 @@
     {{ with .Pages }}
     <h2>Tracklist</h2>
     <ol class="tracks">
-        {{ range $key, $track := sort . "Weight" }}
+        {{ range $key, $track := sort (where . "Type" "track") "Weight" }}
         {{ $trackNumber := printf "%02d" $track.Weight }}
         <li value="{{ $trackNumber }}">
             <div class="track">
@@ -108,7 +108,7 @@
         {{ end }}
     </ol>
     {{ end }}
-    {{ if .Content }}
+    {{ with .GetPage "credits" }}
     <h2>Credits</h2>
     {{ .Content }}
     {{ end }}
