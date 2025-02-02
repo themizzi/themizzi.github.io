@@ -14,7 +14,7 @@ menus = { main = { weight = 1000 } }
 🎹 [#Guitar](/tags/guitar), [#bass](/tags/bass), [#violin](/tags/violin), [#piano](/tags/piano), things with strings  
 🖖 [#Trekkie](/tags/trekkie), [#physics](/tags/physics) enthusiast  
 🏙️ [#Detroit](/tags/detroit) born, [#Chicago](/tags/chicago) since 2006  
-👶 Soon-to-be [#dad](/tags/dad)
+👶 [#Dad](/tags/dad)
 
 Riffs, regex, or raising kids—I’m game!
 
