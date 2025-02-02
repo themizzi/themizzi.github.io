@@ -18,6 +18,18 @@
   --text-color: #fff;
 }
 
+.theme-toggle {
+  -webkit-user-select: none; /* Safari */
+  user-select: none;
+  justify-content: center;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.theme-toggle label {
+  cursor: pointer;
+}
+
 input[type="radio"][name="theme"]:not(:checked) + label {
   display: none;
 }
@@ -135,6 +147,7 @@ header input[type="checkbox"] {
 
 header label[for="menu"] {
   display: none;
+  cursor: pointer;
 }
 
 header .header-left {
@@ -245,15 +258,6 @@ header span.divider {
 
 .discography-single .links li:last-of-type {
   margin-right: 0;
-}
-
-.theme-toggle {
-  -webkit-user-select: none; /* Safari */
-  user-select: none;
-  cursor: pointer;
-  justify-content: center;
-  width: 1.5rem;
-  text-align: center;
 }
 
 ul.share {
