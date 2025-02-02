@@ -4,6 +4,7 @@ title = 'Mizzi'
 [taxonomies]
   tag = "tags"
   artist = "artists"
+  role = "roles"
 [params]
   description = "Music, Software, Midwest"
   large_profile_image = "images/profile-large.png"

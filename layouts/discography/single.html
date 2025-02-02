@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ $tracks := .Resources.Match "tracks/*.md" }}
 <div class="container page discography-single">
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
@@ -41,7 +42,6 @@
     {{ .Content }}
     {{ end }}
     {{ end }}
-    {{ $tracks := .Resources.Match "tracks/*.md" }}
     {{ with $tracks }}
     <h2>Tracklist</h2>
     <ol class="tracks">
@@ -49,9 +49,23 @@
         {{ $trackNumber := printf "%02d" $track.Weight }}
         <li value="{{ $trackNumber }}">
             <div class="track">
-                {{ $track.Title }}
-                {{ with $track.Content }}
                 <span>
+                    {{ with $track.Params.artists }}
+                    <span class="artists">
+                        {{ range $i, $artist := . }}
+                        {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
+                        {{ with $artistPage }}
+                        {{ if $i }}, {{ end }}
+                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+                        {{ end }}
+                        {{ end }}
+                        -
+                    </span>
+                    {{ end }}
+                    <span class="title">{{ $track.Title }}</span>
+                </span>
+                {{ with $track.Content }}
+                <span class="show-lyrics">
                     <label class="show-lyrics" for="{{ $key }}">lyrics</label>
                 </span>
                 {{ end }}

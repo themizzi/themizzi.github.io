@@ -1,6 +1,5 @@
 +++
 title = 'Bury Me'
-type = 'track'
 weight = 2
 +++
 Remember when we were kings and queens, young and mean burning through gasoline  
