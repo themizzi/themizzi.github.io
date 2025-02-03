@@ -389,6 +389,7 @@ audio {
 
 .tracks li details summary audio {
   grid-column: 1 / span 2;
+  pointer-events: all;
 }
 
 .tracks li details summary::-webkit-details-marker {
