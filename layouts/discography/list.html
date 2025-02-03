@@ -11,18 +11,7 @@
     <h2><a href="{{ $artist.Permalink }}">{{ $artist.Title }}</a></h2>
     <ul>
         {{ $albums := slice }}
-        {{ with $term.Pages }}
-        {{ range . }}
-        {{ if eq $.FirstSection .FirstSection }}
-        {{ $albums = union $albums (slice .Parent) }}
-        {{ end }}
-        {{ end }}
-        {{ range sort $albums "Date" "desc" }}
-        <li>
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-        </li>
-        {{ end }}
-        {{ end }}
+        {{ partial "list-albums.html" (dict "RootSection" $.FirstSection "Pages" .Pages) }}
     </ul>
     {{ end }}
     {{ end }}
@@ -31,23 +20,13 @@
 <div class="container page discography-single">
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
+    {{ . }}
     <h1>{{ .Title }}</h1>
-    {{ $artists := slice }}
-    {{ with .RegularPages }}
-      <!-- push the first pages artists on to the slice -->
-    {{ $artists = (index . 0).Params.artists }}
-    {{ range . }}
-    {{ $artists = (union $artists .Params.artists) }}
-    {{ end }}
-    {{ end }}
-    {{ with $artists }}
+    {{ with .GetTerms "artists" }}
     <p>
         by
         {{ range $i, $artist := . -}}
-        {{- $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) -}}
-        {{- with $artistPage -}}
         {{- if $i -}}, {{ end }}<a href="{{ .Permalink }}">{{ .Title }}</a>
-        {{- end -}}
         {{- end -}}
     </p>
     {{ end }}
