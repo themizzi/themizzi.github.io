@@ -1,4 +1,5 @@
 +++
+type = 'album'
 title = 'Radioactive Me'
 date = 2024-09-20T00:00:00-05:00
 draft = false

@@ -1,0 +1,85 @@
+{{ define "main" }}
+Hello
+<div class="container page discography-single">
+    {{ partial "breadcrumbs.html" . }}
+    {{ partial "share.html" . }}
+    <h1>{{ .Title }}</h1>
+    {{ with .GetTerms "artists" }}
+    <p>
+        by
+        {{ range $i, $artist := . -}}
+        {{- if $i -}}, {{ end }}<a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{- end -}}
+    </p>
+    {{ end }}
+    {{ $date := "" }}
+    {{ if .Params.date }}
+    {{ $date = time.Format "January 1, 2006" .Params.date }}
+    {{ else }}
+    {{ if $.Page.Parent.Params.date }}
+    {{ $date = time.Format "January 1, 2006" $.Page.Parent.Params.date }}
+    {{ end }}
+    {{ end }}
+    {{ if $date }}
+    <p>released on {{ $date }}<p>
+    {{ end }}
+    <ul class="links">
+        {{ range $key, $link := .Params.links }}
+        <li>
+            <a href="{{ $link }}" target="_blank"><i class="fab fa-{{ $key }}"></i></a>
+        </li>
+        {{ end }}
+    </ul>
+    <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" />
+    {{ with .RegularPagesRecursive }}
+    <h2>Tracklist</h2>
+    <ol class="tracks">
+        {{ range $key, $track := sort (where . "Type" "track") "Weight" }}
+        {{ $trackNumber := printf "%02d" $track.Weight }}
+        <li value="{{ $trackNumber }}">
+            <details>
+                <summary>
+                    <span class="track">
+                        {{ with $track.Params.artists }}
+                        <span class="artists">
+                            {{ range $i, $artist := . }}
+                            {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
+                            {{ with $artistPage }}
+                            {{ if $i }}, {{ end }}
+                            <a href="{{ .Permalink }}">{{ .Title }}</a>
+                            {{ end }}
+                            {{ end }}
+                            -
+                        </span>
+                        {{ end }}
+                        <span class="title">{{ $track.Title }}</span>
+                    </span>
+                    {{ with $track.Content }}
+                    <span class="show-lyrics">
+                        show lyrics
+                    </span>
+                    {{ end }}
+                    {{ with $track.Resources.Match "audio.*" }}
+                    <audio controls>
+                        {{ range . }}
+                        <source src="{{ .RelPermalink }}" type="{{ .MediaType.Type }}">
+                        {{ end }}
+                    </audio>
+                    {{ end }}
+                </summary>
+                {{ with $track.Content }}
+                <div>
+                    {{ $track.Content }}
+                </div>
+                {{ end }}
+            </details>
+        </li>
+        {{ end }}
+    </ol>
+    {{ end }}
+    {{ with .GetPage "credits" }}
+    <h2>Credits</h2>
+    {{ .Content }}
+    {{ end }}
+</div>
+{{ end }}
