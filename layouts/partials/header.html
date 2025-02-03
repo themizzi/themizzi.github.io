@@ -5,21 +5,21 @@
     <!-- add a close button -->
     <div class="theme-toggle">
         <!-- System icon -->
-        <input type="radio" name="theme" id="theme-system" value="system" checked hidden />
+        <input type="radio" name="theme" id="theme-system" value="system" aria-hidden="false" checked hidden />
         <label for="theme-dark">
-            <i class="fas fa-adjust" aria-hidden="true" title="System Theme"></i>
+            <i class="fas fa-adjust" alt="System Theme" title="System Theme"></i>
         </label>
 
         <!-- Light icon -->
         <input type="radio" name="theme" id="theme-light" value="light" hidden />
         <label for="theme-system">
-            <i class="fas fa-sun" aria-hidden="true" title="Light Theme"></i>
+            <i class="fas fa-sun" aria-label="Light Theme" alt="Light Theme" title="Light Theme"></i>
         </label>
 
         <!-- Dark icon -->
         <input type="radio" name="theme" id="theme-dark" value="dark" hidden />
         <label for="theme-light">
-            <i class="fas fa-moon" aria-hidden="true" title="Dark Theme"></i>
+            <i class="fas fa-moon" alt="Dark Theme" title="Dark Theme"></i>
         </label>
     </div>
     <span class="divider">|</span>

@@ -7,17 +7,7 @@
     <h2>{{ $section.Title }}</h2>
     <ul>
         {{ if eq .Key "discography" }}
-        {{ $albums := slice }}
-        {{ range $section.RegularPagesRecursive }}
-        {{ if in .Params.artists $.Data.Term }}
-        {{ $albums = union $albums (slice .Parent) }}
-        {{ end}}
-        {{ end }}
-        {{ range sort $albums "Date" "desc" }}
-        <li>
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-        </li>
-        {{ end }}
+        {{ partial "list-albums.html" (dict "RootSection" $section.CurrentSection "Pages" .Pages) }}
         {{ else }}
         {{ range sort .Pages "Date" "desc" }}
         <li>
