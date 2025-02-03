@@ -1,4 +1,5 @@
 +++
+type = 'album'
 title = '20 Years of Dreaming and Scheming'
 date = 2024-09-06T00:00:00-05:00
 draft = false
