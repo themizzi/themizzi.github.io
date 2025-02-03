@@ -368,4 +368,5 @@ audio::-webkit-media-controls-panel {
 audio {
   background-color: red;
   width: 100%;
+  padding: 5px;
 }
