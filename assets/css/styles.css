@@ -93,6 +93,10 @@ nav ul {
   font-size: 24px;
 }
 
+.tracks li details summary a {
+  pointer-events: all;
+}
+
 .social-links a:hover {
   color: var(--link-color);
 }
@@ -176,6 +180,10 @@ header nav ul {
 header nav ul li {
   list-style: none;
   margin-right: 10px;
+}
+
+.tracks li {
+  font-family: 'Courier New', Courier, monospace;
 }
 
 ul.share li {
@@ -294,13 +302,6 @@ input.show-lyrics:checked ~ .lyrics {
   display: block;
 }
 
-.tracks .track {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-}
-
 /* .photos should show a grid of images */
 .photos {
   display: grid;
@@ -367,6 +368,39 @@ audio::-webkit-media-controls-panel {
 
 audio {
   background-color: red;
-  width: 100%;
   padding: 5px;
+  width: calc(100% - 10px);
+}
+
+.tracks li details {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  font-family: Poppins, sans-serif;
+}
+
+.tracks li details summary {
+  list-style: none;
+  display: grid;
+  grid-template-columns: auto max-content;
+  grid-template-rows: auto auto;
+  pointer-events: none;
+}
+
+.tracks li details summary audio {
+  grid-column: 1 / span 2;
+}
+
+.tracks li details summary::-webkit-details-marker {
+  display: none;
+}
+
+.tracks li details summary .show-lyrics {
+  pointer-events: all;
+  cursor: pointer;
+  color: var(--link-color);
+}
+
+.tracks li details summary .show-lyrics:hover {
+  text-decoration: underline;
 }

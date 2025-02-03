@@ -54,41 +54,42 @@
         {{ range $key, $track := sort (where . "Type" "track") "Weight" }}
         {{ $trackNumber := printf "%02d" $track.Weight }}
         <li value="{{ $trackNumber }}">
-            <div class="track">
-                <span>
-                    {{ with $track.Params.artists }}
-                    <span class="artists">
-                        {{ range $i, $artist := . }}
-                        {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
-                        {{ with $artistPage }}
-                        {{ if $i }}, {{ end }}
-                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+            <details>
+                <summary>
+                    <span class="track">
+                        {{ with $track.Params.artists }}
+                        <span class="artists">
+                            {{ range $i, $artist := . }}
+                            {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
+                            {{ with $artistPage }}
+                            {{ if $i }}, {{ end }}
+                            <a href="{{ .Permalink }}">{{ .Title }}</a>
+                            {{ end }}
+                            {{ end }}
+                            -
+                        </span>
                         {{ end }}
-                        {{ end }}
-                        -
+                        <span class="title">{{ $track.Title }}</span>
+                    </span>
+                    {{ with $track.Content }}
+                    <span class="show-lyrics">
+                        show lyrics
                     </span>
                     {{ end }}
-                    <span class="title">{{ $track.Title }}</span>
-                </span>
+                    {{ with $track.Resources.Match "audio.*" }}
+                    <audio controls>
+                        {{ range . }}
+                        <source src="{{ .RelPermalink }}" type="{{ .MediaType.Type }}">
+                        {{ end }}
+                    </audio>
+                    {{ end }}
+                </summary>
                 {{ with $track.Content }}
-                <span class="show-lyrics">
-                    <label class="show-lyrics" for="{{ $key }}">lyrics</label>
-                </span>
+                <div>
+                    {{ $track.Content }}
+                </div>
                 {{ end }}
-            </div>
-            {{ with $track.Content }}
-            <input id="{{ $key }}" class="show-lyrics" type="checkbox">
-            {{ with $track.Resources.Match "audio.*" }}
-            <audio controls>
-                {{ range . }}
-                <source src="{{ .RelPermalink }}" type="{{ .MediaType.Type }}">
-                {{ end }}
-            </audio>
-            {{ end }}
-            <div class="lyrics">
-                {{ $track.Content }}
-            </div>
-            {{ end }}
+            </details>
         </li>
         {{ end }}
     </ol>
