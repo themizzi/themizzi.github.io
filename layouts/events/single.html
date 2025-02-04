@@ -18,7 +18,7 @@
     </p>
     {{ end }}
 
-    <p>📅 {{ .Params.doors | dateFormat "January 2, 2006" }}</p>
+    <p>📅 <time datetime="{{ .Params.doors | dateFormat "2006-01-02T15:04:05-07:00" }}">{{ .Params.doors | dateFormat "January 2, 2006" }}, doors: {{ .Params.doors | dateFormat "3:04PM" }}</time></p>
     {{ with .Params.location }}
     <p>🏛️ {{ . }}</p>
     {{ end }}
