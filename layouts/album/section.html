@@ -3,6 +3,7 @@ Hello
 <div class="container page discography-single">
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
+    <hgroup>
     <h1>{{ .Title }}</h1>
     {{ with .GetTerms "artists" }}
     <p>
@@ -21,8 +22,9 @@ Hello
     {{ end }}
     {{ end }}
     {{ if $date }}
-    <p>released on <time datetime="{{ .Params.date| dateFormat "2006-01-02" }}">{{ $date }}</time><p>
+    <p>released on <time datetime="{{ .Params.date| dateFormat "2006-01-02" }}">{{ $date }}</time></p>
     {{ end }}
+    </hgroup>
     <ul class="links">
         {{ range $key, $link := .Params.links }}
         <li>
