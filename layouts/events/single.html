@@ -6,12 +6,11 @@
     <h1>{{ .Title }}</h1>
     {{ end }}
     
-    {{ with .Params.artists }}
+    {{ with .GetTerms "artists" }}
     <p>
         {{ range $i, $artist := . }}
-        {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
-        {{ with $artistPage }}
         {{ if $i }}, {{ end }}
+        {{ with $artist }}
         <a href="{{ .Permalink }}">{{ .Title }}</a>
         {{ end }}
         {{ end }}
