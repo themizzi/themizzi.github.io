@@ -51,7 +51,7 @@ a:hover, a:focus {
   text-decoration: underline; /* Optional: Adds underlines back on hover or focus for better accessibility */
 }
 
-nav ul {
+nav menu {
   margin: 0;
 }
 
@@ -171,13 +171,13 @@ header .header-right {
   align-items: center;
 }
 
-header nav ul {
+header nav menu {
   display: inline-flex;
   flex-flow: row nowrap;
   padding-left: 0;
 }
 
-header nav ul li {
+header nav menu li {
   list-style: none;
   margin-right: 10px;
 }
@@ -190,11 +190,11 @@ ul.share li {
   margin-right: 10px;
 }
 
-header nav ul li:last-of-type {
+header nav menu li:last-of-type {
   margin-right: 0;
 }
 
-header nav ul li:has(>a[href="/"]) {
+header nav menu li:has(>a[href="/"]) {
   display: none;
 }
 
@@ -229,7 +229,7 @@ header span.divider {
     display: none;
   }
   
-  header nav ul li {
+  header nav menu li {
     text-align: right;
     margin: 10px 0;
   }
@@ -255,7 +255,7 @@ header span.divider {
     margin: 30px;
   }
 
-  header input[type="checkbox"]:checked ~ nav ul {
+  header input[type="checkbox"]:checked ~ nav menu {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
