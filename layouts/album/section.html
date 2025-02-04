@@ -21,7 +21,7 @@ Hello
     {{ end }}
     {{ end }}
     {{ if $date }}
-    <p>released on {{ $date }}<p>
+    <p>released on <time datetime="{{ .Params.date| dateFormat "2006-01-02" }}">{{ $date }}</time><p>
     {{ end }}
     <ul class="links">
         {{ range $key, $link := .Params.links }}
