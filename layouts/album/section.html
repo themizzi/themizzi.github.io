@@ -17,9 +17,6 @@ Hello
     {{ if .Params.date }}
     {{ $date = time.Format "January 1, 2006" .Params.date }}
     {{ else }}
-    {{ if $.Page.Parent.Params.date }}
-    {{ $date = time.Format "January 1, 2006" $.Page.Parent.Params.date }}
-    {{ end }}
     {{ end }}
     {{ if $date }}
     <p>released on <time datetime="{{ .Params.date| dateFormat "2006-01-02" }}">{{ $date }}</time></p>
