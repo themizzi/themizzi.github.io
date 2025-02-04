@@ -22,7 +22,7 @@
             {{ else if or (eq $day "3") (eq $day "23") }}
             {{ $suffix = "rd" }}
             {{ end }}
-            <span>{{ $day }}{{ $suffix }}: </span>
+            <span><time datetime="{{ time.Format "2006-01-02" .Params.doors }}">{{ $day }}</time>{{ $suffix }}: </span>
             {{ if .Title }}
             {{ .Title }}
             {{ else if .Params.artist }}

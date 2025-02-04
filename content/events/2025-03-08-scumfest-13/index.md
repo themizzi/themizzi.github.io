@@ -10,6 +10,6 @@ state = 'MO'
 zip = '63103'
 artists = ['thebollweevils']
 link = 'https://www.etix.com/ticket/p/41627212/scumfest-13-ft-thebollweevilsultramanmore-saint-louis-red-flag'
-doors = 2025-03-08T19:00:00-05:00
+doors = 2025-03-08T15:30:00-05:00
 featured_image = 'flyer.png'
 +++
