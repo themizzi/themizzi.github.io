@@ -6,4 +6,5 @@ draft = true
 artists = ['pete-mumford']
 roles = ['drums', 'music']
 locations = []
+weight = 3
 +++

@@ -6,4 +6,5 @@ draft = true
 artists = ['ken-fitzner']
 roles = ['backing-vocals', 'electric-guitar', 'music']
 locations = []
+weight = 2
 +++

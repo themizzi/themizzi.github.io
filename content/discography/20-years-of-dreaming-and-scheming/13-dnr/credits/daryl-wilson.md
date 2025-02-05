@@ -6,4 +6,5 @@ draft = true
 artists = ['daryl-wilson']
 roles = ['lead vocals', 'music', 'lyrics']
 locations = []
+weight = 1
 +++
