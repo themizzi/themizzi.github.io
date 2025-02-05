@@ -1,8 +1,8 @@
 +++
 type = 'album'
 title = '20 Years of Dreaming and Scheming'
-date = 2024-09-06T00:00:00-05:00
-draft = false
+date = 2025-02-01T00:21:18-05:00
+releaseDate = 2024-09-06
 description = 'Compilation album released October 25th, 2025'
 featured_image = '20years.png'
 [links]
