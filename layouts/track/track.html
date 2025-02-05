@@ -2,6 +2,13 @@
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
+    {{- $artists := .GetTerms "artists" -}}
+    {{- if and (not $artists) .Parent }}
+    {{- $artists = .Parent.GetTerms "artists" -}}
+    {{- end -}}
+    {{ with $artists }}
+    by {{ partial "inline-list.html" . }}
+    {{ end }}
     {{ with .Resources.ByType "audio" }}
     <audio controls>
         {{ range . }}
