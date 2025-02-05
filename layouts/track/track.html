@@ -1,0 +1,19 @@
+<article class="container page">
+    {{ partial "breadcrumbs.html" . }}
+    {{ partial "share.html" . }}
+    <h1>{{ .Title }}</h1>
+    {{ with .Resources.ByType "audio" }}
+    <audio controls>
+        {{ range . }}
+        <source src="{{ .Permalink }}" type="{{ .MediaType }}">
+        {{ end }}
+        Your browser does not support the audio element.
+    </audio>
+    {{ end }}
+    {{ .Content }}
+    {{ $trackCreditPages := where .RegularPages "Type" "credit" }}
+    {{ with $trackCreditPages }}
+    <h2>Credits</h2>
+    {{ partial "credits.html" (sort . "Weight") }}
+    {{ end }}
+</article>
