@@ -1,7 +1,8 @@
 +++
 type = 'album'
 title = 'Sad Face'
-date = 2024-10-11T00:00:00-05:00
+date = 2025-01-19T01:41:20-05:00
+releaseDate = 2024-10-11
 draft = false
 description = '2 track album by The Mizzerables released October 11th, 2025'
 featured_image = 'sad-face.png'
