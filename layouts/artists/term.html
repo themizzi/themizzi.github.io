@@ -9,7 +9,7 @@
         {{ if eq .Key "discography" }}
         {{ partial "list-albums.html" (dict "RootSection" $section.CurrentSection "Pages" .Pages) }}
         {{ else }}
-        {{ range sort .Pages "Date" "desc" }}
+        {{ range sort .Pages ".Params.releaseDate" "desc" }}
         <li>
             <a href="{{ .Permalink }}">{{ .Title }}</a>
         </li>
