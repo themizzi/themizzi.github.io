@@ -1,6 +1,14 @@
 {{ $creditsPage := .GetPage "credits" }}
 {{ $creditPages := where .RegularPages "Type" "credit" }}
-{{ if or $creditsPage $creditPages }}
+{{ $trackPages := where .Pages "Type" "track" }}
+{{ $trackCreditPages := false }}
+{{ range $trackPages }}
+{{ $trackCreditPages = where .RegularPages "Type" "credit" }}
+{{ if $trackCreditPages }}
+{{ break }}
+{{ end}}
+{{ end }}
+{{ if or $creditsPage $creditPages $trackCreditPages }}
 <h2>Credits</h2>
 {{- with .GetPage "credits" -}}
 {{- .Content -}}
