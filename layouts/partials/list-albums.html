@@ -6,7 +6,7 @@
 {{ $albums = union $albums (slice .Parent) }}
 {{ end }}
 {{ end }}
-{{ range sort $albums "Date" "desc" }}
+{{ range sort $albums ".Params.releaseDate" "desc" }}
 <li>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
 </li>
