@@ -29,10 +29,11 @@
         {{ end }}
     </ul>
     <img src="{{ .Params.featured_image }}" alt="{{ .Title }}" />
-    {{ with .RegularPagesRecursive }}
+    {{ with .Pages }}
+    {{ with where . "Type" "track" }}
     <h2>Tracklist</h2>
     <ol class="tracks">
-        {{ range $key, $track := sort (where . "Type" "track") "Weight" }}
+        {{ range $key, $track := sort . "Weight" }}
         {{ $trackNumber := printf "%02d" $track.Weight }}
         <li value="{{ $trackNumber }}">
             <details>
@@ -75,9 +76,7 @@
         {{ end }}
     </ol>
     {{ end }}
-    {{ with .GetPage "credits" }}
-    <h2>Credits</h2>
-    {{ .Content }}
     {{ end }}
+    {{ .Render "album-credits"}}
 </div>
 {{ end }}
