@@ -6,4 +6,5 @@ draft = true
 artists = ['deanna-belos']
 roles = ['backing-vocals']
 locations = []
+weight = 5
 +++
