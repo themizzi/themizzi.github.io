@@ -12,13 +12,8 @@
         {{- end -}}
     </p>
     {{ end }}
-    {{ $date := "" }}
-    {{ if .Params.date }}
-    {{ $date = time.Format "January 1, 2006" .Params.date }}
-    {{ else }}
-    {{ end }}
-    {{ if $date }}
-    <p>released on <time datetime="{{ .Params.date| dateFormat "2006-01-02" }}">{{ $date }}</time></p>
+    {{ with .Params.releaseDate }}
+    <p>released on <time datetime="{{ . | dateFormat "2006-01-02" }}">{{ . | dateFormat "January 1, 2006" }}</time></p>
     {{ end }}
     </hgroup>
     <ul class="links">
