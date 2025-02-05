@@ -367,3 +367,7 @@ audio {
   padding: 5px;
   width: calc(100% - 10px);
 }
+
+.appearances {
+  list-style-position: inside;
+}

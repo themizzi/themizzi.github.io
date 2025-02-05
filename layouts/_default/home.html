@@ -20,11 +20,11 @@
     <p>
       Leader @ PayPal, ex-Upstart, ex-Casechek
     </p>
+    {{ $currentTime := time.AsTime (now.Format "2006-01-02") }}
+    {{ $events := ((where .Site.RegularPages "Section" "events").ByParam "doors") }}
+    {{ with where $events (time.Format "Params.doors" "2006-01-02") "ge" $currentTime }}  
     <div class="appearances">
-      {{ $currentTime := time.AsTime (now.Format "2006-01-02") }}
       <h2>Upcoming Appearances</h2>
-      {{ $events := ((where .Site.RegularPages "Section" "events").ByParam "doors") }}
-      {{ with where $events (time.Format "Params.doors" "2006-01-02") "ge" $currentTime }}
       {{ range . }}
       <li>
         <a href="{{ .RelPermalink }}">
@@ -38,7 +38,8 @@
         </a>
       </li>
       {{ end }}
-      {{ end }}
+      </ul>
     </div>
+    {{ end }}
   </div>
 {{ end }}
