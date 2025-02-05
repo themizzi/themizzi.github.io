@@ -1,6 +1,7 @@
 +++
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 date = {{ .Date }}
+draft = true
 artists = []
 description = ''
 featured_image = ''
@@ -9,7 +10,4 @@ featured_image = ''
     spotify = ''
     apple = ''
     youtube = ''
-[[cascade]]
-    [cascade.params]
-        draft = true
 +++
