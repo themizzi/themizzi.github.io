@@ -5,6 +5,5 @@
 +++
 type = 'track'
 title = '{{ $title }}'
-draft = true
 weight = 1
 +++
