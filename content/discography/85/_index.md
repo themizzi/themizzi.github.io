@@ -1,8 +1,8 @@
 +++
 type = 'album'
 title = '85'
-date = 2024-10-25T00:00:00-05:00
-draft = false
+date = 2025-01-19T01:41:20-05:00
+releaseDate = 2024-10-25
 description = '2 track album by The Mizzerables released October 25th, 2025'
 featured_image = '85.png'
 artists = ["themizzerables"]
