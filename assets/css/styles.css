@@ -93,10 +93,6 @@ nav menu {
   font-size: 24px;
 }
 
-.tracks li details summary a {
-  pointer-events: all;
-}
-
 .social-links a:hover {
   color: var(--link-color);
 }
@@ -182,7 +178,7 @@ header nav menu li {
   margin-right: 10px;
 }
 
-.tracks li {
+.tracks li::marker {
   font-family: 'Courier New', Courier, monospace;
 }
 
@@ -370,39 +366,4 @@ audio {
   background-color: red;
   padding: 5px;
   width: calc(100% - 10px);
-}
-
-.tracks li details {
-  display: grid;
-  grid-template-columns: auto min-content;
-  grid-template-rows: auto auto;
-  font-family: Poppins, sans-serif;
-}
-
-.tracks li details summary {
-  list-style: none;
-  display: grid;
-  grid-template-columns: 1fr max-content;
-  grid-template-rows: auto 50px;
-  pointer-events: none;
-}
-
-.tracks li details summary audio {
-  grid-column: 1 / span 2;
-  pointer-events: all;
-}
-
-.tracks li details summary::-webkit-details-marker {
-  display: none;
-}
-
-.tracks li details summary .show-lyrics {
-  white-space: nowrap;
-  pointer-events: all;
-  cursor: pointer;
-  color: var(--link-color);
-}
-
-.tracks li details summary .show-lyrics:hover {
-  text-decoration: underline;
 }
