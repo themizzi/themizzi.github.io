@@ -5,6 +5,7 @@ title = 'Mizzi'
   tag = "tags"
   artist = "artists"
   role = "roles"
+  location = "locations"
 [params]
   description = "Music, Software, Midwest"
   large_profile_image = "images/profile-large.png"
