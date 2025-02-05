@@ -1,14 +1,16 @@
 <article class="container page">
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
-    <h1>{{ .Title }}</h1>
-    {{- $artists := .GetTerms "artists" -}}
-    {{- if and (not $artists) .Parent }}
-    {{- $artists = .Parent.GetTerms "artists" -}}
-    {{- end -}}
-    {{ with $artists }}
-    by {{ partial "inline-list.html" . }}
-    {{ end }}
+    <hgroup>
+        <h1>{{ .Title }}</h1>
+        {{- $artists := .GetTerms "artists" -}}
+        {{- if and (not $artists) .Parent }}
+        {{- $artists = .Parent.GetTerms "artists" -}}
+        {{- end -}}
+        {{ with $artists }}
+        <p>by {{ partial "inline-list.html" . }}</p>
+        {{ end }}
+    </hgroup>
     {{ with .Resources.ByType "audio" }}
     <audio controls>
         {{ range . }}
