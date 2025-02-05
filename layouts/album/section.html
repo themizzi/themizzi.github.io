@@ -58,7 +58,7 @@
                         show lyrics
                     </span>
                     {{ end }}
-                    {{ with $track.Resources.Match "audio.*" }}
+                    {{ with $track.Resources.ByType "audio" }}
                     <audio controls>
                         {{ range . }}
                         <source src="{{ .RelPermalink }}" type="{{ .MediaType.Type }}">
