@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Every Once in a While'
-draft = true
 weight = 5
 +++
 Every once in a while you run out the door  

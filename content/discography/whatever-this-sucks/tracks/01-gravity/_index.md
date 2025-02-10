@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Gravity'
-draft = true
 weight = 1
 +++
 I wanna tear it down  

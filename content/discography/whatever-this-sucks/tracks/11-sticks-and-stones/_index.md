@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Sticks and Stones'
-draft = true
 weight = 11
 +++
 Sticks and stones and broken bones  
