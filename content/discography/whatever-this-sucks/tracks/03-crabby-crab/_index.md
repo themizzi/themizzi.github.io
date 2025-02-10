@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Crabby Crab'
-draft = true
 weight = 3
 +++
 Well I'm a snot nosed brat  

@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Thoughts and Prayers'
-draft = true
 weight = 14
 +++
 pressure cooker heats up  

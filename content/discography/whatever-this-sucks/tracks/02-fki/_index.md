@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'FKI'
-draft = true
 weight = 2
 +++
 When I wake up in the morning  

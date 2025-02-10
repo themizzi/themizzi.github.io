@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Better Off Dead'
-draft = true
 weight = 4
 +++
 What's that in your head  

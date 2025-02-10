@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = '''Still Kickin' 'Round'''
-draft = true
 weight = 7
 +++
 We passed out on a floor or two  

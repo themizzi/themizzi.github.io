@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Dancing on Your Grave'
-draft = true
 weight = 12
 +++
 Wait for it the burning sensation  

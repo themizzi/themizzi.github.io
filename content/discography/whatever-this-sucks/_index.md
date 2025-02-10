@@ -1,7 +1,6 @@
 +++
 type = 'album'
 title = 'Whatever... This Sucks'
-draft = true
 date = 2025-02-05T21:46:32Z
 releaseDate = 2019-08-23
 artists = ['themizzerables']

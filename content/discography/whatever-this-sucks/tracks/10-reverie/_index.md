@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Reverie'
-draft = true
 weight = 10
 +++
 Want one thing  
