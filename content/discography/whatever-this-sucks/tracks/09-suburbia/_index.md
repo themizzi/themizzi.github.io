@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Suburbia'
-draft = true
 weight = 9
 +++
 Sometimes I walk upon these streets  
