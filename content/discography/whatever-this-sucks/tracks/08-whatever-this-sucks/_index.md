@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = 'Whatever This Sucks'
-draft = true
 weight = 8
 +++
 I can't go out  

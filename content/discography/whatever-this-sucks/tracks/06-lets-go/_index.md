@@ -1,7 +1,6 @@
 +++
 type = 'track'
 title = '''Let's Go'''
-draft = true
 weight = 6
 +++
 I don't wanna go away alone  
