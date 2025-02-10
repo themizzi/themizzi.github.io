@@ -42,6 +42,8 @@
 {{ $image := resources.Get "images/profile-large.png" }}
 {{ if .Params.featured_image }}
 {{ $image = .Resources.GetMatch .Params.featured_image }}
+{{ else if and (eq .Type "track") (and .Parent .Parent.Params.featured_image) }}
+{{ $image = .Parent.Resources.GetMatch .Parent.Params.featured_image }}
 {{ end }}
 {{ with $image }}
 <meta property="og:image" content="{{ .Permalink }}">
