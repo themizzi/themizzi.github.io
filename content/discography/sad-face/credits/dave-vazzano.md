@@ -1,8 +1,11 @@
-+++
-type = 'credit'
-title = 'Dave Vazzano'
-date = 2025-02-05T02:36:37Z
-artists = ['dave-vazzano']
-roles = ['drums', 'music']
-locations = []
-+++
+---
+artists:
+- dave-vazzano
+date: "2025-02-05T02:36:37Z"
+locations: []
+roles:
+- drums
+- music
+title: Dave Vazzano
+type: credit
+---

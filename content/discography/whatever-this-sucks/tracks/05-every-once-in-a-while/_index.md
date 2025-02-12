@@ -1,8 +1,8 @@
-+++
-type = 'track'
-title = 'Every Once in a While'
-weight = 5
-+++
+---
+title: Every Once in a While
+type: track
+weight: 5
+---
 Every once in a while you run out the door  
 With a pep in your step and a furrow in your brow  
 Every once in a while we scream and yell  

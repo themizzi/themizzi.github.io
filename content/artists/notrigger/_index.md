@@ -1,3 +1,3 @@
-+++
-title = "No Trigger"
-+++
+---
+title: No Trigger
+---

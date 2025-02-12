@@ -1,8 +1,8 @@
-+++
-type = 'track'
-title = 'Forty Five'
-weight = 13
-+++
+---
+title: Forty Five
+type: track
+weight: 13
+---
 Where were you on the day it all went to shit  
 Bloody lips sinking ships full of misfits  
 One by one  

@@ -1,6 +1,7 @@
-+++
-title = "Bonzo Goes to Belfast"
-type = "track"
-weight = 9
-artists = ["goodfriend"]
-+++
+---
+artists:
+- goodfriend
+title: Bonzo Goes to Belfast
+type: track
+weight: 9
+---

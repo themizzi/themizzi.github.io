@@ -1,8 +1,8 @@
-+++
-title = 'Radioactive Me'
-type = 'track'
-weight = 1
-+++
+---
+title: Radioactive Me
+type: track
+weight: 1
+---
 My fuse is lit up on north State St  
 Lost connection, with reality  
 Another pocket full of broken dreams

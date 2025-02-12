@@ -1,8 +1,8 @@
-+++
-type = 'track'
-title = 'Crabby Crab'
-weight = 3
-+++
+---
+title: Crabby Crab
+type: track
+weight: 3
+---
 Well I'm a snot nosed brat  
 Out of piss and vinegar  
 But I wanna waste my time with you

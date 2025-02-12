@@ -1,3 +1,3 @@
-+++
-title = "Heart and Lung"
-+++
+---
+title: Heart and Lung
+---

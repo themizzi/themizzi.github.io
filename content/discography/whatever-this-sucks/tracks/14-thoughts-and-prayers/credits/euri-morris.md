@@ -1,9 +1,11 @@
-+++
-type = 'credit'
-title = 'Euri Morris'
-date = 2025-02-10T02:30:49Z
-artists = ['euri-morris']
-roles = ['lead-vocals']
-locations = []
-weight = 1
-+++
+---
+artists:
+- euri-morris
+date: "2025-02-10T02:30:49Z"
+locations: []
+roles:
+- lead-vocals
+title: Euri Morris
+type: credit
+weight: 1
+---

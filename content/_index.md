@@ -1,4 +1,4 @@
-+++
-title = 'Mizzi'
-description = 'Music, Software, Midwest'
-+++
+---
+description: Music, Software, Midwest
+title: Mizzi
+---

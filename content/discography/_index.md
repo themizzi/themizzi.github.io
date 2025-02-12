@@ -1,11 +1,14 @@
-+++
-title = 'Discography'
-summary = "Mizzi's Discography"
-menus = { main = { weight = 4000 } }
-[[cascade]]
-_target = { kind = "page" }
-[cascade.build]
-list = 'always'
-publishResources = true
-render = 'always'
-++++
+---
+cascade:
+  _target:
+    kind: page
+  build:
+    list: always
+    publishResources: true
+    render: always
+menus:
+  main:
+    weight: 4000
+summary: Mizzi's Discography
+title: Discography
+---
