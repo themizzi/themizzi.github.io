@@ -1,6 +1,7 @@
-+++
-title = "Super Beef"
-type = "track"
-weight = 7
-artists = ["notrigger"]
-+++
+---
+artists:
+- notrigger
+title: Super Beef
+type: track
+weight: 7
+---

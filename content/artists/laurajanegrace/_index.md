@@ -1,3 +1,3 @@
-+++
-title = "Laura Jane Grace"
-+++
+---
+title: Laura Jane Grace
+---

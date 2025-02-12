@@ -1,3 +1,3 @@
-+++
-title = "Dead to Me"
-+++
+---
+title: Dead to Me
+---

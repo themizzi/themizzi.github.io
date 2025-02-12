@@ -1,6 +1,8 @@
-+++
-title = 'Contact'
-date = 2025-01-19T00:00:00
-layout = 'contact'
-menus = { main = { weight = 5000 } }
-+++
+---
+date: 2025-01-19T00:00:00
+layout: contact
+menus:
+  main:
+    weight: 5000
+title: Contact
+---

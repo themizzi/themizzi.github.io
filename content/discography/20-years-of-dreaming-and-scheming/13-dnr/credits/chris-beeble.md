@@ -1,9 +1,12 @@
-+++
-type = 'credit'
-title = 'Chris Beeble'
-date = 2025-02-05T01:53:36Z
-artists = ['chris-beeble']
-roles = ['master']
-locations = ['the-blasting-room']
-weight = 101
-+++
+---
+artists:
+- chris-beeble
+date: "2025-02-05T01:53:36Z"
+locations:
+- the-blasting-room
+roles:
+- master
+title: Chris Beeble
+type: credit
+weight: 101
+---
