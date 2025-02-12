@@ -1,8 +1,8 @@
-+++
-type = 'track'
-title = 'Sticks and Stones'
-weight = 11
-+++
+---
+title: Sticks and Stones
+type: track
+weight: 11
+---
 Sticks and stones and broken bones  
 Your words will never fix you  
 Someone pushed a button or two  

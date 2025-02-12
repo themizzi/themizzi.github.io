@@ -1,6 +1,7 @@
-+++
-title = "Aware"
-type = "track"
-weight = 5
-artists = ["nothington"]
-+++
+---
+artists:
+- nothington
+title: Aware
+type: track
+weight: 5
+---

@@ -1,8 +1,8 @@
-+++
-type = 'track'
-title = 'Better Off Dead'
-weight = 4
-+++
+---
+title: Better Off Dead
+type: track
+weight: 4
+---
 What's that in your head  
 Is it weighted down with lead  
 Who's that really pulling strings from inside

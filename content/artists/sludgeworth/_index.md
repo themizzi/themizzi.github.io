@@ -1,3 +1,3 @@
-+++
-title = "Sludgeworth"
-+++
+---
+title: Sludgeworth
+---

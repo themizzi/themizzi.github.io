@@ -1,6 +1,7 @@
-+++
-title = "DNR"
-type = "track"
-weight = 13
-artists = ["thebollweevils"]
-+++
+---
+artists:
+- thebollweevils
+title: DNR
+type: track
+weight: 13
+---
