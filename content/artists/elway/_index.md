@@ -1,3 +1,3 @@
-+++
-title = "Elway"
-+++
+---
+title: Elway
+---

@@ -1,8 +1,8 @@
-+++
-type = 'track'
-title = 'Dancing on Your Grave'
-weight = 12
-+++
+---
+title: Dancing on Your Grave
+type: track
+weight: 12
+---
 Wait for it the burning sensation  
 Deep inside all your self inflicted wounds  
 You asked for all of this

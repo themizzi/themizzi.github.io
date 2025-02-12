@@ -1,7 +1,7 @@
-+++
-type = 'credit'
-title = 'Echo Mill'
-date = 2025-02-05T01:52:09Z
-address = ''
-inlineAddress = ''
-+++
+---
+address: ""
+date: "2025-02-05T01:52:09Z"
+inlineAddress: ""
+title: Echo Mill
+type: credit
+---

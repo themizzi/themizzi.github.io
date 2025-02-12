@@ -1,8 +1,8 @@
-+++
-type = 'track'
-title = 'FKI'
-weight = 2
-+++
+---
+title: FKI
+type: track
+weight: 2
+---
 When I wake up in the morning  
 Sometimes I don't even know why  
 How bout you

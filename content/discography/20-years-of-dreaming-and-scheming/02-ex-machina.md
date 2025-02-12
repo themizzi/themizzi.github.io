@@ -1,6 +1,7 @@
-+++
-title = "Ex Machina"
-type = "track"
-weight = 2
-artists = ["wontstaydead"]
-+++
+---
+artists:
+- wontstaydead
+title: Ex Machina
+type: track
+weight: 2
+---

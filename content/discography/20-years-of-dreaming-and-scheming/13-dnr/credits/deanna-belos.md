@@ -1,10 +1,12 @@
-+++
-type = 'credit'
-title = 'Deanna Belos'
-date = 2025-02-05T01:44:57Z
-draft = false
-artists = ['deanna-belos']
-roles = ['backing-vocals']
-locations = []
-weight = 5
-+++
+---
+artists:
+- deanna-belos
+date: "2025-02-05T01:44:57Z"
+draft: false
+locations: []
+roles:
+- backing-vocals
+title: Deanna Belos
+type: credit
+weight: 5
+---

@@ -1,8 +1,8 @@
-+++
-title = 'Maybe I'
-type = 'track'
-weight = 2
-+++
+---
+title: Maybe I
+type: track
+weight: 2
+---
 My fuse is lit up on north state st  
 Lost connection, with reality  
 Another pocket full of broken dreams

@@ -1,3 +1,3 @@
-+++
-title = "The Menzingers"
-+++
+---
+title: The Menzingers
+---
