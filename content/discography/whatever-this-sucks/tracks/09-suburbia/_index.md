@@ -1,8 +1,8 @@
----
-title: Suburbia
-type: track
-weight: 9
----
++++
+title = 'Suburbia'
+type = 'track'
+weight = 9
++++
 Sometimes I walk upon these streets  
 Of shattered old concrete  
 And dream about suburbia  

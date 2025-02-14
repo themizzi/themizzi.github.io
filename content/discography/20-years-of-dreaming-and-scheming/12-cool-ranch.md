@@ -1,7 +1,6 @@
----
-artists:
-- thebrokedowns
-title: Cool Ranch
-type: track
-weight: 12
----
++++
+artists = ['thebrokedowns']
+title = 'Cool Ranch'
+type = 'track'
+weight = 12
++++

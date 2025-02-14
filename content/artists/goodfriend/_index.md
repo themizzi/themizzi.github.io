@@ -1,3 +1,3 @@
----
-title: Good Friend
----
++++
+title = 'Good Friend'
++++

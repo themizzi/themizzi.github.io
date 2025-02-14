@@ -1,3 +1,3 @@
----
-title: Dave Vazzano
----
++++
+title = 'Dave Vazzano'
++++
