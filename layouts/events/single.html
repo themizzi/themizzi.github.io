@@ -1,9 +1,9 @@
 {{ define "main" }}
-<div class="container page">
+<article class="container page" itemscope itemtype="https://schema.org/MusicEvent">
     {{ partial "breadcrumbs.html" . }}
     {{ partial "share.html" . }}
     {{ if .Title }}
-    <h1>{{ .Title }}</h1>
+    <h1 itemprop="name">{{ .Title }}</h1>
     {{ end }}
     
     {{ with .GetTerms "artists" }}
@@ -11,26 +11,33 @@
         {{ range $i, $artist := . }}
         {{ if $i }}, {{ end }}
         {{ with $artist }}
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
+        <span itemprop="performer" itemscope itemtype="https://schema.org/MusicGroup">
+            {{ range $artist.Params.links }}
+            <link itemprop="sameAs" href="{{ . }}" />
+            {{ end }}
+            <a href="{{ .Permalink }}"><span itemprop="name">{{ .Title }}</span></a>
+        </span>
         {{ end }}
         {{ end }}
     </p>
     {{ end }}
 
-    <p>📅 <time datetime="{{ .Params.doors | dateFormat "2006-01-02T15:04:05-07:00" }}">{{ .Params.doors | dateFormat "January 2, 2006" }}, doors: {{ .Params.doors | dateFormat "3:04PM" }}</time></p>
+    <p>📅 <time datetime="{{ .Params.doors | dateFormat "2006-01-02T15:04:05-07:00" }}" itemprop="startDate">{{ .Params.doors | dateFormat "January 2, 2006" }}, doors: {{ .Params.doors | dateFormat "3:04PM" }}</time></p>
     {{ with .Params.location }}
-    <p>🏛️ {{ . }}</p>
-    {{ end }}
-    {{ $address := printf "%s, %s, %s %s" .Params.address .Params.city .Params.state .Params.zip }}
-    <p>📍 <a href="https://www.google.com/maps/search/?api=1&query={{ $address | urlquery }}" target="_blank">{{ $address }}</a></p>
+    <span itemprop="location" itemscope itemtype="https://schema.org/MusicVenue">
+        <p>🏛️ <span itemprop="name">{{ . }}</span></p>
+        {{ end }}
+        {{ $address := printf "%s, %s, %s %s" .Params.address .Params.city .Params.state .Params.zip }}
+        <p>📍 <a href="https://www.google.com/maps/search/?api=1&query={{ $address | urlquery }}" target="_blank" itemprop="address">{{ $address }}</a></p>
+    </span>
     {{ with .Params.link }}
-    <p>🔗 <a href="{{ . }}" target="_blank">More Info</a></p>
+    <p itemprop="offers" itemscope itemtype="https://schema.org/Offer">🔗 <a href="{{ . }}" target="_blank" itemprop="url">More Info</a></p>
     {{ end }}
     {{ if .Params.featured_image }}
     {{ with .Resources.GetMatch .Params.featured_image }}
     <a href="{{ .RelPermalink }}" target="_blank">
         {{ with .Resize "600x"}}
-        <img src="{{ .RelPermalink }}" alt="{{ .Title }}" />
+        <img src="{{ .RelPermalink }}" alt="{{ .Title }}" itemprop="image" />
         {{ end }}
     </a>
     {{ end }}
@@ -59,5 +66,5 @@
         {{ end }}
     </div>
     {{ end }}
-</div>
+</article>
 {{ end }}
