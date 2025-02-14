@@ -1,8 +1,8 @@
----
-title: Whatever This Sucks
-type: track
-weight: 8
----
++++
+title = 'Whatever This Sucks'
+type = 'track'
+weight = 8
++++
 I can't go out  
 I can't get down  
 I can't find anyway outta here this time  

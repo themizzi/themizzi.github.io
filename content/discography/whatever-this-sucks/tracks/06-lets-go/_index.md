@@ -1,8 +1,8 @@
----
-title: Let's Go
-type: track
-weight: 6
----
++++
+title = "Let's Go"
+type = 'track'
+weight = 6
++++
 I don't wanna go away alone  
 I don't want have a lonely party  
 Wishing for someone to hold onto me tonight

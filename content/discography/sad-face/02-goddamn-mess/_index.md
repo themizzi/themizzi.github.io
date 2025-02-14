@@ -1,8 +1,8 @@
----
-title: Goddamn Mess
-type: track
-weight: 2
----
++++
+title = 'Goddamn Mess'
+type = 'track'
+weight = 2
++++
 I’ve been burning  
 Since this morning  
 Trying to find my way back home to you

@@ -1,5 +1,4 @@
----
-roles:
-- member
-title: The Mizzerables
----
++++
+roles = ['member']
+title = 'The Mizzerables'
++++

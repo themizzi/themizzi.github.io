@@ -1,8 +1,8 @@
----
-title: Reverie
-type: track
-weight: 10
----
++++
+title = 'Reverie'
+type = 'track'
+weight = 10
++++
 Want one thing  
 For what you  
 For what you deserve

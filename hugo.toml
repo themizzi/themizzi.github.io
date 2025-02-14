@@ -1,0 +1,49 @@
+baseURL = "https://joemizzi.com/"
+languageCode = "en-us"
+title = "Mizzi"
+
+[taxonomies]
+tag = "tags"
+artist = "artists"
+role = "roles"
+location = "locations"
+
+[params]
+description = "Music, Software, Midwest"
+large_profile_image = "images/profile-large.png"
+small_profile_image = "images/profile-small.png"
+
+[[params.social_links]]
+name = "mastodon"
+href = "https://mastodon.social/@themizzi"
+order = 150
+
+[[params.social_links]]
+name = "github"
+href = "https://github.com/themizzi"
+order = 200
+
+[[params.social_links]]
+name = "linkedin"
+href = "https://linkedin.com/in/joemizzi"
+order = 175
+
+[[params.social_links]]
+name = "goodreads"
+href = "https://www.goodreads.com/user/show/51946425-joe-mizzi"
+order = 600
+
+[[params.social_links]]
+name = "telegram"
+href = "https://t.me/themizzinator"
+order = 700
+
+[[params.social_links]]
+name = "bluesky"
+href = "https://bsky.app/profile/themizzinator.bsky.social"
+order = 100
+
+[[params.social_links]]
+name = "signal-messenger"
+href = "https://signal.me/#eu/RsNPXENWoya3LPHxYNQux0DR4C_REl1o1cyMPbNbxCT6YXFHBsdERbejvtdNMw5Z"
+order = 650

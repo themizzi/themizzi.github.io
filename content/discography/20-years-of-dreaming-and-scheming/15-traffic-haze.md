@@ -1,7 +1,6 @@
----
-artists:
-- elway
-title: Traffic Haze
-type: track
-weight: 15
----
++++
+artists = ['elway']
+title = 'Traffic Haze'
+type = 'track'
+weight = 15
++++

@@ -1,6 +1,7 @@
----
-menus:
-  main:
-    weight: 3000
-title: Events
----
++++
+title = 'Events'
+
+[menus]
+  [menus.main]
+    weight = 3000
++++

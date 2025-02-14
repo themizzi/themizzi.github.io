@@ -1,8 +1,8 @@
----
-title: Still Kickin' 'Round
-type: track
-weight: 7
----
++++
+title = "Still Kickin' 'Round"
+type = 'track'
+weight = 7
++++
 We passed out on a floor or two  
 Listening to the boys of summer  
 Dreaming of nothing more than we ever had

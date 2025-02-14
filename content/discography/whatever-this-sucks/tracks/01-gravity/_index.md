@@ -1,8 +1,8 @@
----
-title: Gravity
-type: track
-weight: 1
----
++++
+title = 'Gravity'
+type = 'track'
+weight = 1
++++
 I wanna tear it down  
 I wanna scream and shout  
 I wanna get out of this fucking hell

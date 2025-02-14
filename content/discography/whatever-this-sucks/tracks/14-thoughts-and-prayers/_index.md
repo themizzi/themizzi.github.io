@@ -1,8 +1,8 @@
----
-title: Thoughts and Prayers
-type: track
-weight: 14
----
++++
+title = 'Thoughts and Prayers'
+type = 'track'
+weight = 14
++++
 pressure cooker heats up  
 four-alarm fire call  
 another morning spent sifting through ashes another morning spent wondering
