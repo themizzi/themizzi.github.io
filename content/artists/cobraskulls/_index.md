@@ -1,3 +1,3 @@
----
-title: Cobra Skulls
----
++++
+title = 'Cobra Skulls'
++++

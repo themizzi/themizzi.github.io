@@ -1,20 +1,12 @@
----
-date: "2025-01-18T22:23:09Z"
-menus:
-  main:
-    weight: 1000
-tags:
-- guitar
-- bass
-- violin
-- piano
-- trekkie
-- physics
-- detroit
-- chicago
-- dad
-title: About
----
++++
+date = '2025-01-18T22:23:09Z'
+tags = ['guitar', 'bass', 'violin', 'piano', 'trekkie', 'physics', 'detroit', 'chicago', 'dad']
+title = 'About'
+
+[menus]
+  [menus.main]
+    weight = 1000
++++
 
 # About
 
