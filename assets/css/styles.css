@@ -65,6 +65,7 @@ ul.share li {
 /* TODO: this is out of place */
 nav.main ul li {
   display: flex;
+  align-items: center;
 }
 
 .discography-single .links li {
@@ -140,7 +141,7 @@ nav.main ul li:last-child ul li:first-child {
 
   nav.main ul li:last-child ul li:not(:first-child) {
     grid-column: 2 / 3;
-    text-align: right;
+    justify-self: end;
   }
 
   nav.main ul li:last-child input,
