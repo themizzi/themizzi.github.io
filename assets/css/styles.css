@@ -62,6 +62,11 @@ ul.share li {
   margin-right: 10px;
 }
 
+/* TODO: this is out of place */
+nav.main ul li {
+  display: flex;
+}
+
 .discography-single .links li {
   margin-right: 15px;
   font-size: 1.5rem;
@@ -80,13 +85,19 @@ nav.main ul {
   padding: 0;
   margin: 0;
   display: flex;
+  gap: 1ch;
 }
 
 nav.main ul li:first-child {
   flex-grow: 1;
 }
 
-/* this is out of place */
+nav.main > ul > li:not(:first-child, :last-child)::after {
+  content: "|";
+  margin-left: 1ch;
+}
+
+/* TODO: this is out of place */
 .discography-single .links li:last-of-type {
   margin-right: 0;
 }
@@ -258,10 +269,6 @@ main {
 
 header label.close {
   color: var(--background-color);
-}
-
-header span.divider {
-  margin: 0 1ch;
 }
 
 .discography-single .links {
