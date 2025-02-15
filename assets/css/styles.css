@@ -50,10 +50,6 @@ fieldset.theme-toggle label {
   cursor: pointer;
 }
 
-input[type="radio"][name="theme"]:not(:checked) + label {
-  display: none;
-}
-
 body {
   font-family: Poppins, sans-serif;
   background-color: var(--background-color);
