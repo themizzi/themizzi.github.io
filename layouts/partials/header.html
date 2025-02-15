@@ -1,32 +1,36 @@
-<div class="header-left">
-    <strong><a href="/">MIZZI</a></strong>
-</div>
-<div class="header-right">
-    <fieldset class="theme-toggle">
-        <legend>Theme Toggle</legend>
+<nav class="main">
+    <ul>
+        <li><strong><a href="/">MIZZI</a></strong></li>
+        <li>
+            <fieldset class="theme-toggle">
+                <legend class="visually-hidden">Theme Toggle</legend>
 
-        <!-- System icon -->
-        <input type="radio" name="theme" id="theme-system" value="system" checked />
-        <label for="theme-dark" title="Switch to Dark Theme">
-            <i class="fas fa-moon" aria-label="Switch to Dark Theme"></i>
-        </label>
+                <!-- System icon -->
+                <input class="visually-hidden" type="radio" name="theme" id="theme-system" value="system" checked />
+                <label for="theme-dark" title="Switch to Dark Theme">
+                    <i class="fas fa-moon" aria-label="Switch to Dark Theme"></i>
+                </label>
 
-        <!-- Light icon -->
-        <input type="radio" name="theme" id="theme-light" value="light" />
-        <label for="theme-system" title="Switch to System Theme">
-            <i class="fas fa-adjust" aria-label="Switch to System Theme"></i>
-        </label>
+                <!-- Light icon -->
+                <input class="visually-hidden" type="radio" name="theme" id="theme-light" value="light" />
+                <label for="theme-system" title="Switch to System Theme">
+                    <i class="fas fa-adjust" aria-label="Switch to System Theme"></i>
+                </label>
 
-        <!-- Dark icon -->
-        <input type="radio" name="theme" id="theme-dark" value="dark" />
-        <label for="theme-light" title="Switch to Light Theme">
-            <i class="fas fa-sun" aria-label="Switch to Light Theme"></i>
-        </label>
-    </fieldset>
-    <span class="divider">|</span>
-    <input id="menu" type="checkbox" />
-    <label for="menu">
-        <i class="fa-solid fa-bars"></i>
-    </label>
-    {{ partial "menu.html" (dict "page" . "menuID" "main" "closeFor" "menu") }}
-</div>
+                <!-- Dark icon -->
+                <input class="visually-hidden" type="radio" name="theme" id="theme-dark" value="dark" />
+                <label for="theme-light" title="Switch to Light Theme">
+                    <i class="fas fa-sun" aria-label="Switch to Light Theme"></i>
+                </label>
+            </fieldset>
+        </li>
+        <li><span class="divider">|</span></li>
+        <li>
+            <input class="visually-hidden" id="menu" type="checkbox" />
+            <label for="menu">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            {{ partial "menu.html" (dict "page" . "menuID" "main" "closeFor" "menu") }}
+        </li>
+    </ul>
+</nav>
