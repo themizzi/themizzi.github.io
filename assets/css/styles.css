@@ -1,5 +1,5 @@
 :root,
-:root:has(input[type="radio"][name="theme"][value="light"]:checked) {
+:root:has(fieldset.theme-toggle input[value="light"]:checked) {
   --link-color: #fd0d0d;
   --breadcrumb-active-color: #6c757d;
   --background-color: #fff;
@@ -14,7 +14,7 @@
   }
 }
 
-:root:has(input[type="radio"][name="theme"][value="dark"]:checked) {
+:root:has(fieldset.theme-toggle input[value="dark"]:checked) {
   --background-color: #121212;
   --text-color: #fff;
 }
