@@ -19,22 +19,6 @@
   --text-color: #fff;
 }
 
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-  white-space: nowrap;
-  clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
-  outline: 0;
-  outline-offset: 0;
-  pointer-events: none;
-}
-
 fieldset.theme-toggle {
   -webkit-user-select: none; /* Safari */
   user-select: none;
@@ -44,10 +28,35 @@ fieldset.theme-toggle {
   border: none;
   padding: 0;
   margin: 0;
+  display: grid;
+  align-items: center;
 }
 
+fieldset.theme-toggle legend {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  outline: 0;
+  outline-offset: 0;
+  pointer-events: none;
+}
+
+fieldset.theme-toggle input,
 fieldset.theme-toggle label {
-  cursor: pointer;
+  grid-area: 1 / 1 / 2 / 2;
+  pointer-events: none;
+  opacity: 0;
+}
+
+fieldset.theme-toggle input:checked + label {
+  opacity: 1;
+  pointer-events: all;
 }
 
 body {
