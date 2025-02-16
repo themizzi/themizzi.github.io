@@ -47,9 +47,8 @@
     <div class="videos">
     <!-- loop through each video and show an html5 player for the video -->
     {{ range . }}
-    <video controls>
+    <video preload="metadata" controls>
         <source src="{{ .RelPermalink }}" type="{{ .MediaType.Type }}">
-        Your browser does not support the video tag.
     </video>
     {{ end }}
     </div>
