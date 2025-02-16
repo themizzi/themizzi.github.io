@@ -12,11 +12,10 @@
         {{ end }}
     </hgroup>
     {{ with .Resources.ByType "audio" }}
-    <audio controls>
+    <audio preload="metadata" controls>
         {{ range . }}
         <source src="{{ .Permalink }}" type="{{ .MediaType }}">
         {{ end }}
-        Your browser does not support the audio element.
     </audio>
     {{ end }}
     {{ .Content }}
