@@ -1,0 +1,34 @@
+{{- $content := .content -}}
+{{- $spaces := .spaces | default 2 -}}
+{{- $prefix := strings.Repeat $spaces " " -}}
+{{- $ignoreFirstLine := .ignoreFirstLine | default true -}}
+
+{{- $inPre := false -}}
+{{- $firstLine := true -}}
+{{- range split $content "\n" -}}
+    {{- $line := . -}}
+
+    {{- if and (not $inPre) (findRE `(?i)<pre>` $line) -}}
+        {{- $inPre = true -}}
+    {{- end -}}
+
+    {{- if and $inPre (findRE `(?i)</pre>` $line) -}}
+        {{- $inPre = false -}}
+    {{- end -}}
+
+    {{- if $inPre -}}
+        {{- printf "%s\n" $line | safeHTML -}}
+    {{- else -}}
+        {{- if $line -}}
+            {{- if and $firstLine $ignoreFirstLine -}}
+                {{- printf "%s\n" $line | safeHTML -}}
+            {{- else -}}
+                {{- printf "%s%s\n" $prefix $line | safeHTML -}}
+            {{- end -}}
+        {{- else -}}
+            {{- printf "\n" | safeHTML -}}
+        {{- end -}}
+    {{- end -}}
+
+    {{- $firstLine = false -}}
+{{- end -}}
