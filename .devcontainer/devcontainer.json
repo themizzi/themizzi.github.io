@@ -3,6 +3,10 @@
 	"mounts": [
 		"source=themizzi-github-io-zsh-history,target=/home/node/.zsh,type=volume,consistency=cached"
 	],
+	"remoteEnv": {
+		"AWS_ACCESS_KEY_ID": "${localEnv:AWS_ACCESS_KEY_ID}",
+		"AWS_SECRET_ACCESS_KEY": "${localEnv:AWS_SECRET_ACCESS_KEY}"
+	},
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
@@ -43,7 +47,8 @@
 				"stylelint.vscode-stylelint",
 				"eamodio.gitlens",
 				"rusnasonov.vscode-hugo",
-				"HTMLHint.vscode-htmlhint"
+				"HTMLHint.vscode-htmlhint",
+				"ms-vscode.makefile-tools"
 			]
 		}
 	},
