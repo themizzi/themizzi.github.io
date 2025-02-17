@@ -1,44 +1,45 @@
 {{ define "main" }}
-  <div class="container home">
-    <div class="profile-pic">
-      {{ $profile_image := resources.Get .Site.Params.small_profile_image }}
-      {{ with $profile_image}}
-      <img src="{{ .RelPermalink }}" alt="Profile Picture">
-      {{ end }}
-    </div>
-    <h1>{{ .Site.Title }}</h1>
-    {{ partial "socials.html" . }}
-    <p>
-      Member of <a href="https://linktr.ee/thebollweevils" target="_blank">The Bollweevils</a>,
-      <a href="https://linktr.ee/theironspiders" target="_blank">The Iron Spiders</a>,
-      <a href="https://linktr.ee/themizzerables" target="_blank">The Mizzerables</a>,
-      <a href="https://open.spotify.com/artist/24P9iBBAQjmoZxPIV6h43Y?si=_cCOj1I5SRK_IyoSbjVFBA" target="_blank">Ten
-        Ninety</a>,
-      <a href="https://open.spotify.com/album/7HGboM9ezeYIcQrrerNXeY?si=D1ktkWATSHitmChVQX_JuA" target="_blank">ex-Common
-        Rider</a>
-    </p>
-    <p>
-      Leader @ PayPal, ex-Upstart, ex-Casechek
-    </p>
-    {{ $events := ((where .Site.RegularPages "Section" "events").ByParam "doors") }}
-    {{ with where $events "Params.doors" "ge" now }} 
-    <div class="appearances">
-      <h2>Upcoming Appearances</h2>
+<div class="container home">
+  <div class="profile-pic">
+    {{ $profile_image := resources.Get .Site.Params.small_profile_image }}
+    {{ with $profile_image}}
+    <img src="{{ .RelPermalink }}" alt="Profile Picture">
+    {{ end }}
+  </div>
+  <h1>{{ .Site.Title }}</h1>
+  {{ partial "socials.html" . }}
+  <p>
+    Member of <a href="https://linktr.ee/thebollweevils" target="_blank">The Bollweevils</a>,
+    <a href="https://linktr.ee/theironspiders" target="_blank">The Iron Spiders</a>,
+    <a href="https://linktr.ee/themizzerables" target="_blank">The Mizzerables</a>,
+    <a href="https://open.spotify.com/artist/24P9iBBAQjmoZxPIV6h43Y?si=_cCOj1I5SRK_IyoSbjVFBA" target="_blank">Ten
+      Ninety</a>,
+    <a href="https://open.spotify.com/album/7HGboM9ezeYIcQrrerNXeY?si=D1ktkWATSHitmChVQX_JuA" target="_blank">ex-Common
+      Rider</a>
+  </p>
+  <p>
+    Leader @ PayPal, ex-Upstart, ex-Casechek
+  </p>
+  {{ $events := ((where .Site.RegularPages "Section" "events").ByParam "doors") }}
+  {{ with where $events "Params.doors" "ge" now }}
+  <section class="appearances">
+    <h2>Upcoming Appearances</h2>
+    <ul>
       {{ range . }}
       <li>
         <a href="{{ .RelPermalink }}">
           {{ .Params.doors | dateFormat "January 2, 2006" }}:
           {{ if and .Params.artist (ne .Params.artist .Title) }}
-              {{ .Title }} - {{ .Params.artist }}
+          {{ .Title }} - {{ .Params.artist }}
           {{ else }}
-              {{ .Title }}
+          {{ .Title }}
           {{ end }}
           @ {{ .Params.city }}, {{ .Params.state }}
         </a>
       </li>
       {{ end }}
-      </ul>
-    </div>
-    {{ end }}
-  </div>
+    </ul>
+  </section>
+  {{ end }}
+</div>
 {{ end }}

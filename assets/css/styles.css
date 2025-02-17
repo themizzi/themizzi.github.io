@@ -401,6 +401,7 @@ audio {
   width: calc(100% - 10px);
 }
 
-.appearances {
-  list-style-position: inside;
+section.appearances ul {
+  list-style: none;
+  padding: 0;
 }
