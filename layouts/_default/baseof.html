@@ -5,13 +5,13 @@
 </head>
 <body>
   <header>
-    {{ partial "header.html" . }}
+    {{ partial "indent.html" (dict "content" (partial "header.html" .) "spaces" 4) | chomp }}
   </header>
   <main>
     {{ block "main" . }}{{ end }}
   </main>
   <footer>
-    {{ partial "footer.html" . }}
+    {{ partial "indent.html" (dict "content" (partial "footer.html" .)) | chomp }}
   </footer>
 </body>
 </html>
