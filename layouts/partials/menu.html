@@ -1,48 +1,43 @@
-{{- $page := .page }}
-{{- $menuID := .menuID }}
-{{- $closeFor := .closeFor }}
+{{- $page := .page -}}
+{{- $menuID := .menuID -}}
+{{- $closeFor := .closeFor -}}
 
-{{- with index site.Menus $menuID }}
+{{- with index site.Menus $menuID -}}
+<ul>
+  <li>
+    {{- with $closeFor }}
+    <label for="{{ . }}">
+      <i class="fa-solid fa-times"></i>
+    </label>
+    {{- end }}
+  </li>
+  {{ partial "indent.html" (dict "content" (partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .))) | chomp }}
+</ul>
+{{- end -}}
+
+{{- define "partials/inline/menu/walk.html" -}}
+{{- $page := .page -}}
+{{- range .menuEntries -}}
+{{- $attrs := dict "href" .URL -}}
+{{- if $page.IsMenuCurrent .Menu . -}}
+{{- $attrs = merge $attrs (dict "class" "active" "aria-current" "page") -}}
+{{- else if $page.HasMenuCurrent .Menu . -}}
+{{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") -}}
+{{- end -}}
+{{- $name := .Name -}}
+{{- with .Identifier -}}
+{{- with T . -}}
+{{- $name = . -}}
+{{- end -}}
+{{- end -}}
+<li>
+  <a {{- range $k, $v := $attrs -}} {{- with $v -}} {{- printf " %s=%q" $k $v | safeHTMLAttr -}} {{- end -}}
+    {{- end -}}>{{ $name }}</a>
+  {{- with .Children -}}
   <ul>
-    <li>
-      {{- with $closeFor }}
-      <label for="{{ . }}">
-          <i class="fa-solid fa-times"></i>
-      </label>
-      {{- end }}
-    </li>
-    {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+    {{ partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) | chomp }}
   </ul>
-{{- end }}
-
-{{- define "partials/inline/menu/walk.html" }}
-  {{- $page := .page }}
-  {{- range .menuEntries }}
-    {{- $attrs := dict "href" .URL }}
-    {{- if $page.IsMenuCurrent .Menu . }}
-      {{- $attrs = merge $attrs (dict "class" "active" "aria-current" "page") }}
-    {{- else if $page.HasMenuCurrent .Menu .}}
-      {{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") }}
-    {{- end }}
-    {{- $name := .Name }}
-    {{- with .Identifier }}
-      {{- with T . }}
-        {{- $name = . }}
-      {{- end }}
-    {{- end }}
-    <li>
-      <a
-        {{- range $k, $v := $attrs }}
-          {{- with $v }}
-            {{- printf " %s=%q" $k $v | safeHTMLAttr }}
-          {{- end }}
-        {{- end -}}
-      >{{ $name }}</a>
-      {{- with .Children }}
-        <ul>
-          {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
-        </ul>
-      {{- end }}
-    </li>
   {{- end }}
-{{- end }}
+</li>
+{{ end -}}
+{{- end -}}
