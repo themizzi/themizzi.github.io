@@ -21,7 +21,9 @@
         "editor.defaultFormatter": "vscode.json-language-features",
     },
     "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
+        "editor.defaultFormatter": "vscode.html-language-features",
+        "editor.tabSize": 2,
+        "editor.detectIndentation": false,
     },
     "[typescript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint",

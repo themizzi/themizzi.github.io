@@ -1,40 +1,40 @@
 <nav class="main">
-    <ul>
-        <li><strong><a href="/">MIZZI</a></strong></li>
-        <li>
-            <a href="/search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
-        </li>
-        <li>
-            <fieldset class="theme-toggle">
-                <legend class="visually-hidden">Theme Toggle</legend>
+  <ul>
+    <li><strong><a href="/">MIZZI</a></strong></li>
+    <li>
+      <a href="/search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+    </li>
+    <li>
+      <fieldset class="theme-toggle">
+        <legend class="visually-hidden">Theme Toggle</legend>
 
-                <!-- System icon -->
-                <input class="visually-hidden" type="radio" name="theme" id="theme-system" value="system" checked />
-                <label for="theme-dark" title="Switch to Dark Theme">
-                    <i class="fas fa-moon" aria-label="Switch to Dark Theme"></i>
-                </label>
+        {{- /* System icon */}}
+        <input class="visually-hidden" type="radio" name="theme" id="theme-system" value="system" checked />
+        <label for="theme-dark" title="Switch to Dark Theme">
+          <i class="fas fa-moon" aria-label="Switch to Dark Theme"></i>
+        </label>
 
-                <!-- Light icon -->
-                <input class="visually-hidden" type="radio" name="theme" id="theme-light" value="light" />
-                <label for="theme-system" title="Switch to System Theme">
-                    <i class="fas fa-adjust" aria-label="Switch to System Theme"></i>
-                </label>
+        {{- /* Light icon */}}
+        <input class="visually-hidden" type="radio" name="theme" id="theme-light" value="light" />
+        <label for="theme-system" title="Switch to System Theme">
+          <i class="fas fa-adjust" aria-label="Switch to System Theme"></i>
+        </label>
 
-                <!-- Dark icon -->
-                <input class="visually-hidden" type="radio" name="theme" id="theme-dark" value="dark" />
-                <label for="theme-light" title="Switch to Light Theme">
-                    <i class="fas fa-sun" aria-label="Switch to Light Theme"></i>
-                </label>
-            </fieldset>
-        </li>
-        <li>
-            <input class="visually-hidden" id="menu" type="checkbox" />
-            <label for="menu">
-                <i class="fa-solid fa-bars"></i>
-            </label>
-            {{ partial "menu.html" (dict "page" . "menuID" "main" "closeFor" "menu") }}
-        </li>
-    </ul>
+        {{- /* Dark icon */}}
+        <input class="visually-hidden" type="radio" name="theme" id="theme-dark" value="dark" />
+        <label for="theme-light" title="Switch to Light Theme">
+          <i class="fas fa-sun" aria-label="Switch to Light Theme"></i>
+        </label>
+      </fieldset>
+    </li>
+    <li>
+      <input class="visually-hidden" id="menu" type="checkbox" />
+      <label for="menu">
+        <i class="fa-solid fa-bars"></i>
+      </label>
+      {{ partial "indent.html" (dict "content" (partial "menu.html" (dict "page" . "menuID" "main" "closeFor" "menu")) "spaces" 6) | chomp }}
+    </li>
+  </ul>
 </nav>
