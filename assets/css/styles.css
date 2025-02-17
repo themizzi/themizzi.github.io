@@ -163,14 +163,15 @@ nav.main ul li:last-child ul li:first-child {
     gap: 1ch;
   }
 
-  nav.main ul li:last-child ul li:first-child {
-    display: inherit;
-    grid-area: 1 / 1 / 2 / 2;
-  }
-
-  nav.main ul li:last-child ul li:not(:first-child) {
+  nav.main ul li:last-child ul li {
     grid-column: 2 / 3;
     justify-self: end;
+  }
+
+  nav.main ul li:last-child ul li:first-child {
+    display: inline-block;
+    grid-area: 1 / 1 / 2 / 2;
+    justify-self: start;
   }
 
   nav.main ul li:last-child input,
