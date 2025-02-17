@@ -4,13 +4,6 @@
 
 {{- with index site.Menus $menuID -}}
 <ul>
-  <li>
-    {{- with $closeFor }}
-    <label for="{{ . }}">
-      <i class="fa-solid fa-times"></i>
-    </label>
-    {{- end }}
-  </li>
   {{ partial "indent.html" (dict "content" (partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .))) | chomp }}
 </ul>
 {{- end -}}

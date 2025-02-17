@@ -118,7 +118,7 @@ nav.main ul {
   gap: 1ch;
 }
 
-nav.main ul li:first-child {
+nav.main > ul > li:first-child {
   flex-grow: 1;
 }
 
@@ -132,55 +132,60 @@ nav.main > ul > li:not(:first-child, :last-child)::after {
   margin-right: 0;
 }
 
-nav.main ul li:last-child input,
-nav.main ul li:last-child label {
+nav.main > ul li:last-child input,
+nav.main > ul li:last-child label {
   display: none;
 }
 
-nav.main ul li:last-child ul {
-  gap: 1ch;
+nav.main > ul > li:last-child > label[for="menu"] > i {
+  grid-area: 1 / 1 / 2 / 2;
 }
 
-nav.main ul li:last-child ul li:first-child {
-  display: none;
+nav.main > ul > li:last-child > label[for="menu"] > i:last-child {
+  visibility: hidden;
 }
 
 @media screen and (width <= 768px) {
-  nav.main ul li:last-child ul {
+  nav.main > ul > li:last-child > label[for="menu"] {
+    display: grid;
+  }
+
+
+  body:has(nav.main > ul > li:last-child > input#menu:checked) {
+    overflow: hidden;
+  }
+
+  nav.main > ul > li:last-child > ul {
     display: none;
+    flex-grow: 1;
+  }
+
+  nav.main > ul > li:last-child:has(input#menu:checked) {
     position: absolute;
+    flex-direction: row-reverse;
+    align-items: start;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    box-sizing: border-box;
     background-color: var(--text-color);
     color: var(--background-color);
     padding: var(--padding-size);
-    z-index: 1;
-    grid-template-columns: auto max-content;
-    grid-auto-rows: max-content;
+    box-sizing: border-box;
+  }
+
+  nav.main > ul > li:last-child:has(input#menu:checked) > label[for="menu"] > i:first-child {
+    visibility: hidden;
+  }
+
+  nav.main > ul > li:last-child:has(input#menu:checked) > label[for="menu"] > i:last-child {
+    visibility: visible;
+  }
+
+  nav.main > ul > li:last-child:has(input#menu:checked) ul {
+    display: flex;
+    flex-direction: column;
     gap: 1ch;
-  }
-
-  nav.main ul li:last-child ul li {
-    grid-column: 2 / 3;
-    justify-self: end;
-  }
-
-  nav.main ul li:last-child ul li:first-child {
-    display: inline-block;
-    grid-area: 1 / 1 / 2 / 2;
-    justify-self: start;
-  }
-
-  nav.main ul li:last-child input,
-  nav.main ul li:last-child label {
-    display: inherit;
-  }
-
-  nav.main ul li:last-child input[type="checkbox"]:checked ~ ul {
-    display: grid;
   }
 }
 
