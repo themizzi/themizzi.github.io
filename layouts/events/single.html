@@ -42,13 +42,13 @@
     </a>
     {{ end }}
     {{ end }}
-    {{ with .Resources.Match "videos/*" }}
+    {{ with .Params.videos }}
     <h2>Videos</h2>
     <div class="videos">
     <!-- loop through each video and show an html5 player for the video -->
     {{ range . }}
     <video preload="metadata" controls>
-        <source src="{{ .RelPermalink }}" type="{{ .MediaType.Type }}">
+        <source src="{{ . }}">
     </video>
     {{ end }}
     </div>
