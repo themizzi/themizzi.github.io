@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y ca-certificates openssl git curl && \
 EXPOSE 1313
 
 # Install additional packages
-RUN apt-get update && apt-get install -y stow zsh-antigen
+RUN apt-get update && apt-get install -y stow zsh-antigen awscli inotify-tools
 
 # Install starship prompt
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir /usr/local/bin -y
@@ -42,3 +42,5 @@ RUN rm /home/node/.zshrc
 RUN mkdir /home/node/.zsh
 RUN chown node:node /home/node/.zsh
 VOLUME [ "/home/node/.zsh" ]
+
+USER node
