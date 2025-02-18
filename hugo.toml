@@ -14,11 +14,6 @@ large_profile_image = "images/profile-large.png"
 small_profile_image = "images/profile-small.png"
 
 [[params.social_links]]
-name = "mastodon"
-href = "https://mastodon.social/@themizzi"
-order = 150
-
-[[params.social_links]]
 name = "github"
 href = "https://github.com/themizzi"
 order = 200
@@ -32,11 +27,6 @@ order = 175
 name = "goodreads"
 href = "https://www.goodreads.com/user/show/51946425-joe-mizzi"
 order = 600
-
-[[params.social_links]]
-name = "telegram"
-href = "https://t.me/themizzinator"
-order = 700
 
 [[params.social_links]]
 name = "bluesky"
