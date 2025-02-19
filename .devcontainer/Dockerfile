@@ -26,14 +26,19 @@ RUN apt-get update && apt-get install -y ca-certificates openssl git curl && \
     tar xf ${HUGO_VERSION}.tar.gz && \
     mv hugo /usr/bin/hugo
 
-# Hugo dev server port
-EXPOSE 1313
-
 # Install additional packages
 RUN apt-get update && apt-get install -y stow zsh-antigen awscli inotify-tools
 
 # Install starship prompt
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir /usr/local/bin -y
+
+# Install doctl
+ARG DOCTL_VERSION=1.120.1
+ARG DOCTL_ARCH=amd64
+RUN wget https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-${DOCTL_ARCH}.tar.gz \
+    && tar xf doctl-${DOCTL_VERSION}-linux-${DOCTL_ARCH}.tar.gz \
+    && mv doctl /usr/local/bin \
+    && rm doctl-${DOCTL_VERSION}-linux-${DOCTL_ARCH}.tar.gz
 
 # Remove default .zshrc
 RUN rm /home/node/.zshrc
@@ -42,5 +47,8 @@ RUN rm /home/node/.zshrc
 RUN mkdir /home/node/.zsh
 RUN chown node:node /home/node/.zsh
 VOLUME [ "/home/node/.zsh" ]
+
+# Hugo dev server port
+EXPOSE 1313
 
 USER node
