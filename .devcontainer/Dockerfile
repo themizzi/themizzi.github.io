@@ -44,7 +44,7 @@ RUN wget https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSIO
 RUN rm /home/node/.zshrc
 
 # ZSH storage
-RUN mkdir /home/node/.zsh
+RUN mkdir -p /home/node/.zsh
 RUN chown node:node /home/node/.zsh
 VOLUME [ "/home/node/.zsh" ]
 
