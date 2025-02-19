@@ -10,6 +10,7 @@
 	},
 	"build": {
 		"dockerfile": "Dockerfile",
+		"target": "dev",
 		"args": {
 			// Update VARIANT to pick hugo variant.
 			// Example variants: hugo, hugo_extended
