@@ -1,0 +1,19 @@
+name: "personal-site"
+envs:
+- key: AWS_ACCESS_KEY_ID
+  value: EV[1:fELl2swHGrmzNCuBakdLcAVV2n2aLMKX:k2XZcr0ubdl9j+P0MsQmcqS4jovsIB5a/WHWUSlPdv5mMVnh]
+  type: SECRET
+  scope: BUILD_TIME
+- key: AWS_SECRET_ACCESS_KEY
+  value: EV[1:6Qz5WHcbLM/FYden1WzIYJwgAMu6P2dd:YxQU6vOBZziAZxzhiub4/H+PEDwL9AGsKvtpaY+LwJe8nvab5kH6EewwUjKjsVi0ctFrxI7MtiIgWm0=]
+  type: SECRET
+  scope: BUILD_TIME
+static_sites:
+- github:
+    repo: themizzi/themizzi.github.io
+    branch: main
+    deploy_on_push: true
+  name: site
+  source_dir: /
+  dockerfile_path: /.devcontainer/Dockerfile
+  output_dir: /workspace/public
