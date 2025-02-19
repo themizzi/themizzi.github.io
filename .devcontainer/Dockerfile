@@ -1,30 +1,17 @@
 # Update the NODE_VERSION arg in docker-compose.yml to pick a Node version: 18, 16, 14
 ARG NODE_VERSION=20
-FROM mcr.microsoft.com/devcontainers/javascript-node:${NODE_VERSION} as dev
+FROM mcr.microsoft.com/devcontainers/javascript-node:${NODE_VERSION} AS dev
 
 # VARIANT can be either 'hugo' for the standard version or 'hugo_extended' for the extended version.
-ARG VARIANT=hugo
+ARG HUGO_VARIANT=hugo
 # VERSION can be either 'latest' or a specific version number
-ARG HUGO_VERSION=latest
+ARG HUGO_VERSION=0.144.2
 
 # Download Hugo
-RUN apt-get update && apt-get install -y ca-certificates openssl git curl && \
-    rm -rf /var/lib/apt/lists/* && \
-    case ${HUGO_VERSION} in \
-    latest) \
-    export HUGO_VERSION=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases/latest | grep "tag_name" | awk '{print substr($2, 3, length($2)-4)}') ;;\
-    esac && \
-    echo ${HUGO_VERSION} && \
-    case $(uname -m) in \
-    aarch64) \
-    export ARCH=ARM64 ;; \
-    *) \
-    export ARCH=64bit ;; \
-    esac && \
-    echo ${ARCH} && \
-    wget -O ${HUGO_VERSION}.tar.gz https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${VARIANT}_${HUGO_VERSION}_Linux-${ARCH}.tar.gz && \
-    tar xf ${HUGO_VERSION}.tar.gz && \
-    mv hugo /usr/bin/hugo
+RUN export ARCH=$(uname -m | sed -e 's/aarch64/arm64/' -e 's/x86_64/amd64/') \
+    && wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_VARIANT}_${HUGO_VERSION}_linux-${ARCH}.deb \
+    && dpkg -i ${HUGO_VARIANT}_${HUGO_VERSION}_linux-${ARCH}.deb \
+    && rm ${HUGO_VARIANT}_${HUGO_VERSION}_linux-${ARCH}.deb
 
 # Install additional packages
 RUN apt-get update && apt-get install -y stow zsh-antigen awscli inotify-tools
@@ -53,12 +40,10 @@ EXPOSE 1313
 
 USER node
 
-FROM dev as build
+FROM dev AS build
 
 COPY --chown=node:node ./ /workspace
 WORKDIR /workspace
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
-ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-RUN make build
+RUN AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} make build
