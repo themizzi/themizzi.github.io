@@ -17,3 +17,7 @@ static_sites:
   source_dir: /
   dockerfile_path: /.devcontainer/Dockerfile
   output_dir: /workspace/public
+domains:
+- domain: joemizzi.com
+  type: PRIMARY
+  wildcard: true
