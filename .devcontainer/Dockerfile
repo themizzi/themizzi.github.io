@@ -57,5 +57,4 @@ FROM dev as build
 
 COPY --chown=node:node ./ /workspace
 WORKDIR /workspace
-
-CMD ["make", "build"]
+RUN make build
