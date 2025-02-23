@@ -88,6 +88,12 @@ fieldset.theme-toggle input:checked + label {
   pointer-events: all;
 }
 
+.social-links li {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+}
+
 ul.share li {
   margin-right: 10px;
 }
@@ -200,15 +206,15 @@ nav menu {
 }
 
 .social-links {
-  display: flex;
+  margin: 0;
+  display: inline-flex;
+  gap: 20px;
   padding: 0;
   list-style: none;
-  justify-content: center;
-  margin-top: 20px;
+  place-content: center;
 }
 
 .social-links a {
-  margin: 0 10px;
   text-decoration: none;
   color: #555;
   font-size: 24px;
