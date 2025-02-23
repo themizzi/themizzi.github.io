@@ -30,11 +30,6 @@
       </fieldset>
     </li>
     <li>
-      <input class="visually-hidden" id="menu" type="checkbox" />
-      <label for="menu">
-        <i class="fa-solid fa-bars"></i>
-        <i class="fa-solid fa-times" hidden></i>
-      </label>
       {{ partial "indent.html" (dict "content" (partial "menu.html" (dict "page" . "menuID" "main")) "spaces" 6) | chomp }}
     </li>
   </ul>
