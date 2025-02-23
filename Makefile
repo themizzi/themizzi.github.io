@@ -2,10 +2,13 @@
 
 # Variables
 HUGO = hugo
-S3_BUCKET = s3://joemizzi-static-assets
-ASSETS_DIR = static/assets
-ENDPOINT = https://nyc3.digitaloceanspaces.com
-FORCE_DOWNLOAD ?= false
+S3_BUCKET = s3://mizzi
+ASSETS_DIR = buckets/mizzi
+ENDPOINT = https://1315a13ee50e2f40227a7d7737ec39ca.r2.cloudflarestorage.com
+FORCE_DOWNLOAD = false
+HTTP_SERVER = npx http-server
+ENVIRONMENT = development
+
 
 # Targets
 .PHONY: all clean
@@ -34,7 +37,7 @@ node_modules: package-lock.json
 	npm install
 	@touch node_modules
 
-pre-build: download-assets node_modules
+pre-build: node_modules
 
 pagefind:
 	@if [ "$(WATCH)" = "true" ]; then \
@@ -47,8 +50,9 @@ pagefind:
 		npx -y pagefind --site public; \
 	fi
 
-serve: pre-build
+serve: pre-build download-assets
 	@trap 'kill 0' EXIT; \
-	$(HUGO) serve & \
+	$(HTTP_SERVER) -p 8080 -i false -d false $(ASSETS_DIR) & \
+	$(HUGO) --environment $(ENVIRONMENT) serve & \
 	$(MAKE) WATCH=true pagefind & \
 	wait

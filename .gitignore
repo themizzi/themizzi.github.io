@@ -18,5 +18,5 @@ hugo.linux
 # NPM
 node_modules/
 
-# Ignore all files in static/assets except for .gitkeep
-static/assets
+# Ingore local buckets
+buckets/

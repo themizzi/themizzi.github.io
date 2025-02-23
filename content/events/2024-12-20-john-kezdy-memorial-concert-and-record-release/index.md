@@ -12,6 +12,6 @@ state = 'IL'
 title = 'John Kezdy Memorial Concert & Record Release'
 zip = '60613'
 videos = [
-    '/assets/events/2024-12-20-john-kezdy-memorial-concert-and-record-release/videos/john-doe.mp4'
+    '/events/2024-12-20-john-kezdy-memorial-concert-and-record-release/videos/john-doe.mp4'
 ]
 +++

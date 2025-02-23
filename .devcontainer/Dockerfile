@@ -44,6 +44,4 @@ FROM dev AS build
 
 COPY --chown=node:node ./ /workspace
 WORKDIR /workspace
-ARG AWS_ACCESS_KEY_ID
-ARG AWS_SECRET_ACCESS_KEY
-RUN AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} make build
+RUN make build
