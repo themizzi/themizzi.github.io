@@ -1,6 +1,5 @@
 {{ define "main" }}
 <div class="container">
-    {{ partial "breadcrumbs.html" . }}
     <h1>{{ .Title }}</h1>
     {{ $eventsByYear := .Pages.GroupByParamDate "doors" "2006" "2006" }}
     {{ range $eventsByYear }}
