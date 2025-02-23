@@ -48,7 +48,7 @@
     <!-- loop through each video and show an html5 player for the video -->
     {{ range . }}
     <video preload="metadata" controls>
-        <source src="{{ . }}">
+        <source src="{{ $.Site.Params.bucket_address}}{{ . }}">
     </video>
     {{ end }}
     </div>
