@@ -2,7 +2,6 @@
 {{ if (eq .CurrentSection .FirstSection) }}
 <div class="container">
     {{ partial "breadcrumbs.html" . }}
-    {{ partial "share.html" . }}
     <h1>{{ .Title }}</h1>
     {{ $section := .Section }}
     {{ range $name, $term := .Site.Taxonomies.artists }}
