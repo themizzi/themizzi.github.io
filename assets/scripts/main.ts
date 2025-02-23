@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   const audios = document.querySelectorAll('audio');
-  console.log(audios);
   audios.forEach((audio) => {
     audio.addEventListener('play', () => {
       audios.forEach((otherAudio) => {
