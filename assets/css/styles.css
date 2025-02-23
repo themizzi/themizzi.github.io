@@ -138,6 +138,12 @@ nav.main > ul > li:last-child > ul .icon {
 }
 
 @media screen and (width <= 768px) {
+  nav.main > ul > li:last-child > ul {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-rows: max-content;
+  }
+
   nav.main > ul > li:last-child > ul .label {
     display: none;
   }
