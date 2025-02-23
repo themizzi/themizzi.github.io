@@ -14,4 +14,6 @@ title = 'Discography'
 [menus]
   [menus.main]
     weight = 4000
+    [menus.main.params]
+      icon = "💿"
 +++

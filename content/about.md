@@ -6,6 +6,8 @@ title = 'About'
 [menus]
   [menus.main]
     weight = 1000
+    [menus.main.params]
+      icon = "🧑‍🎤"
 +++
 
 # About

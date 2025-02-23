@@ -18,6 +18,7 @@
 {{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") -}}
 {{- end -}}
 {{- $name := .Name -}}
+{{- $icon := .Params.icon -}}
 {{- with .Identifier -}}
 {{- with T . -}}
 {{- $name = . -}}
@@ -25,7 +26,12 @@
 {{- end -}}
 <li>
   <a {{- range $k, $v := $attrs -}} {{- with $v -}} {{- printf " %s=%q" $k $v | safeHTMLAttr -}} {{- end -}}
-    {{- end -}}>{{ $name }}</a>
+    {{- end -}} title="{{ $name }}">
+    {{ with $icon }}
+    <span class="icon" aria-hidden="true">{{ . }}</span>
+    {{ end }}
+    <span class="label">{{ $name }}</span>
+  </a>
   {{- with .Children -}}
   <ul>
     {{ partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) | chomp }}
