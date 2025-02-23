@@ -6,4 +6,6 @@ title = 'Contact'
 [menus]
   [menus.main]
     weight = 5000
+    [menus.main.params]
+      icon = "☎️"
 +++
