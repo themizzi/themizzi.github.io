@@ -1,6 +1,5 @@
 <article class="container page" data-pagefind-body>
     {{ partial "breadcrumbs.html" . }}
-    {{ partial "share.html" . }}
     <hgroup>
         <h1>{{ .Title }}</h1>
         {{- $artists := .GetTerms "artists" -}}
