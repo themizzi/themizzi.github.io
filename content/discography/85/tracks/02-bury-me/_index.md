@@ -2,6 +2,10 @@
 title = 'Bury Me'
 type = 'track'
 weight = 2
+audio = [
+    '/discography/85/The Mizzerables - 85 - 02 - Bury Me.mp3',
+    '/discography/85/The Mizzerables - 85 - 02 - Bury Me.ogg'
+]
 +++
 Remember when we were kings and queens, young and mean burning through gasoline  
 Chasing fire and dreaming out loud hearts alive in a rusty machine  
