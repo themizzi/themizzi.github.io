@@ -9,7 +9,6 @@ FORCE_DOWNLOAD = false
 HTTP_SERVER = npx http-server
 ENVIRONMENT = development
 
-
 # Targets
 .PHONY: all clean
 all: build
@@ -56,3 +55,20 @@ serve: pre-build download-assets
 	$(HUGO) --environment $(ENVIRONMENT) serve & \
 	$(MAKE) WATCH=true pagefind & \
 	wait
+
+# Help target
+help:
+	@echo "Makefile for Hugo project"
+	@echo ""
+	@echo "Targets:"
+	@echo "  all                Build the site"
+	@echo "  build              Build the site"
+	@echo "  clean              Clean the site"
+	@echo "  download-assets    Download assets from S3"
+	@echo "  upload-assets      Upload assets to S3"
+	@echo "  node_modules       Install node modules"
+	@echo "  pre-build          Prepare for build"
+	@echo "  pagefind           Build pagefind index"
+	@echo "  serve              Serve the site"
+	@echo "  help               Show this help message"
+	
