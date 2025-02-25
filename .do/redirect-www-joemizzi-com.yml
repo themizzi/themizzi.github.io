@@ -1,0 +1,18 @@
+alerts:
+- rule: DEPLOYMENT_FAILED
+- rule: DOMAIN_FAILED
+domains:
+- domain: www.joemizzi.com
+  type: PRIMARY
+features:
+- buildpack-stack=ubuntu-22
+ingress:
+  rules:
+  - match:
+      path:
+        prefix: /
+    redirect:
+      authority: joemizzi.com
+      redirect_code: 301
+name: redirect-www-joemizzi-com
+region: lon
