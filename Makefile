@@ -1,5 +1,12 @@
 # This Makefile is for my hugo project.
 
+## ███╗   ███╗██╗███████╗███████╗██╗
+## ████╗ ████║██║╚══███╔╝╚══███╔╝██║
+## ██╔████╔██║██║  ███╔╝   ███╔╝ ██║
+## ██║╚██╔╝██║██║ ███╔╝   ███╔╝  ██║
+## ██║ ╚═╝ ██║██║███████╗███████╗██║
+## ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝╚═╝
+
 # Variables
 HUGO = hugo
 S3_BUCKET = s3://mizzi
@@ -10,35 +17,35 @@ HTTP_SERVER = npx http-server
 ENVIRONMENT = development
 
 # Targets
-.PHONY: all clean
-all: build
+.PHONY: all clean download-assets upload-assets pre-build build pagefind serve help
+all: build ## Build the project.
 
-build: pre-build
+build: pre-build ## Build the project.
 	$(HUGO) --minify --gc
 	$(MAKE) pagefind
 
-clean:
+clean: ## Clean the project.
 	$(HUGO) clean
 	rm -rf public
 	rm -rf resources
 	rm -rf node_modules
 
-download-assets:
+download-assets: ## Download assets from R2.
 	@mkdir -p $(ASSETS_DIR)
 	@if [ "$(FORCE_DOWNLOAD)" = "true" ] || [ $$(find $(ASSETS_DIR) -type f ! -name '.gitkeep' | wc -l) -eq 0 ]; then \
 		aws s3 sync $(S3_BUCKET) $(ASSETS_DIR) --endpoint-url $(ENDPOINT) --delete; \
 	fi
 
-upload-assets:
+upload-assets: ## Upload assets to R2.
 	aws s3 sync $(ASSETS_DIR) $(S3_BUCKET) --endpoint-url $(ENDPOINT) --delete
 
-node_modules: package-lock.json
+node_modules: package-lock.json # Install node modules.
 	npm install
 	@touch node_modules
 
-pre-build: node_modules
+pre-build: node_modules ## Pre-build tasks.
 
-pagefind:
+pagefind: ## Build the pagefind index.
 	@if [ "$(WATCH)" = "true" ]; then \
 		echo "Watching for changes in the public directory..."; \
 		while inotifywait -r -e modify,create,delete,move --exclude 'public/pagefind' public; do \
@@ -49,26 +56,15 @@ pagefind:
 		npx -y pagefind --site public; \
 	fi
 
-serve: pre-build download-assets
+serve: pre-build download-assets ## Serve the project.
 	@trap 'kill 0' EXIT; \
 	$(HTTP_SERVER) -p 8080 -i false -d false $(ASSETS_DIR) & \
 	$(HUGO) --environment $(ENVIRONMENT) serve & \
 	$(MAKE) WATCH=true pagefind & \
 	wait
 
-# Help target
-help:
-	@echo "Makefile for Hugo project"
-	@echo ""
-	@echo "Targets:"
-	@echo "  all                Build the site"
-	@echo "  build              Build the site"
-	@echo "  clean              Clean the site"
-	@echo "  download-assets    Download assets from S3"
-	@echo "  upload-assets      Upload assets to S3"
-	@echo "  node_modules       Install node modules"
-	@echo "  pre-build          Prepare for build"
-	@echo "  pagefind           Build pagefind index"
-	@echo "  serve              Serve the site"
-	@echo "  help               Show this help message"
-	
+help: ## Show this help.
+	@awk 'BEGIN {FS = ":.*?## "}; /^[a-zA-Z_-]+:/ {exit} /^## / {gsub(/^## /, ""); print}' $(MAKEFILE_LIST)
+	@echo "Available commands:"; \
+	    grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-20s\033[0m %s\n", $$1, $$2}'
+
