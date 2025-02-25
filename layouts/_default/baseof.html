@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ or site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<html lang="{{ or site.Language.LanguageCode `en` }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
 <head>
   {{ partial "indent.html" (dict "content" (partial "head.html" .)) | chomp }}
 </head>
@@ -7,12 +7,7 @@
   <header>
     {{ partial "indent.html" (dict "content" (partial "header.html" .) "spaces" 4) | chomp }}
   </header>
-  <!-- if not on home page, show breadcrumbs -->
-  {{ if not .IsHome }}
-  <nav class="breadcrumb" aria-label="Breadcrumbs">
-    {{ partial "indent.html" (dict "content" (partial "breadcrumbs.html" . "spaces" 4)) | chomp }}
-  </nav>
-  {{ end }}
+  {{ partial "indent.html" (dict "content" (partial "breadcrumbs.html" .)) | chomp }}
   <main>
     {{ block "main" . }}{{ end }}
   </main>
