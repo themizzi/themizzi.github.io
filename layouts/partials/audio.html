@@ -1,0 +1,22 @@
+{{ $range := false }}
+{{ $resources := false }}
+{{ if .Params.audio }}
+{{ $range = .Params.audio }}
+{{ else }}
+{{ $range = .Resources.ByType "audio" }}
+{{ $resources = true }}
+{{ end }}
+{{ with $range }}
+<audio preload="metadata" controls>
+    {{ range . }}
+    <source src="
+      {{- if $resources -}}
+      {{- .Permalink -}}
+      {{- else -}}
+      {{- $.Site.Params.bucket_address -}}
+      {{- . -}}
+      {{- end -}}
+    ">
+    {{ end }}
+</audio>
+{{ end }}

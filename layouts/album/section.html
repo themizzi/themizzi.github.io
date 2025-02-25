@@ -43,13 +43,7 @@
             {{ end }}
             <span class="title">{{ $track.Title }}</span>
             (<a href="{{ .Permalink }}">details</a>)
-            {{ with $track.Resources.ByType "audio" }}
-            <audio controls>
-                {{ range . }}
-                <source src="{{ .RelPermalink }}" type="{{ .MediaType.Type }}">
-                {{ end }}
-            </audio>
-            {{ end }}
+            {{ partial "audio.html" . }}
         </li>
         {{ end }}
     </ol>
