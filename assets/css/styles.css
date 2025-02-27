@@ -176,6 +176,12 @@ a.active, a.active:hover, a.active:focus {
   pointer-events: none;
 }
 
+/* TODO: this should probably be a class */
+a[href="/search"]:hover, a[href="/search"]:focus {
+  text-decoration: none;
+  filter: contrast(0%) invert(10%) sepia(100%) saturate(5280%) hue-rotate(4deg) brightness(111%) contrast(120%);
+}
+
 .container {
   padding: 0;
   max-width: 600px; /* Set the maximum width of the container */
