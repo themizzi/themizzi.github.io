@@ -170,6 +170,12 @@ a:hover, a:focus {
   text-decoration: underline; /* Optional: Adds underlines back on hover or focus for better accessibility */
 }
 
+a.active, a.active:hover, a.active:focus {
+  text-decoration: none;
+  color: var(--breadcrumb-active-color);
+  pointer-events: none;
+}
+
 .container {
   padding: 0;
   max-width: 600px; /* Set the maximum width of the container */
