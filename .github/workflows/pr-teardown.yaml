@@ -15,6 +15,4 @@ jobs:
           from_pr_preview: true
           ignore_not_found: true
           token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
-          project_id: ${{ env.APP_ID }}
-          print_build_logs: true
-          print_deploy_logs: true
+          
