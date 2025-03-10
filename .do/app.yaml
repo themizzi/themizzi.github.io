@@ -27,4 +27,5 @@ static_sites:
   name: site
   output_dir: /workspace/public
   source_dir: /
-  build_command: docker build --file .devcontainer/Dockerfile --secret id=aws_access_key_id,env=AWS_ACCESS_KEY_ID --secret id=aws_secret_access_key,env=AWS_SECRET_ACCESS_KEY .
+  dockerfile_path: /workspace/Dockerfile
+  

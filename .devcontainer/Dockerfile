@@ -42,11 +42,14 @@ USER node
 
 FROM dev AS build
 
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
 COPY --chown=node:node ./ /workspace
 WORKDIR /workspace
-RUN --mount=type=secret,id=aws_access_key_id,env=AWS_ACCESS_KEY_ID \
-    --mount=type=secret,id=aws_secret_access_key,env=AWS_SECRET_ACCESS_KEY \
-    make download-assets
+RUN make download-assets
 RUN make build
 
 FROM scratch AS prod

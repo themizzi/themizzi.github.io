@@ -1,0 +1,25 @@
+name: Deploy
+
+inputs:
+  deploy_pr_preview:
+    description: 'Deploy PR preview'
+    required: false
+    default: false
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-depth: 0
+    - name: Deploy the app
+      id: deploy
+      uses: digitalocean/app_action/deploy@v2
+      with:
+        token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+        project_id: ${{ env.APP_ID }}
+        print_build_logs: true
+        print_deploy_logs: true
+        deploy_pr_preview: ${{ inputs.deploy_pr_preview }}
