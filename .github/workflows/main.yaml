@@ -24,3 +24,5 @@ jobs:
     steps:
       - name: Deploy
         uses: ./.github/actions/deploy
+        with:
+          token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}

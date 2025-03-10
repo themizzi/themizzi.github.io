@@ -5,6 +5,9 @@ inputs:
     description: 'Deploy PR preview'
     required: false
     default: false
+  token:
+    description: 'DigitalOcean API token'
+    required: true
 
 runs:
   using: composite
@@ -18,7 +21,7 @@ runs:
       id: deploy
       uses: digitalocean/app_action/deploy@v2
       with:
-        token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
+        token: ${{ inputs.token }}
         project_id: ${{ env.APP_ID }}
         print_build_logs: true
         print_deploy_logs: true
