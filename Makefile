@@ -9,12 +9,11 @@
 
 # Variables
 HUGO = hugo
-S3_BUCKET = s3://mizzi
-ASSETS_DIR = buckets/mizzi
-ENDPOINT = https://1315a13ee50e2f40227a7d7737ec39ca.r2.cloudflarestorage.com
+SYNC_TARGET = r2:mizzi/content
 FORCE_DOWNLOAD = false
 HTTP_SERVER = npx http-server
 ENVIRONMENT = development
+RCLONE_CONFIG = ./rclone.conf
 
 # Targets
 .PHONY: all clean download-assets upload-assets pre-build build pagefind serve help
@@ -31,13 +30,10 @@ clean: ## Clean the project.
 	rm -rf node_modules
 
 download-assets: ## Download assets from R2.
-	@mkdir -p $(ASSETS_DIR)
-	@if [ "$(FORCE_DOWNLOAD)" = "true" ] || [ $$(find $(ASSETS_DIR) -type f ! -name '.gitkeep' | wc -l) -eq 0 ]; then \
-		aws s3 sync $(S3_BUCKET) $(ASSETS_DIR) --endpoint-url $(ENDPOINT) --delete; \
-	fi
+	rclone sync --config $(RCLONE_CONFIG) $(SYNC_TARGET) content --include "*.mp3" --include "*.ogg"
 
 upload-assets: ## Upload assets to R2.
-	aws s3 sync $(ASSETS_DIR) $(S3_BUCKET) --endpoint-url $(ENDPOINT) --delete
+	rclone sync --config $(RCLONE_CONFIG) content $(SYNC_TARGET) --include "*.mp3" --include "*.ogg"
 
 node_modules: package-lock.json # Install node modules.
 	npm install
