@@ -30,7 +30,7 @@ clean: ## Clean the project.
 	rm -rf node_modules
 
 download-assets: ## Download assets from R2.
-	rclone sync --config $(RCLONE_CONFIG) $(SYNC_TARGET) content --include "*.mp3" --include "*.ogg"
+	rclone sync --config $(RCLONE_CONFIG) $(SYNC_TARGET) content --include "*.mp3" --include "*.ogg" --ignore-existing -vvv
 
 upload-assets: ## Upload assets to R2.
 	rclone sync --config $(RCLONE_CONFIG) content $(SYNC_TARGET) --include "*.mp3" --include "*.ogg"

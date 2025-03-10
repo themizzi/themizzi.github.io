@@ -1,14 +1,30 @@
-name: "personal-site"
-static_sites:
-- github:
-    repo: themizzi/themizzi.github.io
-    branch: main
-    deploy_on_push: true
-  name: site
-  source_dir: /
-  dockerfile_path: /.devcontainer/Dockerfile
-  output_dir: /workspace/public
 domains:
 - domain: joemizzi.com
   type: PRIMARY
   wildcard: true
+envs:
+- key: AWS_ACCESS_KEY_ID
+  scope: RUN_AND_BUILD_TIME
+  type: SECRET
+  value: EV[1:qfHdCTp/dzCxHiqkw2uJKRgQehE+SLOM:DsSg+2zfjDANnb5EC+B8q8Dz4A3+W+e3zqkjXI00oTz9uqhqa7OHiFxOVG3VCd+J]
+- key: AWS_SECRET_ACCESS_KEY
+  scope: RUN_AND_BUILD_TIME
+  type: SECRET
+  value: EV[1:uL1GynfJydZoQo29JE7ARCrbF8Fyqsm0:4lFheBFyxm578QNoVBfQGNddHalOOb8OuWvmru5/rnyz77Jg7uWHxBJfx3CRbvU7jUFn83fBccZZ7e0E7sC6fSS5XcX3IrxkoYxH92gSBkY=]
+ingress:
+  rules:
+  - component:
+      name: site
+    match:
+      path:
+        prefix: /
+name: personal-site
+region: sfo
+static_sites:
+- github:
+    branch: main
+    repo: themizzi/themizzi.github.io
+  name: site
+  output_dir: /workspace/public
+  source_dir: /
+  build_command: docker build --file .devcontainer/Dockerfile --secret id=aws_access_key_id,env=AWS_ACCESS_KEY_ID --secret id=aws_secret_access_key,env=AWS_SECRET_ACCESS_KEY .

@@ -44,4 +44,11 @@ FROM dev AS build
 
 COPY --chown=node:node ./ /workspace
 WORKDIR /workspace
+RUN --mount=type=secret,id=aws_access_key_id,env=AWS_ACCESS_KEY_ID \
+    --mount=type=secret,id=aws_secret_access_key,env=AWS_SECRET_ACCESS_KEY \
+    make download-assets
 RUN make build
+
+FROM scratch AS prod
+
+COPY --from=build /workspace /workspace

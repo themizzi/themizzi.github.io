@@ -27,6 +27,8 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
+      - name: Build
+        uses: ./.github/actions/build
       - name: Deploy the app
         uses: digitalocean/app_action/deploy@v2
         with:
