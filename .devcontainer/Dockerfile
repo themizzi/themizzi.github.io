@@ -42,6 +42,16 @@ USER node
 
 FROM dev AS build
 
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
 COPY --chown=node:node ./ /workspace
 WORKDIR /workspace
+RUN make download-assets
 RUN make build
+
+FROM scratch AS prod
+
+COPY --from=build /workspace /workspace
