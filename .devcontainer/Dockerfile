@@ -14,7 +14,7 @@ RUN export ARCH=$(uname -m | sed -e 's/aarch64/arm64/' -e 's/x86_64/amd64/') \
     && rm ${HUGO_VARIANT}_${HUGO_VERSION}_linux-${ARCH}.deb
 
 # Install additional packages
-RUN apt-get update && apt-get install -y stow zsh-antigen awscli inotify-tools
+RUN apt-get update && apt-get install -y stow zsh-antigen awscli inotify-tools rclone
 
 # Install starship prompt
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir /usr/local/bin -y
