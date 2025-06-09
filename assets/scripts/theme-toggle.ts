@@ -2,7 +2,7 @@ export class ThemeToggle {
   constructor(
     private themeColorMeta: HTMLElement,
     private themeToggles: HTMLElement[],
-    private documentElement: HTMLElement,
+    private element: HTMLElement,
   ) {
     // load theme from localStorage
     const theme = localStorage.getItem('theme') || 'system';
@@ -36,7 +36,7 @@ export class ThemeToggle {
   }
 
   private setTheme(): void {
-    const backgroundColor = getComputedStyle(this.documentElement).getPropertyValue('--background-color').trim();
+    const backgroundColor = getComputedStyle(this.element).getPropertyValue('--background-color').trim();
     this.themeColorMeta.setAttribute('content', backgroundColor);
   }
 }
