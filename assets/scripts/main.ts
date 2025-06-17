@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         themeIconLight,
         themeIconDark,
       ],
-      document.documentElement,
+      document.body,
     );
   }
   else {
