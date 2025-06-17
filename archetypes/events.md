@@ -10,4 +10,5 @@ city = ''
 state = ''
 zip = ''
 doors = {{ .Date }}
+featured_image = 'flyer.png'
 +++
