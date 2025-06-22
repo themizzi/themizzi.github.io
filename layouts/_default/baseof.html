@@ -4,14 +4,16 @@
   {{ partial "indent.html" (dict "content" (partial "head.html" .)) | chomp }}
 </head>
 <body>
-  <header>
+  <header class="site-header">
     {{ partial "indent.html" (dict "content" (partial "header.html" .) "spaces" 4) | chomp }}
   </header>
-  {{ partial "indent.html" (dict "content" (partial "breadcrumbs.html" .)) | chomp }}
-  <main>
+  <nav class="breadcrumb-nav">
+    {{ partial "indent.html" (dict "content" (partial "breadcrumbs.html" .)) | chomp }}
+  </nav>
+  <main class="site-main">
     {{ block "main" . }}{{ end }}
   </main>
-  <footer>
+  <footer class="site-footer">
     {{ partial "indent.html" (dict "content" (partial "footer.html" .)) | chomp }}
   </footer>
 </body>
