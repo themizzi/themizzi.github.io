@@ -1,0 +1,15 @@
+{{/*
+  Partial: service-icon.html
+  Purpose: Maps service keys to their appropriate FontAwesome icons using data/icons.yaml
+  Usage: {{ partial "service-icon.html" "discogs" }}
+  Returns: HTML for the appropriate FontAwesome icon
+*/}}
+
+{{- $service := . -}}
+{{- $iconData := index site.Data.icons $service -}}
+{{- if $iconData -}}
+<i class="{{ $iconData.class }} fa-{{ $iconData.icon }}"></i>
+{{- else -}}
+{{/* Fallback: assume it's a standard brand icon */}}
+<i class="fab fa-{{ $service }}"></i>
+{{- end -}}
