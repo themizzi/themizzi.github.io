@@ -1,5 +1,7 @@
 {
     "recommendations": [
-        "budparr.language-hugo-vscode"
+        "budparr.language-hugo-vscode",
+        "github.copilot-chat",
+        "github.vscode-pull-request-github"
     ]
 }
