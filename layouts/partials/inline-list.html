@@ -8,7 +8,7 @@
 {{- end -}}
 {{- end -}}
 {{- with $item -}}
-<a href="{{ .Permalink }}">
+<a href="{{ .RelPermalink }}">
 {{- $inlineTitle := .Params.inlineTitle }}
 {{- if $inlineTitle -}}
 {{ $inlineTitle }}

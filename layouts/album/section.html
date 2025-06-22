@@ -6,7 +6,7 @@
     <p>
         by
         {{ range $i, $artist := . -}}
-        {{- if $i -}}, {{ end }}<a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{- if $i -}}, {{ end }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>
         {{- end -}}
     </p>
     {{ end }}
@@ -36,13 +36,13 @@
                 {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
                 {{ with $artistPage }}
                 {{ if $i }}, {{ end }}
-                <a href="{{ .Permalink }}">{{ .Title }}</a>
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
                 {{ end }}
                 {{ end }}
                 -
             {{ end }}
             <span class="title">{{ $track.Title }}</span>
-            (<a href="{{ .Permalink }}">details</a>)
+            (<a href="{{ .RelPermalink }}">details</a>)
             {{ partial "audio.html" . }}
         </li>
         {{ end }}
