@@ -161,6 +161,33 @@ nav.main > ul > li:last-child > ul .icon {
   }
 }
 
+.events-list {
+  list-style: none;
+  padding: 0;
+}
+
+.event-item {
+  padding: 12px 0 0;
+  position: relative;
+}
+
+.event-item:first-child {
+  padding-top: 8px;
+}
+
+.event-item:not(:last-child)::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 1px;
+  background-color: rgb(128 128 128 / 15%);
+  margin: 12px auto 0;
+}
+
+.event-item:last-child {
+  border-bottom: none;
+}
+
 a {
   color: var(--link-color);
   text-decoration: none; /* Removes underlines from all links */
@@ -371,9 +398,4 @@ audio {
   background-color: red;
   padding: 5px;
   width: calc(100% - 10px);
-}
-
-section.appearances ul {
-  list-style: none;
-  padding: 0;
 }
