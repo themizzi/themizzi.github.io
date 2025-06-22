@@ -21,12 +21,50 @@
     {{ end }}
 
     <p>📅 <time datetime="{{ .Params.doors | dateFormat "2006-01-02T15:04:05-07:00" }}" itemprop="startDate">{{ .Params.doors | dateFormat "January 2, 2006" }}, doors: {{ .Params.doors | dateFormat "3:04PM" }}</time></p>
-    {{ with .Params.location }}
+    
     <span itemprop="location" itemscope itemtype="https://schema.org/MusicVenue">
-        <p>🏛️ <span itemprop="name">{{ . }}</span></p>
+        {{ $locationName := "" }}
+        {{ $locationAddress := "" }}
+        {{ $locationCity := "" }}
+        {{ $locationState := "" }}
+        {{ $locationZip := "" }}
+        {{ $locationLink := "" }}
+        {{ $hasLocationTaxonomy := false }}
+        
+        {{ with .GetTerms "locations" }}
+            {{ range . }}
+                {{ $locationName = .Title }}
+                {{ $locationAddress = .Params.address }}
+                {{ $locationCity = .Params.city }}
+                {{ $locationState = .Params.state }}
+                {{ $locationZip = .Params.zip }}
+                {{ $locationLink = .Permalink }}
+                {{ $hasLocationTaxonomy = true }}
+            {{ end }}
+        {{ else }}
+            {{ with .Params.location }}
+                {{ $locationName = . }}
+            {{ end }}
+            {{ $locationAddress = .Params.address }}
+            {{ $locationCity = .Params.city }}
+            {{ $locationState = .Params.state }}
+            {{ $locationZip = .Params.zip }}
         {{ end }}
-        {{ $address := printf "%s, %s, %s %s" .Params.address .Params.city .Params.state .Params.zip }}
+        
+        {{ if $locationName }}
+        <p>🏛️ <span itemprop="name">
+            {{ if $hasLocationTaxonomy }}
+                <a href="{{ $locationLink }}">{{ $locationName }}</a>
+            {{ else }}
+                {{ $locationName }}
+            {{ end }}
+        </span></p>
+        {{ end }}
+        
+        {{ if and $locationAddress $locationCity $locationState $locationZip }}
+        {{ $address := printf "%s, %s, %s %s" $locationAddress $locationCity $locationState $locationZip }}
         <p>📍 <a href="https://www.google.com/maps/search/?api=1&query={{ $address | urlquery }}" target="_blank" itemprop="address">{{ $address }}</a></p>
+        {{ end }}
     </span>
     {{ with .Params.link }}
     <p itemprop="offers" itemscope itemtype="https://schema.org/Offer">🔗 <a href="{{ . }}" target="_blank" itemprop="url">More Info</a></p>
