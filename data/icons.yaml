@@ -1,0 +1,6 @@
+# Icon mappings for various services
+# Format: service_key: { class: "fab|fas|far", icon: "icon-name" }
+
+discogs:
+  class: "fas"
+  icon: "record-vinyl"

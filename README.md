@@ -13,3 +13,7 @@ To add an event, add an entry to the `data/events.yaml` file in the following fo
   date: "2024-05-04T16:00:00-05:00"
   link: "https://www.facebook.com/events/230811400105767"
 ```
+
+## Social / Service icons
+
+[Icon mapping documentation](docs/icon-mapping.md)
