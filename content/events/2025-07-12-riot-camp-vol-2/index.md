@@ -8,6 +8,7 @@ link = 'https://www.facebook.com/events/1387572906024428/'
 location = 'BaseCamp Pub & Eatery'
 title = 'Riot Camp VOL 2'
 address = '5750 Lakeside Dr'
+city = 'Lisle'
 state = 'IL'
 zip = '60532'
 +++
