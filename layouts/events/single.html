@@ -40,6 +40,13 @@
     </a>
     {{ end }}
     {{ end }}
+    
+    {{ if .Content }}
+    <div class="event-content">
+        {{ .Content }}
+    </div>
+    {{ end }}
+    
     {{ with .Params.videos }}
     <h2>Videos</h2>
     <div class="videos">
