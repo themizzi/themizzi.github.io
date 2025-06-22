@@ -34,7 +34,23 @@
           {{ else }}
           {{ .Title }}
           {{ end }}
-          @ {{ .Params.city }}, {{ .Params.state }}
+          @ 
+          {{ $locationCity := "" }}
+          {{ $locationState := "" }}
+          
+          {{ with .GetTerms "locations" }}
+              {{ range . }}
+                  {{ $locationCity = .Params.city }}
+                  {{ $locationState = .Params.state }}
+              {{ end }}
+          {{ else }}
+              {{ $locationCity = .Params.city }}
+              {{ $locationState = .Params.state }}
+          {{ end }}
+          
+          {{ if and $locationCity $locationState }}
+          {{ $locationCity }}, {{ $locationState }}
+          {{ end }}
         </a>
       </li>
       {{ end }}

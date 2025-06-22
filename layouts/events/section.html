@@ -26,7 +26,24 @@
             {{ else if .Params.artist }}
             {{ .Params.artist }}
             {{ end }}
-            <span>{{ .Params.city }}, {{ .Params.state }}</span>
+            <span>
+                {{ $locationCity := "" }}
+                {{ $locationState := "" }}
+                
+                {{ with .GetTerms "locations" }}
+                    {{ range . }}
+                        {{ $locationCity = .Params.city }}
+                        {{ $locationState = .Params.state }}
+                    {{ end }}
+                {{ else }}
+                    {{ $locationCity = .Params.city }}
+                    {{ $locationState = .Params.state }}
+                {{ end }}
+                
+                {{ if and $locationCity $locationState }}
+                {{ $locationCity }}, {{ $locationState }}
+                {{ end }}
+            </span>
             </a>
         </li>
         {{ end }}

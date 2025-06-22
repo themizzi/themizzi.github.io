@@ -5,12 +5,8 @@ doors = 2025-07-12T14:00:00-05:00
 draft = false
 featured_image = 'flyer.jpg'
 link = 'https://www.facebook.com/events/1387572906024428/'
-location = 'BaseCamp Pub & Eatery'
+locations = ['basecamp-pub-eatery']
 title = 'Riot Camp VOL 2'
-address = '5750 Lakeside Dr'
-city = 'Lisle'
-state = 'IL'
-zip = '60532'
 +++
 
 Ready to unleash your inner Rebel?! Basecamp, 630 Productions, and Adena Presents: Riot Camp, July 12th—an electrifying rock show here at Basecamp with multiple bands playing tribute to some of the iconic bands that played Riot Fest!
