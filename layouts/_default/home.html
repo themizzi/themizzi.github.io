@@ -24,9 +24,9 @@
   {{ with where $events "Params.doors" "ge" now }}
   <section class="appearances">
     <h2>Upcoming Appearances</h2>
-    <ul>
+    <ul class="events-list">
       {{ range . }}
-      <li>
+      <li class="event-item">
         <a href="{{ .RelPermalink }}">
           {{ .Params.doors | dateFormat "January 2, 2006" }}:
           {{ if and .Params.artist (ne .Params.artist .Title) }}
