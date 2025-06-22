@@ -11,7 +11,7 @@
         {{ else }}
         {{ range sort .Pages ".Params.releaseDate" "desc" }}
         <li>
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </li>
         {{ end }}
         {{ end }}

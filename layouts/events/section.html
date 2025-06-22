@@ -10,7 +10,7 @@
     <ul>
         {{ range .Pages }}
         <li>
-            <a href="{{ .Permalink }}">
+            <a href="{{ .RelPermalink }}">
             {{ $day := .Params.doors | dateFormat "2" }}
             {{ $suffix := "th" }}
             {{ if or (eq $day "1") (eq $day "21") (eq $day "31") }}

@@ -29,7 +29,7 @@
         <!-- Custom Confirmation / Success Page -->
         <!-- get the contact-success page from hugo and use the permalink -->
         {{ with .Site.GetPage "contact-success" }}
-        <input type="hidden" name="redirect" value="{{ .Permalink }}">
+        <input type="hidden" name="redirect" value="{{ .RelPermalink }}">
         {{ end }}
 
         <button type="submit">Submit Form</button>

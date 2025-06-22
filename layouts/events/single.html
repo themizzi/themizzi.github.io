@@ -13,7 +13,7 @@
             {{ range $artist.Params.links }}
             <link itemprop="sameAs" href="{{ . }}" />
             {{ end }}
-            <a href="{{ .Permalink }}"><span itemprop="name">{{ .Title }}</span></a>
+            <a href="{{ .RelPermalink }}"><span itemprop="name">{{ .Title }}</span></a>
         </span>
         {{ end }}
         {{ end }}
@@ -38,7 +38,7 @@
                 {{ $locationCity = .Params.city }}
                 {{ $locationState = .Params.state }}
                 {{ $locationZip = .Params.zip }}
-                {{ $locationLink = .Permalink }}
+                {{ $locationLink = .RelPermalink }}
                 {{ $hasLocationTaxonomy = true }}
             {{ end }}
         {{ else }}

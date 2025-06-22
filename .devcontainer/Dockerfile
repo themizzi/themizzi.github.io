@@ -44,4 +44,5 @@ FROM dev AS build
 
 COPY --chown=node:node ./ /workspace
 WORKDIR /workspace
+
 RUN make build

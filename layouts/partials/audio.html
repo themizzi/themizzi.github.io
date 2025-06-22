@@ -11,7 +11,7 @@
     {{ range . }}
     <source src="
       {{- if $resources -}}
-      {{- .Permalink -}}
+      {{- .RelPermalink -}}
       {{- else -}}
       {{- $.Site.Params.bucket_address -}}
       {{- . -}}
