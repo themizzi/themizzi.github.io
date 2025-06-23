@@ -4,5 +4,14 @@ title = "Mizzi"
 
 # RSS Configuration
 rssLimit = 100
+
+# Output formats
+[outputFormats]
+  [outputFormats.SearchIndex]
+    mediaType = "application/json"
+    baseName = "search-index"
+    isPlainText = true
+    notAlternative = true
+    
 [outputs]
-  home = ["HTML", "RSS"]
+  home = ["HTML", "RSS", "SearchIndex"]

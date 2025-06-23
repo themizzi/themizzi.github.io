@@ -37,3 +37,7 @@ order = 650
 name = "rss"
 href = "/index.xml"
 order = 700
+
+# Search configuration
+[search]
+excludedTypes = ["credit"]
