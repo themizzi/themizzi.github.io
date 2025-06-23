@@ -16,12 +16,11 @@ ENVIRONMENT = development
 RCLONE_CONFIG = ./rclone.conf
 
 # Targets
-.PHONY: all clean download-assets upload-assets pre-build build pagefind serve serve-dev help
+.PHONY: all clean download-assets upload-assets pre-build build serve serve-dev help
 all: build ## Build the project.
 
 build: pre-build ## Build the project.
 	$(HUGO) --minify --gc
-	$(MAKE) pagefind
 
 clean: ## Clean the project.
 	rm -rf public
@@ -40,28 +39,11 @@ node_modules: package-lock.json # Install node modules.
 
 pre-build: node_modules ## Pre-build tasks.
 
-pagefind: ## Build the pagefind index.
-	@if [ "$(WATCH)" = "true" ]; then \
-		echo "Watching for changes in the public directory..."; \
-		while inotifywait -r -e modify,create,delete,move --exclude 'public/pagefind' public; do \
-			echo "Rebuilding pagefind index..."; \
-			npx -y pagefind --site public; \
-		done; \
-	else \
-		npx -y pagefind --site public; \
-	fi
-
 serve: pre-build download-assets ## Serve the project.
-	@trap 'kill 0' EXIT; \
-	$(HUGO) --environment $(ENVIRONMENT) serve & \
-	$(MAKE) WATCH=true pagefind & \
-	wait
+	$(HUGO) --environment $(ENVIRONMENT) serve
 
 serve-dev: pre-build ## Serve the project in development mode with Hugo's built-in server.
-	@trap 'kill 0' EXIT; \
-	$(HUGO) serve --buildDrafts --buildFuture --disableFastRender --ignoreCache --watch & \
-	$(MAKE) WATCH=true pagefind & \
-	wait
+	$(HUGO) serve --buildDrafts --buildFuture --disableFastRender --ignoreCache --watch
 
 help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "}; /^[a-zA-Z_-]+:/ {exit} /^## / {gsub(/^## /, ""); print}' $(MAKEFILE_LIST)
