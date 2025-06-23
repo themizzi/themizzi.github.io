@@ -1,0 +1,11 @@
+# Hugo taxonomies for organizing content
+# The theme has special support for music-related taxonomies
+
+tag = "tags"
+artist = "artists"
+role = "roles"
+location = "locations"
+
+# Optional: Add more taxonomies as needed
+# category = "categories"
+# genre = "genres"

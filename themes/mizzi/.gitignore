@@ -1,0 +1,8 @@
+# Hugo build artifacts
+public/
+resources/_gen/
+hugo_stats.json
+
+# OS files
+.DS_Store
+Thumbs.db

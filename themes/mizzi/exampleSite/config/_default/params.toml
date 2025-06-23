@@ -1,0 +1,37 @@
+description = "Example site using the Mizzi Hugo theme - perfect for musicians and technologists"
+large_profile_image = "images/profile-large.png"
+small_profile_image = "images/profile-small.png"
+
+# Optional: Custom bucket/CDN address for assets
+# bucket_address = "https://cdn.yoursite.com"
+
+# Author information (used in RSS and metadata)
+[author]
+  name = "Your Name"
+  email = "your.email@example.com"
+
+# Social media links - customize these with your own profiles
+[[social_links]]
+name = "github"
+href = "https://github.com/yourusername"
+order = 100
+
+[[social_links]]
+name = "linkedin"
+href = "https://linkedin.com/in/yourusername"
+order = 200
+
+[[social_links]]
+name = "bluesky"
+href = "https://bsky.app/profile/yourusername.bsky.social"
+order = 300
+
+# RSS feed link
+[[social_links]]
+name = "rss"
+href = "/index.xml"
+order = 900
+
+# Search configuration - exclude certain content types from search
+[search]
+excludedTypes = ["credit"]

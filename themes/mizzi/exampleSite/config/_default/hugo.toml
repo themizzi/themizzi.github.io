@@ -1,0 +1,8 @@
+baseURL = "https://example.com/"
+languageCode = "en-us"
+title = "Mizzi Theme Example"
+theme = "mizzi"
+
+[taxonomies]
+  tag = "tags"
+  artist = "artists"
