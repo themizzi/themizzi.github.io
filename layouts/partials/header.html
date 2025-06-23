@@ -1,12 +1,12 @@
-<nav class="main">
+<nav class="main-nav">
   <ul>
-    <li><strong><a href="/">MIZZI</a></strong></li>
-    <li>
+    <li class="brand"><strong><a href="/">MIZZI</a></strong></li>
+    <li class="search">
       <a href="/search" aria-label="Search the site">
         <span role="img" aria-hidden="true">🔍</span>
       </a>
     </li>
-    <li>
+    <li class="theme-toggle-wrapper">
       <fieldset class="theme-toggle">
         <legend class="visually-hidden">Theme Toggle</legend>
 
@@ -29,7 +29,7 @@
         </label>
       </fieldset>
     </li>
-    <li>
+    <li class="menu">
       {{ partial "indent.html" (dict "content" (partial "menu.html" (dict "page" . "menuID" "main")) "spaces" 6) | chomp }}
     </li>
   </ul>
