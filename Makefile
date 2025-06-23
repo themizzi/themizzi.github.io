@@ -16,7 +16,7 @@ ENVIRONMENT = development
 RCLONE_CONFIG = ./rclone.conf
 
 # Targets
-.PHONY: all clean download-assets upload-assets pre-build build pagefind serve help
+.PHONY: all clean download-assets upload-assets pre-build build pagefind serve serve-dev help
 all: build ## Build the project.
 
 build: pre-build ## Build the project.
@@ -24,7 +24,6 @@ build: pre-build ## Build the project.
 	$(MAKE) pagefind
 
 clean: ## Clean the project.
-	$(HUGO) clean
 	rm -rf public
 	rm -rf resources
 	rm -rf node_modules
@@ -54,8 +53,13 @@ pagefind: ## Build the pagefind index.
 
 serve: pre-build download-assets ## Serve the project.
 	@trap 'kill 0' EXIT; \
-	$(HTTP_SERVER) -p 8080 -i false -d false $(ASSETS_DIR) & \
 	$(HUGO) --environment $(ENVIRONMENT) serve & \
+	$(MAKE) WATCH=true pagefind & \
+	wait
+
+serve-dev: pre-build ## Serve the project in development mode with Hugo's built-in server.
+	@trap 'kill 0' EXIT; \
+	$(HUGO) serve --buildDrafts --buildFuture --disableFastRender --ignoreCache --watch & \
 	$(MAKE) WATCH=true pagefind & \
 	wait
 
