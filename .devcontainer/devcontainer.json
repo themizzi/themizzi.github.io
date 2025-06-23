@@ -51,7 +51,8 @@
 				"HTMLHint.vscode-htmlhint",
 				"ms-vscode.makefile-tools",
 				"GitHub.copilot-chat",
-				"GitHub.vscode-pull-request-github"
+				"GitHub.vscode-pull-request-github",
+				"firefox-devtools.vscode-firefox-debug"
 			]
 		}
 	},
