@@ -4,3 +4,7 @@
 discogs:
   class: "fas"
   icon: "record-vinyl"
+
+rss:
+  class: "fas"
+  icon: "rss"

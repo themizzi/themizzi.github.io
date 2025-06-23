@@ -1,3 +1,8 @@
 baseURL = "https://joemizzi.com/"
 languageCode = "en-us"
 title = "Mizzi"
+
+# RSS Configuration
+rssLimit = 100
+[outputs]
+  home = ["HTML", "RSS"]

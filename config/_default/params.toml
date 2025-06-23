@@ -3,6 +3,11 @@ large_profile_image = "images/profile-large.png"
 small_profile_image = "images/profile-small.png"
 bucket_address = "http://localhost:8080"
 
+# Author information for RSS
+[author]
+  name = "Joe Mizzi"
+  email = "joe@joemizzi.com"
+
 [[social_links]]
 name = "github"
 href = "https://github.com/themizzi"
@@ -27,3 +32,8 @@ order = 100
 name = "signal-messenger"
 href = "https://signal.me/#eu/RsNPXENWoya3LPHxYNQux0DR4C_REl1o1cyMPbNbxCT6YXFHBsdERbejvtdNMw5Z"
 order = 650
+
+[[social_links]]
+name = "rss"
+href = "/index.xml"
+order = 700

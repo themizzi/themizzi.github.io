@@ -27,6 +27,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
+{{- /* RSS Feed Discovery */}}
+{{- with .OutputFormats.Get "rss" -}}
+<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }} RSS Feed" href="{{ .Permalink }}">
+{{- end -}}
+{{- if .IsHome -}}
+<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }} RSS Feed" href="{{ .Site.BaseURL }}index.xml">
+{{- end -}}
+
 {{- /* Open Graph */}}
 <meta property="og:locale" content="en_GB">
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
@@ -69,3 +77,21 @@
 {{- /* Additional Meta Tags */}}
 <link rel="manifest" href="/site.webmanifest">
 <link rel="me" href="https://mastodon.social/@themizzi">
+
+{{- /* JSON-LD Structured Data for RSS Discovery */}}
+{{- if .IsHome -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ .Site.Title }}",
+  "description": "{{ .Site.Params.description }}",
+  "url": "{{ .Site.BaseURL }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author.name }}",
+    "email": "{{ .Site.Params.author.email }}"
+  }
+}
+</script>
+{{- end -}}

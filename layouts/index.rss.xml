@@ -1,0 +1,52 @@
+{{- $pctx := . -}}
+{{- if .IsHome -}}{{ $pctx = .Site }}{{- end -}}
+{{- $pages := slice -}}
+{{- $limit := .Site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+{{- $limit = $limit -}}
+{{- else -}}
+{{- $limit = 65536 -}}
+{{- end -}}
+
+{{- /* Get all events and discography pages */ -}}
+{{- $events := where .Site.RegularPages "Section" "events" -}}
+{{- $allDiscography := where .Site.AllPages "Section" "discography" -}}
+{{- $discography := where $allDiscography "Params.type" "album" -}}
+
+{{- /* Combine and sort by date */ -}}
+{{- $allPages := $events | append $discography -}}
+{{- $allPages = $allPages.ByDate.Reverse -}}
+{{- $pages = $allPages | first $limit -}}
+
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>Recent events and discography from {{ .Site.Title }}</description>
+    <generator>Hugo -- gohugo.io</generator>{{ with .Site.LanguageCode }}
+    <language>{{.}}</language>{{end}}{{ with .Site.Params.author.email }}
+    <managingEditor>{{.}}{{ with $.Site.Params.author.name }} ({{.}}){{end}}</managingEditor>{{end}}{{ with .Site.Params.author.email }}
+    <webMaster>{{.}}{{ with $.Site.Params.author.name }} ({{.}}){{end}}</webMaster>{{end}}{{ with .Site.Copyright }}
+    <copyright>{{.}}</copyright>{{end}}{{ if not .Date.IsZero }}
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
+    {{- with .OutputFormats.Get "RSS" -}}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{- end -}}
+    {{ range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      {{ with .Site.Params.author.email }}<author>{{.}}{{ with $.Site.Params.author.name }} ({{.}}){{end}}</author>{{end}}
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ if eq .Section "events" }}Event: {{ .Title }}{{ if .Params.locations }} at {{ range $i, $location := .Params.locations }}{{ if $i }}, {{ end }}{{ $location | title | replaceRE "-" " " }}{{ end }}{{ end }}{{ if .Params.doors }} on {{ .Params.doors.Format "January 2, 2006" }}{{ end }}{{ else if eq .Section "discography" }}{{ if eq .Type "album" }}Album: {{ .Title }}{{ if .Params.artists }} by {{ range $i, $artist := .Params.artists }}{{ if $i }}, {{ end }}{{ $artist | title | replaceRE "-" " " }}{{ end }}{{ end }}{{ if .Params.releaseDate }} released {{ .Params.releaseDate }}{{ end }}{{ end }}{{ end }}</description>
+      {{ if eq .Section "events" }}
+      <category>Events</category>
+      {{ else if eq .Section "discography" }}
+      <category>Discography</category>
+      {{ end }}
+    </item>
+    {{ end }}
+  </channel>
+</rss>
