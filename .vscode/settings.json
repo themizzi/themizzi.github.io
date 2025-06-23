@@ -16,6 +16,14 @@
         },
         "editor.renderWhitespace": "all",
         "editor.renderControlCharacters": true,
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 80,
+        "editor.rulers": [80]
+    },
+    "[instructions]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 80,
+        "editor.rulers": [80]
     },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features",
