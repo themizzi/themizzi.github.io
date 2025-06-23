@@ -1,0 +1,59 @@
+{{- $excludedTypes := site.Params.search.excludedTypes | default slice -}}
+{{- $pages := slice -}}
+{{- range $page := site.AllPages -}}
+  {{- if and (not $page.Draft) (not (in $excludedTypes $page.Type)) -}}
+    {{- $content := $page.Content -}}
+    
+    {{- /* Add all taxonomy terms from page params */ -}}
+    {{- range $taxonomyName, $taxonomy := site.Taxonomies -}}
+      {{- with (index $page.Params $taxonomyName) -}}
+        {{- range . -}}
+          {{- $termPage := site.GetPage (printf "/%s/%s" $taxonomyName .) -}}
+          {{- if $termPage -}}
+            {{- $content = printf "%s %s" $content $termPage.Title -}}
+            {{- /* Add nested taxonomy terms from the term page */ -}}
+            {{- range $nestedTaxonomyName, $nestedTaxonomy := site.Taxonomies -}}
+              {{- with (index $termPage.Params $nestedTaxonomyName) -}}
+                {{- range . -}}
+                  {{- $nestedTermPage := site.GetPage (printf "/%s/%s" $nestedTaxonomyName .) -}}
+                  {{- if $nestedTermPage -}}
+                    {{- $content = printf "%s %s" $content $nestedTermPage.Title -}}
+                  {{- else -}}
+                    {{- $content = printf "%s %s" $content (humanize .) -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- end -}}
+            {{- end -}}
+          {{- else -}}
+            {{- $content = printf "%s %s" $content (humanize .) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    
+    {{- /* Add taxonomy terms from child pages (e.g., credits) for content pages only */ -}}
+    {{- if and $page.File (ne $page.Kind "taxonomy") -}}
+      {{- range $childPage := $page.Pages -}}
+        {{- /* Add all taxonomy terms from child pages */ -}}
+        {{- range $taxonomyName, $taxonomy := site.Taxonomies -}}
+          {{- with (index $childPage.Params $taxonomyName) -}}
+            {{- range . -}}
+              {{- $termPage := site.GetPage (printf "/%s/%s" $taxonomyName .) -}}
+              {{- if $termPage -}}
+                {{- $content = printf "%s %s" $content $termPage.Title -}}
+              {{- else -}}
+                {{- $content = printf "%s %s" $content (humanize .) -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    
+    {{- $content = $content | plainify | htmlUnescape | replaceRE "\\s+" " " | strings.TrimSpace -}}
+    
+    {{- $pageData := dict "title" $page.Title "url" $page.RelPermalink "content" $content -}}
+    {{- $pages = $pages | append $pageData -}}
+  {{- end -}}
+{{- end -}}
+{{- dict "pages" $pages | jsonify -}}

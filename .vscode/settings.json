@@ -39,5 +39,9 @@
     "[javascript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     },
-    "makefile.configureOnOpen": false
+    "makefile.configureOnOpen": false,
+    "json.validate.enable": true,
+    "files.associations": {
+        "**/layouts/**/*.json": "hugo"
+    }
 }
