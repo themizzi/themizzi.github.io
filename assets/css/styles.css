@@ -18,33 +18,16 @@ body:has(fieldset.theme-toggle input[value="light"]:checked) {
   /* Layout */
   --padding-size: 20px;
   --max-content-width: 600px;
-  
-  /* Search/Pagefind */
-  --pagefind-ui-primary: #121212;
-  --pagefind-ui-text: #121212;
-  --pagefind-ui-background: #fff;
-  --pagefind-ui-border: #121212;
-  --pagefind-ui-tag: #fff;
 
   /* Dark mode variants */
   --background-color-dark: #121212;
   --text-color-dark: #fff;
-  --pagefind-ui-primary-dark: #fff;
-  --pagefind-ui-text-dark: #fff;
-  --pagefind-ui-background-dark: #121212;
-  --pagefind-ui-border-dark: #fff;
-  --pagefind-ui-tag-dark: #121212;
 }
 
 @media (prefers-color-scheme: dark) {
   body {
     --background-color: var(--background-color-dark);
     --text-color: var(--text-color-dark);
-    --pagefind-ui-primary: var(--pagefind-ui-primary-dark);
-    --pagefind-ui-text: var(--pagefind-ui-text-dark);
-    --pagefind-ui-background: var(--pagefind-ui-background-dark);
-    --pagefind-ui-border: var(--pagefind-ui-border-dark);
-    --pagefind-ui-tag: var(--pagefind-ui-tag-dark);
   }
 }
 
