@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     rclone
 
 # Install playwright dependencies
-RUN sudo npx playwright install-deps
+RUN npx playwright install-deps
 
 # Install starship prompt
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir /usr/local/bin -y
