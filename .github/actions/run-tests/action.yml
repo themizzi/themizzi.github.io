@@ -38,8 +38,5 @@ runs:
         push: ${{ inputs.push-image }}
         runCmd: |
           cd themes/mizzi
-          # do not run scripts for npm install
-          npm config set ignore-scripts true
-          npm install
-          npx playwright install chromium
+          npm ci
           npm test

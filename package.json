@@ -11,7 +11,8 @@
     "lint:html": "htmlhint '**/*.html'",
     "lint:md": "markdownlint-cli2 'content/**/*.md'",
     "lint": "npm run lint:js && npm run lint:css && npm run lint:html && npm run lint:md",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "playwright install chromium"
   },
   "devDependencies": {
     "@davidsneighbour/markdownlint-config": "^2025.0.1",
