@@ -17,20 +17,34 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  packages: write
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
-      - name: Deploy the app
-        uses: digitalocean/app_action/deploy@v2
+      - name: Run Playwright tests
+        uses: ./.github/actions/run-tests
+        with:
+          artifact-name: main-playwright-test-results
+          push-image: always
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Deploy to Digital Ocean
+        uses: ./.github/actions/deploy-app
         with:
           token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
-          project_id: ${{ env.APP_ID }}
-          print_build_logs: true
-          print_deploy_logs: true
+          app-id: ${{ env.APP_ID }}
