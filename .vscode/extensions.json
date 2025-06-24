@@ -3,6 +3,7 @@
         "budparr.language-hugo-vscode",
         "github.copilot-chat",
         "github.vscode-pull-request-github",
-        "firefox-devtools.vscode-firefox-debug"
+        "firefox-devtools.vscode-firefox-debug",
+        "ms-playwright.playwright"
     ]
 }

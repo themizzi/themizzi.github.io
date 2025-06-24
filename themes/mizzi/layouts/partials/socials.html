@@ -1,3 +1,4 @@
+{{- if .Site.Params.social_links -}}
 <ul class="social-links">
     {{ range sort .Site.Params.social_links "order" "asc" }}
     <li>
@@ -5,3 +6,4 @@
     </li>
     {{ end }}
 </ul>
+{{- end -}}
