@@ -12,8 +12,10 @@
     <source src="
       {{- if $resources -}}
       {{- .RelPermalink -}}
-      {{- else -}}
+      {{- else if $.Site.Params.bucket_address -}}
       {{- $.Site.Params.bucket_address -}}
+      {{- . -}}
+      {{- else -}}
       {{- . -}}
       {{- end -}}
     ">

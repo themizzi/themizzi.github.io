@@ -20,3 +20,8 @@ node_modules/
 
 # Ingore local buckets
 buckets/
+
+# Playwright
+playwright-report/
+test-results/
+

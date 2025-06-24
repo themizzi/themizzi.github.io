@@ -1,8 +1,11 @@
 {{- /* Page description */}}
-{{- $description := .Description | default .Site.Params.description -}}
+{{- $description := .Description | default .Site.Params.description | default "" -}}
 
 {{- /* Featured image */}}
-{{- $image := resources.Get "images/profile-large.png" }}
+{{- $image := "" }}
+{{- if resources.Get "images/profile-large.png" -}}
+{{- $image = resources.Get "images/profile-large.png" }}
+{{- end -}}
 {{- if .Params.featured_image -}}
 {{- $image = .Resources.GetMatch .Params.featured_image -}}
 {{- else if and (eq .Type "track") (and .Parent .Parent.Params.featured_image) -}}
@@ -85,13 +88,21 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "{{ .Site.Title }}",
+  {{- if .Site.Params.description }}
   "description": "{{ .Site.Params.description }}",
-  "url": "{{ .Site.BaseURL }}",
+  {{- end }}
+  "url": "{{ .Site.BaseURL }}"
+  {{- if .Site.Params.author }},
   "author": {
-    "@type": "Person",
-    "name": "{{ .Site.Params.author.name }}",
+    "@type": "Person"
+    {{- if .Site.Params.author.name }},
+    "name": "{{ .Site.Params.author.name }}"
+    {{- end }}
+    {{- if .Site.Params.author.email }},
     "email": "{{ .Site.Params.author.email }}"
+    {{- end }}
   }
+  {{- end }}
 }
 </script>
 {{- end -}}
