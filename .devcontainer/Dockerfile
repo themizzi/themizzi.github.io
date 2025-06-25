@@ -19,7 +19,8 @@ RUN apt-get update && apt-get install -y \
     zsh-antigen \
     awscli \
     inotify-tools \
-    rclone
+    rclone \
+    ffmpeg
 
 # Install playwright dependencies
 RUN npx playwright install-deps
