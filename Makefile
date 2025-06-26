@@ -9,7 +9,7 @@
 
 # Variables
 HUGO = hugo
-SYNC_TARGET = r2:mizzi/content
+SYNC_TARGET = r2:mizzi
 FORCE_DOWNLOAD = false
 HTTP_SERVER = npx http-server
 ENVIRONMENT = development
@@ -28,10 +28,10 @@ clean: ## Clean the project.
 	rm -rf node_modules
 
 download-assets: ## Download assets from R2.
-	rclone sync --config $(RCLONE_CONFIG) $(SYNC_TARGET) content --include "*.mp3" --include "*.ogg"
+	rclone sync --config $(RCLONE_CONFIG) $(SYNC_TARGET) content --include "*.mp3" --include "*.ogg" --include "*.mp4"
 
 upload-assets: ## Upload assets to R2.
-	rclone sync --config $(RCLONE_CONFIG) content $(SYNC_TARGET) --include "*.mp3" --include "*.ogg"
+	rclone sync --config $(RCLONE_CONFIG) content $(SYNC_TARGET) --include "*.mp3" --include "*.ogg" --include "*.mp4"
 
 node_modules: package-lock.json # Install node modules.
 	npm install

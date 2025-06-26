@@ -1,22 +1,17 @@
-{{ $range := false }}
-{{ $resources := false }}
-{{ if .Params.audio }}
-{{ $range = .Params.audio }}
-{{ else }}
-{{ $range = .Resources.ByType "audio" }}
-{{ $resources = true }}
-{{ end }}
-{{ with $range }}
+{{ with .Params.audio }}
 <audio preload="metadata" controls>
     {{ range . }}
     <source src="
-      {{- if $resources -}}
-      {{- .RelPermalink -}}
-      {{- else if $.Site.Params.bucket_address -}}
-      {{- $.Site.Params.bucket_address -}}
-      {{- . -}}
+      {{- $audioPath := . -}}
+      {{- if hasPrefix . "/" -}}
+        {{- $audioPath = . -}}
       {{- else -}}
-      {{- . -}}
+        {{- $audioPath = printf "%s%s" $.Page.File.Dir . -}}
+      {{- end -}}
+      {{- if $.Site.Params.bucket_address -}}
+        {{- $.Site.Params.bucket_address -}}/{{- $audioPath -}}
+      {{- else -}}
+        /{{- $audioPath -}}
       {{- end -}}
     ">
     {{ end }}
