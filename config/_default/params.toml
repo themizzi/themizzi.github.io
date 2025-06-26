@@ -1,7 +1,6 @@
 description = "Music, Software, Midwest"
 large_profile_image = "images/profile-large.png"
 small_profile_image = "images/profile-small.png"
-bucket_address = "http://localhost:8080"
 
 # Author information for RSS
 [author]

@@ -9,7 +9,7 @@
 
 # Variables
 HUGO = hugo
-SYNC_TARGET = r2:mizzi/content
+SYNC_TARGET = r2:mizzi
 FORCE_DOWNLOAD = false
 HTTP_SERVER = npx http-server
 ENVIRONMENT = development
