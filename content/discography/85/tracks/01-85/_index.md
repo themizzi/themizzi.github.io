@@ -3,8 +3,8 @@ title = '85'
 type = 'track'
 weight = 1
 audio = [
-    '/discography/85/The Mizzerables - 85 - 01 - 85.mp3',
-    '/discography/85/The Mizzerables - 85 - 01 - 85.ogg'
+    'The Mizzerables - 85 - 01 - 85.mp3',
+    'The Mizzerables - 85 - 01 - 85.ogg'
 ]
 +++
 Can you tell me why I’m so frustrated  
