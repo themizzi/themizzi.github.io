@@ -1,5 +1,10 @@
 +++
-instruments = ['engineering']
+artists = ['jeff-dean']
+date = '2025-06-27T03:00:38Z'
+draft = false
 locations = ['million-yen']
-name = 'Jeff Dean'
+roles = ['engineering']
+title = 'Jeff Dean'
+type = 'credit'
 +++
+
