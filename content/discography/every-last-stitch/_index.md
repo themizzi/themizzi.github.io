@@ -17,5 +17,3 @@ type = 'album'
 Every Last Stitch, the debut album from The Mizzerables', is an 11 song artillery shot, whistling by your ear and blowing you off of your feet. Part therapy session, part declaration of independence, The Mizzerables tell you all what it's like to love, long and learn life's lessons the hard way.
 
 From the single, "Bottoms Up" to more aggressive tracks like "Everything I Need," "Rise With Me," and "Every Last Stitch" through the infectious hooks on tracks "Fourteen," "Beauty Queen," "Fatal Valentine" and "Scarlett Letters," Every Last Stitch gives you everything punk and rock fans could ever want.
-
-[Add lyrics here from Bandcamp]
