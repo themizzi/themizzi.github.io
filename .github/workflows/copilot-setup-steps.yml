@@ -41,3 +41,7 @@ jobs:
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: "0.144.0"
+
+      - name: Install rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
