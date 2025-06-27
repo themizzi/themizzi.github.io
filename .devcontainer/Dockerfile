@@ -20,7 +20,9 @@ RUN apt-get update && apt-get install -y \
     awscli \
     inotify-tools \
     rclone \
-    ffmpeg
+    ffmpeg \
+    pup \
+    jq
 
 # Install playwright dependencies
 RUN npx playwright install-deps
