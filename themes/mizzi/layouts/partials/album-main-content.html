@@ -1,0 +1,93 @@
+{{/* 
+  Shared album content - extracted from album/section.html 
+  Can be called as: {{ partial "album-main-content.html" . }}
+  Or: {{ partial "album-main-content.html" (dict "Page" . "IsRSS" true) }}
+*/}}
+{{- $page := . -}}
+{{- $isRSS := false -}}
+
+{{/* Handle dict format for RSS context */}}
+{{- if reflect.IsMap . -}}
+  {{- $page = .Page -}}
+  {{- $isRSS = .IsRSS | default false -}}
+{{- end -}}
+
+<hgroup>
+<h1>{{ $page.Title }}</h1>
+{{ with $page.GetTerms "artists" }}
+<p>
+    by
+    {{ range $i, $artist := . -}}
+    {{- if $i -}}, {{ end }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    {{- end -}}
+</p>
+{{ end }}
+{{ with $page.Params.releaseDate }}
+<p>released on <time datetime="{{ . | dateFormat "2006-01-02" }}">{{ . | dateFormat "January 1, 2006" }}</time></p>
+{{ end }}
+</hgroup>
+<ul class="links">
+    {{ range $key, $link := $page.Params.links }}
+    <li>
+        <a href="{{ $link }}" target="_blank">{{ if $isRSS }}{{ partial "service-icon.html" (dict "service" $key "rss" true) }}{{ else }}{{ partial "service-icon.html" $key }}{{ end }}</a>
+    </li>
+    {{ end }}
+</ul>
+{{ with $page.Resources.Get $page.Params.featured_image }}
+    <img src="{{ .RelPermalink }}" alt="{{ .Title }}" />
+{{ end }}
+{{ with $page.Pages }}
+{{ with where . "Type" "track" }}
+<h2>Tracklist</h2>
+<ol class="tracks">
+    {{ range $key, $track := sort . "Weight" }}
+    {{ $trackNumber := printf "%02d" $track.Weight }}
+    <li value="{{ $trackNumber }}">
+        {{ with $track.Params.artists }}
+            {{ range $i, $artist := . }}
+            {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
+            {{ with $artistPage }}
+            {{ if $i }}, {{ end }}
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            {{ end }}
+            {{ end }}
+            -
+        {{ end }}
+        <span class="title">{{ $track.Title }}</span>
+        (<a href="{{ .RelPermalink }}">details</a>)
+        {{ partial "audio.html" . }}
+    </li>
+    {{ end }}
+</ol>
+{{ end }}
+{{ end }}
+
+{{/* Include album credits inline to avoid RSS rendering issues */}}
+{{ $creditsPage := $page.GetPage "credits" }}
+{{ $creditPages := where $page.RegularPages "Type" "credit" }}
+{{ $trackPages := where $page.Pages "Type" "track" }}
+{{ $trackCreditPages := false }}
+{{ range $trackPages }}
+{{ $trackCreditPages = where .RegularPages "Type" "credit" }}
+{{ if $trackCreditPages }}
+{{ break }}
+{{ end}}
+{{ end }}
+{{ if or $creditsPage $creditPages $trackCreditPages }}
+<h2>Credits</h2>
+{{- with $page.GetPage "credits" -}}
+{{- .Content -}}
+{{- end -}}
+{{ if $creditPages }}
+{{ partial "credits.html" (sort $creditPages "Weight") }}
+{{ end }}
+{{ with sort (where $page.Pages "Type" "track") "Weight" }}
+{{- range . -}}
+{{- $track := . -}}
+{{ with where .RegularPages "Type" "credit" }}
+<h3>{{ $track.Title }}</h3>
+{{ partial "credits.html" (sort . "Weight") }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

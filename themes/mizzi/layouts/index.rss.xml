@@ -19,7 +19,7 @@
 {{- $pages = $allPages | first $limit -}}
 
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
@@ -40,7 +40,8 @@
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       {{ with .Site.Params.author.email }}<author>{{.}}{{ with $.Site.Params.author.name }} ({{.}}){{end}}</author>{{end}}
       <guid>{{ .Permalink }}</guid>
-      <description>{{ if eq .Section "events" }}Event: {{ .Title }}{{ if .Params.locations }} at {{ range $i, $location := .Params.locations }}{{ if $i }}, {{ end }}{{ $location | title | replaceRE "-" " " }}{{ end }}{{ end }}{{ if .Params.doors }} on {{ .Params.doors.Format "January 2, 2006" }}{{ end }}{{ else if eq .Section "discography" }}{{ if eq .Type "album" }}Album: {{ .Title }}{{ if .Params.artists }} by {{ range $i, $artist := .Params.artists }}{{ if $i }}, {{ end }}{{ $artist | title | replaceRE "-" " " }}{{ end }}{{ end }}{{ if .Params.releaseDate }} released {{ .Params.releaseDate }}{{ end }}{{ end }}{{ end }}</description>
+      <description>{{ printf "<![CDATA[" | safeHTML }}{{ if eq .Section "events" }}Event: {{ .Title }}{{ else if eq .Section "discography" }}Album: {{ .Title }}{{ end }}{{ printf "]]>" | safeHTML }}</description>
+      <content:encoded>{{ printf "<![CDATA[" | safeHTML }}{{ if eq .Section "events" }}{{ partial "event-main-content.html" (dict "Page" . "IsRSS" true) }}{{ else if eq .Section "discography" }}{{ if eq .Type "album" }}{{ partial "album-main-content.html" (dict "Page" . "IsRSS" true) }}{{ end }}{{ end }}{{ printf "]]>" | safeHTML }}</content:encoded>
       {{ if eq .Section "events" }}
       <category>Events</category>
       {{ else if eq .Section "discography" }}

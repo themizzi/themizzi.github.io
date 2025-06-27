@@ -1,0 +1,98 @@
+{{/* 
+  Shared event content - extracted from events/single.html 
+  Can be called as: {{ partial "event-main-content.html" . }}
+  Or: {{ partial "event-main-content.html" (dict "Page" . "IsRSS" true) }}
+*/}}
+{{- $page := . -}}
+{{- $isRSS := false -}}
+
+{{/* Handle dict format for RSS context */}}
+{{- if reflect.IsMap . -}}
+  {{- $page = .Page -}}
+  {{- $isRSS = .IsRSS | default false -}}
+{{- end -}}
+
+{{ if $page.Title }}
+<h1 itemprop="name">{{ $page.Title }}</h1>
+{{ end }}
+
+{{ with $page.GetTerms "artists" }}
+<p>
+    {{ range $i, $artist := . }}
+    {{ if $i }}, {{ end }}
+    {{ with $artist }}
+    <span itemprop="performer" itemscope itemtype="https://schema.org/MusicGroup">
+        {{ range $artist.Params.links }}
+        <link itemprop="sameAs" href="{{ . }}" />
+        {{ end }}
+        <a href="{{ .RelPermalink }}"><span itemprop="name">{{ .Title }}</span></a>
+    </span>
+    {{ end }}
+    {{ end }}
+</p>
+{{ end }}
+
+<p>📅 <time datetime="{{ $page.Params.doors | dateFormat "2006-01-02T15:04:05-07:00" }}" itemprop="startDate">{{ $page.Params.doors | dateFormat "January 2, 2006" }}, doors: {{ $page.Params.doors | dateFormat "3:04PM" }}</time></p>
+
+<span itemprop="location" itemscope itemtype="https://schema.org/MusicVenue">
+    {{ $locationName := "" }}
+    {{ $locationAddress := "" }}
+    {{ $locationCity := "" }}
+    {{ $locationState := "" }}
+    {{ $locationZip := "" }}
+    {{ $locationLink := "" }}
+    {{ $hasLocationTaxonomy := false }}
+    
+    {{ with $page.GetTerms "locations" }}
+        {{ range . }}
+            {{ $locationName = .Title }}
+            {{ $locationAddress = .Params.address }}
+            {{ $locationCity = .Params.city }}
+            {{ $locationState = .Params.state }}
+            {{ $locationZip = .Params.zip }}
+            {{ $locationLink = .RelPermalink }}
+            {{ $hasLocationTaxonomy = true }}
+        {{ end }}
+    {{ else }}
+        {{ with $page.Params.location }}
+            {{ $locationName = . }}
+        {{ end }}
+        {{ $locationAddress = $page.Params.address }}
+        {{ $locationCity = $page.Params.city }}
+        {{ $locationState = $page.Params.state }}
+        {{ $locationZip = $page.Params.zip }}
+    {{ end }}
+    
+    {{ if $locationName }}
+    <p>🏛️ <span itemprop="name">
+        {{ if $hasLocationTaxonomy }}
+            <a href="{{ $locationLink }}">{{ $locationName }}</a>
+        {{ else }}
+            {{ $locationName }}
+        {{ end }}
+    </span></p>
+    {{ end }}
+    
+    {{ if and $locationAddress $locationCity $locationState $locationZip }}
+    {{ $address := printf "%s, %s, %s %s" $locationAddress $locationCity $locationState $locationZip }}
+    <p>📍 <a href="https://www.google.com/maps/search/?api=1&query={{ $address | urlquery }}" target="_blank" itemprop="address">{{ $address }}</a></p>
+    {{ end }}
+</span>
+{{ with $page.Params.link }}
+<p itemprop="offers" itemscope itemtype="https://schema.org/Offer">🔗 <a href="{{ . }}" target="_blank" itemprop="url">More Info</a></p>
+{{ end }}
+{{ if $page.Params.featured_image }}
+{{ with $page.Resources.GetMatch $page.Params.featured_image }}
+<a href="{{ .RelPermalink }}" target="_blank">
+    {{ with .Resize "600x"}}
+    <img src="{{ .RelPermalink }}" alt="{{ .Title }}" itemprop="image" />
+    {{ end }}
+</a>
+{{ end }}
+{{ end }}
+
+{{ if $page.Content }}
+<div class="event-content">
+    {{ $page.Content }}
+</div>
+{{ end }}

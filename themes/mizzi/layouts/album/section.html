@@ -1,54 +1,5 @@
 {{ define "main" }}
 <div class="container page discography-single">
-    <hgroup>
-    <h1>{{ .Title }}</h1>
-    {{ with .GetTerms "artists" }}
-    <p>
-        by
-        {{ range $i, $artist := . -}}
-        {{- if $i -}}, {{ end }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        {{- end -}}
-    </p>
-    {{ end }}
-    {{ with .Params.releaseDate }}
-    <p>released on <time datetime="{{ . | dateFormat "2006-01-02" }}">{{ . | dateFormat "January 1, 2006" }}</time></p>
-    {{ end }}
-    </hgroup>
-    <ul class="links">
-        {{ range $key, $link := .Params.links }}
-        <li>
-            <a href="{{ $link }}" target="_blank">{{ partial "service-icon.html" $key }}</a>
-        </li>
-        {{ end }}
-    </ul>
-    {{ with .Resources.Get .Params.featured_image }}
-        <img src="{{ .RelPermalink }}" alt="{{ .Title }}" />
-    {{ end }}
-    {{ with .Pages }}
-    {{ with where . "Type" "track" }}
-    <h2>Tracklist</h2>
-    <ol class="tracks">
-        {{ range $key, $track := sort . "Weight" }}
-        {{ $trackNumber := printf "%02d" $track.Weight }}
-        <li value="{{ $trackNumber }}">
-            {{ with $track.Params.artists }}
-                {{ range $i, $artist := . }}
-                {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
-                {{ with $artistPage }}
-                {{ if $i }}, {{ end }}
-                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                {{ end }}
-                {{ end }}
-                -
-            {{ end }}
-            <span class="title">{{ $track.Title }}</span>
-            (<a href="{{ .RelPermalink }}">details</a>)
-            {{ partial "audio.html" . }}
-        </li>
-        {{ end }}
-    </ol>
-    {{ end }}
-    {{ end }}
-    {{ .Render "album-credits"}}
+    {{ partial "album-main-content.html" . }}
 </div>
 {{ end }}
