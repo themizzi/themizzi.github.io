@@ -40,7 +40,145 @@
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       {{ with .Site.Params.author.email }}<author>{{.}}{{ with $.Site.Params.author.name }} ({{.}}){{end}}</author>{{end}}
       <guid>{{ .Permalink }}</guid>
-      <description>{{ if eq .Section "events" }}Event: {{ .Title }}{{ if .Params.locations }} at {{ range $i, $location := .Params.locations }}{{ if $i }}, {{ end }}{{ $location | title | replaceRE "-" " " }}{{ end }}{{ end }}{{ if .Params.doors }} on {{ .Params.doors.Format "January 2, 2006" }}{{ end }}{{ else if eq .Section "discography" }}{{ if eq .Type "album" }}Album: {{ .Title }}{{ if .Params.artists }} by {{ range $i, $artist := .Params.artists }}{{ if $i }}, {{ end }}{{ $artist | title | replaceRE "-" " " }}{{ end }}{{ end }}{{ if .Params.releaseDate }} released {{ .Params.releaseDate }}{{ end }}{{ end }}{{ end }}</description>
+      <description><![CDATA[{{ if eq .Section "events" }}{{/* Event content */}}
+<h1>{{ .Title }}</h1>
+{{ with .GetTerms "artists" }}
+<p>
+    {{ range $i, $artist := . }}
+    {{ if $i }}, {{ end }}
+    {{ with $artist }}
+    <a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{ end }}
+    {{ end }}
+</p>
+{{ end }}
+
+<p>📅 <time datetime="{{ .Params.doors | dateFormat "2006-01-02T15:04:05-07:00" }}">{{ .Params.doors | dateFormat "January 2, 2006" }}, doors: {{ .Params.doors | dateFormat "3:04PM" }}</time></p>
+
+{{ $locationName := "" }}
+{{ $locationAddress := "" }}
+{{ $locationCity := "" }}
+{{ $locationState := "" }}
+{{ $locationZip := "" }}
+{{ $locationLink := "" }}
+{{ $hasLocationTaxonomy := false }}
+
+{{ with .GetTerms "locations" }}
+    {{ range . }}
+        {{ $locationName = .Title }}
+        {{ $locationAddress = .Params.address }}
+        {{ $locationCity = .Params.city }}
+        {{ $locationState = .Params.state }}
+        {{ $locationZip = .Params.zip }}
+        {{ $locationLink = .Permalink }}
+        {{ $hasLocationTaxonomy = true }}
+    {{ end }}
+{{ else }}
+    {{ with .Params.location }}
+        {{ $locationName = . }}
+    {{ end }}
+    {{ $locationAddress = .Params.address }}
+    {{ $locationCity = .Params.city }}
+    {{ $locationState = .Params.state }}
+    {{ $locationZip = .Params.zip }}
+{{ end }}
+
+{{ if $locationName }}
+<p>🏛️ 
+    {{ if $hasLocationTaxonomy }}
+        <a href="{{ $locationLink }}">{{ $locationName }}</a>
+    {{ else }}
+        {{ $locationName }}
+    {{ end }}
+</p>
+{{ end }}
+
+{{ if and $locationAddress $locationCity $locationState $locationZip }}
+{{ $address := printf "%s, %s, %s %s" $locationAddress $locationCity $locationState $locationZip }}
+<p>📍 <a href="https://www.google.com/maps/search/?api=1&query={{ $address | urlquery }}" target="_blank">{{ $address }}</a></p>
+{{ end }}
+
+{{ with .Params.link }}
+<p>🔗 <a href="{{ . }}" target="_blank">More Info</a></p>
+{{ end }}
+
+{{ if .Params.featured_image }}
+{{ with .Resources.GetMatch .Params.featured_image }}
+<a href="{{ .Permalink }}" target="_blank">
+    {{ with .Resize "600x"}}
+    <img src="{{ .Permalink }}" alt="{{ .Title }}" />
+    {{ end }}
+</a>
+{{ end }}
+{{ end }}
+
+{{ if .Content }}
+<div class="event-content">
+    {{ .Content }}
+</div>
+{{ end }}
+
+{{ else if eq .Section "discography" }}{{ if eq .Type "album" }}{{/* Album content */}}
+<h1>{{ .Title }}</h1>
+{{ with .GetTerms "artists" }}
+<p>
+    by
+    {{ range $i, $artist := . -}}
+    {{- if $i -}}, {{ end }}<a href="{{ .Permalink }}">{{ .Title }}</a>
+    {{- end -}}
+</p>
+{{ end }}
+{{ with .Params.releaseDate }}
+<p>released on <time datetime="{{ . | dateFormat "2006-01-02" }}">{{ . | dateFormat "January 1, 2006" }}</time></p>
+{{ end }}
+
+{{ if .Params.links }}
+<h3>Streaming Links</h3>
+<ul>
+    {{ range $key, $link := .Params.links }}
+    <li>
+        <a href="{{ $link }}" target="_blank">{{ $key | title }}</a>
+    </li>
+    {{ end }}
+</ul>
+{{ end }}
+
+{{ with .Resources.Get .Params.featured_image }}
+    <img src="{{ .Permalink }}" alt="{{ .Title }}" />
+{{ end }}
+
+{{ with .Pages }}
+{{ with where . "Type" "track" }}
+<h3>Tracklist</h3>
+<ol>
+    {{ range $key, $track := sort . "Weight" }}
+    {{ $trackNumber := printf "%02d" $track.Weight }}
+    <li value="{{ $trackNumber }}">
+        {{ with $track.Params.artists }}
+            {{ range $i, $artist := . }}
+            {{ $artistPage := $.Site.GetPage (printf "/artists/%s" $artist) }}
+            {{ with $artistPage }}
+            {{ if $i }}, {{ end }}
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ end }}
+            {{ end }}
+            -
+        {{ end }}
+        <span>{{ $track.Title }}</span>
+        (<a href="{{ .Permalink }}">details</a>)
+    </li>
+    {{ end }}
+</ol>
+{{ end }}
+{{ end }}
+
+{{ if .Content }}
+<div class="album-content">
+    {{ .Content }}
+</div>
+{{ end }}
+
+{{ end }}{{ end }}]]></description>
       {{ if eq .Section "events" }}
       <category>Events</category>
       {{ else if eq .Section "discography" }}
