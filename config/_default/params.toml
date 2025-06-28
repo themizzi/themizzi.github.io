@@ -1,6 +1,5 @@
 description = "Music, Software, Midwest"
-large_profile_image = "images/profile-large.png"
-small_profile_image = "images/profile-small.png"
+profile_image = "images/profile-large.png"
 
 # Author information for RSS
 [author]
