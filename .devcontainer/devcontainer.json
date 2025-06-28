@@ -53,7 +53,8 @@
 				"GitHub.copilot-chat",
 				"GitHub.vscode-pull-request-github",
 				"firefox-devtools.vscode-firefox-debug",
-				"ms-playwright.playwright"
+				"ms-playwright.playwright",
+				"GitHub.vscode-github-actions"
 			]
 		}
 	},

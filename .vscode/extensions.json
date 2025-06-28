@@ -4,6 +4,7 @@
         "github.copilot-chat",
         "github.vscode-pull-request-github",
         "firefox-devtools.vscode-firefox-debug",
-        "ms-playwright.playwright"
+        "ms-playwright.playwright",
+        "github.vscode-github-actions"
     ]
 }
