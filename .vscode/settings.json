@@ -25,6 +25,11 @@
         "editor.wordWrapColumn": 80,
         "editor.rulers": [80]
     },
+    "[prompt]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 80,
+        "editor.rulers": [80]
+    },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features",
     },
