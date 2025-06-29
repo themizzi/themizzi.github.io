@@ -84,7 +84,9 @@
 
 {{- /* Additional Meta Tags */}}
 <link rel="manifest" href="/site.webmanifest">
-<link rel="me" href="https://mastodon.social/@themizzi">
+{{- with .Site.Params.mastodon_url -}}
+<link rel="me" href="{{ . }}">
+{{- end -}}
 
 {{- /* JSON-LD Structured Data for RSS Discovery */}}
 {{- if .IsHome -}}

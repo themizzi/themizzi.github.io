@@ -130,3 +130,57 @@ test.describe('Hugo Theme Tests', () => {
     await expect(page).toHaveTitle(/Theme Test Site/);
   });
 });
+
+test.describe('Mastodon Link Configuration', () => {
+  let testSite: TestSite;
+  let serverControl: ServerControl;
+
+  test.afterEach(async () => {
+    testSite?.cleanup();
+    serverControl?.stop();
+  });
+
+  test('should include Mastodon rel=me link when mastodon_url is configured', async ({ page }) => {
+    // GIVEN a site with mastodon_url configured
+    testSite = await createTestSite();
+
+    const paramsConfig = `
+mastodon_url = "https://mastodon.social/@testuser"
+
+[author]
+  name = "Test User"
+  email = "test@example.com"
+`;
+
+    fs.writeFileSync(path.join(testSite.tmpDir, 'config', '_default', 'params.toml'), paramsConfig);
+    serverControl = await startHugoServer(testSite);
+
+    // WHEN visiting the homepage
+    await page.goto(serverControl.baseURL);
+
+    // THEN the page should include the Mastodon rel=me link
+    const mastodonLink = page.locator('link[rel="me"]');
+    await expect(mastodonLink).toHaveAttribute('href', 'https://mastodon.social/@testuser');
+  });
+
+  test('should not include Mastodon rel=me link when mastodon_url is not configured', async ({ page }) => {
+    // GIVEN a site without mastodon_url configured
+    testSite = await createTestSite();
+
+    const paramsConfig = `
+[author]
+  name = "Test User"
+  email = "test@example.com"
+`;
+
+    fs.writeFileSync(path.join(testSite.tmpDir, 'config', '_default', 'params.toml'), paramsConfig);
+    serverControl = await startHugoServer(testSite);
+
+    // WHEN visiting the homepage
+    await page.goto(serverControl.baseURL);
+
+    // THEN the page should not include any Mastodon rel=me link
+    const mastodonLink = page.locator('link[rel="me"]');
+    await expect(mastodonLink).toHaveCount(0);
+  });
+});

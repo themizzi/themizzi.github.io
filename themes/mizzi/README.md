@@ -27,6 +27,19 @@ profile_image = "images/profile.png"    # Hugo will resize this as needed (minim
 
 If this parameter is not set or the image doesn't exist, the theme will automatically use placeholder images.
 
+### Mastodon Verification
+
+The theme supports Mastodon verification via the `rel="me"` link attribute:
+
+```toml
+# config/_default/params.toml
+
+# Mastodon verification link (optional)
+mastodon_url = "https://mastodon.social/@yourusername"
+```
+
+If this parameter is not set, no Mastodon verification link will be included.
+
 ### Profile Image Setup
 
 1. Place your profile image in your site's `assets/images/` directory (minimum 400x400px recommended)

@@ -3,6 +3,9 @@ description = "Example site using the Mizzi Hugo theme - perfect for musicians a
 # Profile image (optional - will fall back to placeholder if not provided)
 # profile_image = "images/profile.png"    # Hugo will resize as needed (minimum 400x400px recommended)
 
+# Mastodon verification link (optional)
+mastodon_url = "https://mastodon.social/@Mastodon"
+
 # Optional: Custom bucket/CDN address for assets
 # bucket_address = "https://cdn.yoursite.com"
 
