@@ -1,0 +1,93 @@
+name: Configure GitHub Environments
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: 'Force update existing environments'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  configure-environments:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure Production Environment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            
+            try {
+              // Configure production environment
+              await github.rest.repos.createOrUpdateEnvironment({
+                owner,
+                repo,
+                environment_name: 'production',
+                wait_timer: 0,
+                prevent_self_review: false,
+                reviewers: null,
+                deployment_branch_policy: {
+                  protected_branches: true,
+                  custom_branch_policies: false
+                }
+              });
+              
+              console.log('✅ Production environment configured successfully');
+            } catch (error) {
+              console.log('❌ Failed to configure production environment:', error.message);
+              throw error;
+            }
+
+      - name: Configure Preview Environment Template
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { owner, repo } = context.repo;
+            
+            try {
+              // Configure preview environment (template for PR environments)
+              await github.rest.repos.createOrUpdateEnvironment({
+                owner,
+                repo,
+                environment_name: 'preview',
+                wait_timer: 0,
+                prevent_self_review: false,
+                reviewers: null,
+                deployment_branch_policy: {
+                  protected_branches: false,
+                  custom_branch_policies: false
+                }
+              });
+              
+              console.log('✅ Preview environment template configured successfully');
+            } catch (error) {
+              console.log('❌ Failed to configure preview environment:', error.message);
+              throw error;
+            }
+
+      - name: Environment Configuration Summary
+        run: |
+          echo "🎉 GitHub Environments Configuration Complete!"
+          echo ""
+          echo "📋 Configured Environments:"
+          echo "• production: Automated deployment for main branch"
+          echo "• preview: Template for PR preview deployments"
+          echo ""
+          echo "📝 Notes:"
+          echo "• Individual PR environments (pr-1, pr-2, etc.) are created automatically"
+          echo "• No manual approval required for any deployments (fully automated)"
+          echo "• Branch protection rules ensure code quality through required tests"
+          echo ""
+          echo "🔗 View environments: https://github.com/${{ github.repository }}/settings/environments"
+          echo "🚀 View deployments: https://github.com/${{ github.repository }}/deployments"

@@ -18,6 +18,7 @@ permissions:
   pages: write
   id-token: write
   packages: write
+  deployments: write
 
 jobs:
   test:
@@ -43,8 +44,23 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
+
+      - name: Create GitHub Deployment
+        id: deployment
+        uses: ./.github/actions/github-deployment
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          environment: 'production'
+          ref: ${{ github.sha }}
+          description: 'Deploy to production'
+          action: 'create'
+
       - name: Deploy to Digital Ocean
+        id: deploy
         uses: ./.github/actions/deploy-app
         with:
           token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
           app-id: ${{ env.APP_ID }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
+          environment: 'production'
