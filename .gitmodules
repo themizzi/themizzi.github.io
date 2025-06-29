@@ -1,0 +1,3 @@
+[submodule "themes/mizzi"]
+	path = themes/mizzi
+	url = git@github.com:themizzi/hugo-theme-mizzi.git
