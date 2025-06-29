@@ -180,3 +180,86 @@ mastodon_url = "https://mastodon.social/@testuser"
     await expect(mastodonLink).toHaveCount(0);
   });
 });
+
+test.describe('Home Page Content Rendering', () => {
+  let testSite: TestSite;
+  let serverControl: ServerControl;
+
+  test.afterEach(async () => {
+    testSite?.cleanup();
+    serverControl?.stop();
+  });
+
+  test('should render content from _index.md in bio section', async ({ page }) => {
+    // GIVEN a site with content in _index.md
+    testSite = await createTestSite();
+
+    // Create content directory and _index.md with sample content
+    fs.mkdirSync(path.join(testSite.tmpDir, 'content'));
+    const indexContent = `+++
+title = "Test Site"
+description = "A test site for theme testing"
++++
+
+This is the main content that should appear in the bio section.
+
+Visit my [website](https://example.com) for more info.
+`;
+
+    fs.writeFileSync(path.join(testSite.tmpDir, 'content', '_index.md'), indexContent);
+
+    serverControl = await startHugoServer(testSite);
+
+    // WHEN visiting the homepage
+    await page.goto(serverControl.baseURL);
+
+    // THEN the bio section should be present and contain the content
+    const bioSection = page.locator('.bio-section');
+    await expect(bioSection).toBeVisible();
+
+    // Check that the main content text is rendered
+    await expect(bioSection).toContainText('This is the main content that should appear in the bio section.');
+
+    // Check that the link is rendered correctly
+    const link = bioSection.locator('a[href="https://example.com"]');
+    await expect(link).toBeVisible();
+    await expect(link).toContainText('website');
+  });
+
+  test('should not render bio section when _index.md has no content', async ({ page }) => {
+    // GIVEN a site with an empty _index.md (only frontmatter)
+    testSite = await createTestSite();
+
+    fs.mkdirSync(path.join(testSite.tmpDir, 'content'));
+    const indexContent = `+++
+title = "Test Site"
+description = "A test site for theme testing"
++++
+`;
+
+    fs.writeFileSync(path.join(testSite.tmpDir, 'content', '_index.md'), indexContent);
+
+    serverControl = await startHugoServer(testSite);
+
+    // WHEN visiting the homepage
+    await page.goto(serverControl.baseURL);
+
+    // THEN the bio section should not be present
+    const bioSection = page.locator('.bio-section');
+    await expect(bioSection).toHaveCount(0);
+  });
+
+  test('should not render bio section when no _index.md exists', async ({ page }) => {
+    // GIVEN a site with no _index.md file
+    testSite = await createTestSite();
+
+    serverControl = await startHugoServer(testSite);
+
+    // WHEN visiting the homepage
+    await page.goto(serverControl.baseURL);
+
+    // THEN the bio section should not be present
+    const bioSection = page.locator('.bio-section');
+    await expect(bioSection).toHaveCount(0);
+  });
+});
