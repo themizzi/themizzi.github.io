@@ -12,7 +12,7 @@
     "lint:md": "markdownlint-cli2 'content/**/*.md'",
     "lint": "npm run lint:js && npm run lint:css && npm run lint:html && npm run lint:md",
     "prepare": "husky",
-    "postinstall": "playwright install chromium"
+    "postinstall": "if playwright --version > /dev/null 2>&1; then playwright install chromium; fi"
   },
   "devDependencies": {
     "@davidsneighbour/markdownlint-config": "^2025.0.1",

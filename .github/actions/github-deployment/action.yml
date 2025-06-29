@@ -1,0 +1,125 @@
+name: 'GitHub Deployment Management'
+description: 'Create and manage GitHub deployments with status updates'
+
+inputs:
+  github-token:
+    description: 'GitHub token with deployments scope'
+    required: true
+  environment:
+    description: 'Deployment environment name (production, pr-{number})'
+    required: true
+  ref:
+    description: 'Git reference being deployed'
+    required: true
+    default: ${{ github.sha }}
+  deployment-url:
+    description: 'Final deployment URL (set after successful deployment)'
+    required: false
+  description:
+    description: 'Deployment description'
+    required: false
+    default: 'Automated deployment'
+  action:
+    description: 'Action to perform: create, update-status, or mark-inactive'
+    required: true
+    default: 'create'
+  deployment-id:
+    description: 'Deployment ID (required for update-status and mark-inactive actions)'
+    required: false
+  status:
+    description: 'Deployment status (pending, in_progress, success, failure, error)'
+    required: false
+    default: 'pending'
+  log-url:
+    description: 'URL to deployment logs'
+    required: false
+
+outputs:
+  deployment-id:
+    description: 'ID of the created or updated deployment'
+    value: ${{ steps.create-deployment.outputs.deployment-id || inputs.deployment-id }}
+  deployment-url:
+    description: 'URL of the deployment environment'
+    value: ${{ inputs.deployment-url }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Create GitHub Deployment
+      id: create-deployment
+      if: inputs.action == 'create'
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          const { data: deployment } = await github.rest.repos.createDeployment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: '${{ inputs.ref }}',
+            environment: '${{ inputs.environment }}',
+            description: '${{ inputs.description }}',
+            auto_merge: false,
+            required_contexts: [],
+            transient_environment: ${{ inputs.environment != 'production' }}
+          });
+          
+          console.log(`Created deployment ${deployment.id} for environment ${deployment.environment}`);
+          core.setOutput('deployment-id', deployment.id);
+          
+          // Set initial status to pending
+          await github.rest.repos.createDeploymentStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            deployment_id: deployment.id,
+            state: 'pending',
+            description: 'Deployment starting...',
+            log_url: '${{ inputs.log-url || github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+          });
+
+    - name: Update Deployment Status
+      if: inputs.action == 'update-status' && inputs.deployment-id
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          const statusDescriptions = {
+            pending: 'Deployment queued',
+            in_progress: 'Deployment in progress...',
+            success: 'Deployment completed successfully',
+            failure: 'Deployment failed',
+            error: 'Deployment error occurred'
+          };
+          
+          const statusPayload = {
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            deployment_id: '${{ inputs.deployment-id }}',
+            state: '${{ inputs.status }}',
+            description: statusDescriptions['${{ inputs.status }}'] || '${{ inputs.description }}',
+            log_url: '${{ inputs.log-url || github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
+          };
+          
+          // Add environment URL for successful deployments
+          if ('${{ inputs.status }}' === 'success' && '${{ inputs.deployment-url }}') {
+            statusPayload.environment_url = '${{ inputs.deployment-url }}';
+          }
+          
+          const { data: status } = await github.rest.repos.createDeploymentStatus(statusPayload);
+          
+          console.log(`Updated deployment ${{ inputs.deployment-id }} status to ${{ inputs.status }}`);
+
+    - name: Mark Deployment Inactive
+      if: inputs.action == 'mark-inactive' && inputs.deployment-id
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ inputs.github-token }}
+        script: |
+          await github.rest.repos.createDeploymentStatus({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            deployment_id: '${{ inputs.deployment-id }}',
+            state: 'inactive',
+            description: 'Deployment is no longer active'
+          });
+          
+          console.log(`Marked deployment ${{ inputs.deployment-id }} as inactive`);
