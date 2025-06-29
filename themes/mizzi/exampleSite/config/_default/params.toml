@@ -1,6 +1,7 @@
 description = "Example site using the Mizzi Hugo theme - perfect for musicians and technologists"
-large_profile_image = "images/profile-large.png"
-small_profile_image = "images/profile-small.png"
+
+# Profile image (optional - will fall back to placeholder if not provided)
+# profile_image = "images/profile.png"    # Hugo will resize as needed (minimum 400x400px recommended)
 
 # Optional: Custom bucket/CDN address for assets
 # bucket_address = "https://cdn.yoursite.com"

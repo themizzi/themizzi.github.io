@@ -3,9 +3,10 @@
   <section class="profile-section">
     <div class="profile-pic">
       {{ $sourceImage := "" }}
-      {{ $altText := "Profile Picture" }}
-      {{ if and .Site.Params.profile_image (resources.Get .Site.Params.profile_image) }}
+      {{ $altText := "" }}
+      {{ if .Site.Params.profile_image }}
         {{ $sourceImage = resources.Get .Site.Params.profile_image }}
+        {{ $altText = "Profile Picture" }}
       {{ else }}
         {{ $sourceImage = resources.Get "images/profile-large-placeholder.svg" }}
         {{ $altText = "Profile Picture Placeholder" }}
