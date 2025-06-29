@@ -12,7 +12,7 @@ title = 'About'
 
 # About
 
-👋 Hi, I’m Mizzi!
+👋 Hi, I'm Mizzi!
 
 💾 Senior Engineering Manager @ PayPal  
 🎸 Bands: The Mizzerables, The Bollweevils, The Iron Spiders  
@@ -21,6 +21,6 @@ title = 'About'
 🏙️ [#Detroit](/tags/detroit) born, [#Chicago](/tags/chicago) since 2006  
 👶 [#Dad](/tags/dad)
 
-Riffs, regex, or raising kids—I’m game!
+Riffs, regex, or raising kids—I'm game!
 
-![Selfie of Joe Joe Mizzi. Long haired man in ray ban sunglasses on a street in Chicago.](/images/profile-large.png)
+{{< img src="images/profile-large.png" alt="Selfie of Joe Joe Mizzi. Long haired man in ray ban sunglasses on a street in Chicago." >}}
