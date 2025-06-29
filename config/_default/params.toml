@@ -1,5 +1,6 @@
 description = "Music, Software, Midwest"
 profile_image = "images/profile-large.png"
+mastodon_url = "https://mastodon.social/@themizzi"
 
 # Author information for RSS
 [author]
