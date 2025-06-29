@@ -2,7 +2,11 @@
 title: "Welcome to the Mizzi Theme"
 ---
 
-This is an example site using the Mizzi Hugo theme. The theme is designed for musicians and technologists who want a clean, modern website.
+Musician and technologist based in Your City.
+
+Member of [Your Band](https://example.com/band1), [Another Project](https://example.com/band2), and [Solo Work](https://example.com/solo).
+
+Software engineer at Your Company, previously at Other Company.
 
 ## Features
 

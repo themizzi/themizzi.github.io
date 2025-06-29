@@ -2,9 +2,21 @@
 <div class="home-container">
   <section class="profile-section">
     <div class="profile-pic">
-      {{ $profile_image := resources.Get .Site.Params.small_profile_image }}
-      {{ with $profile_image}}
-      <img src="{{ .RelPermalink }}" alt="Profile Picture">
+      {{ $sourceImage := "" }}
+      {{ $altText := "Profile Picture" }}
+      {{ if and .Site.Params.profile_image (resources.Get .Site.Params.profile_image) }}
+        {{ $sourceImage = resources.Get .Site.Params.profile_image }}
+      {{ else }}
+        {{ $sourceImage = resources.Get "images/profile-large-placeholder.svg" }}
+        {{ $altText = "Profile Picture Placeholder" }}
+      {{ end }}
+      {{ with $sourceImage }}
+        {{ if eq .MediaType.SubType "svg" }}
+          <img src="{{ .RelPermalink }}" alt="{{ $altText }}">
+        {{ else }}
+          {{ $resizedImage := .Fill "120x120" }}
+          <img src="{{ $resizedImage.RelPermalink }}" alt="{{ $altText }}">
+        {{ end }}
       {{ end }}
     </div>
     <h1>{{ .Site.Title }}</h1>
@@ -14,20 +26,11 @@
     {{ partial "socials.html" . }}
   </section>
   
+  {{ if .Content }}
   <section class="bio-section">
-    <p>
-      Member of <a href="https://linktr.ee/thebollweevils" target="_blank">The Bollweevils</a>,
-      <a href="https://linktr.ee/theironspiders" target="_blank">The Iron Spiders</a>,
-      <a href="https://linktr.ee/themizzerables" target="_blank">The Mizzerables</a>,
-      <a href="https://open.spotify.com/artist/24P9iBBAQjmoZxPIV6h43Y?si=_cCOj1I5SRK_IyoSbjVFBA" target="_blank">Ten
-        Ninety</a>,
-      <a href="https://open.spotify.com/album/7HGboM9ezeYIcQrrerNXeY?si=D1ktkWATSHitmChVQX_JuA" target="_blank">ex-Common
-        Rider</a>
-    </p>
-    <p>
-      Leader @ PayPal, ex-Upstart, ex-Casechek
-    </p>
+    {{ .Content }}
   </section>
+  {{ end }}
   
   {{ $events := ((where .Site.RegularPages "Section" "events").ByParam "doors") }}
   {{ with where $events "Params.doors" "ge" now }}
