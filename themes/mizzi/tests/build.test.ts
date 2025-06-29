@@ -11,6 +11,10 @@ const __dirname = path.dirname(__filename);
 const THEME_SOURCE_DIR = path.join(__dirname, '..', '..');
 const DEBUG_MODE = process.env.DEBUG_TESTS === 'true';
 
+// Global test site and server control
+let testSite: TestSite;
+let serverControl: ServerControl;
+
 interface TestSite {
   tmpDir: string;
   port: number;
@@ -108,20 +112,18 @@ async function startHugoServer(testSite: TestSite): Promise<ServerControl> {
   });
 }
 
+// Global setup and teardown for all tests
+test.beforeEach(async () => {
+  testSite = await createTestSite();
+  serverControl = await startHugoServer(testSite);
+});
+
+test.afterEach(async () => {
+  testSite?.cleanup();
+  serverControl?.stop();
+});
+
 test.describe('Hugo Theme Tests', () => {
-  let testSite: TestSite;
-  let serverControl: ServerControl;
-
-  test.beforeEach(async () => {
-    testSite = await createTestSite();
-    serverControl = await startHugoServer(testSite);
-  });
-
-  test.afterEach(async () => {
-    testSite.cleanup();
-    serverControl.stop();
-  });
-
   test('should serve the theme homepage correctly', async ({ page }) => {
     // WHEN
     await page.goto(serverControl.baseURL);
@@ -132,18 +134,8 @@ test.describe('Hugo Theme Tests', () => {
 });
 
 test.describe('Mastodon Link Configuration', () => {
-  let testSite: TestSite;
-  let serverControl: ServerControl;
-
-  test.afterEach(async () => {
-    testSite?.cleanup();
-    serverControl?.stop();
-  });
-
   test('should include Mastodon rel=me link when mastodon_url is configured', async ({ page }) => {
     // GIVEN a site with mastodon_url configured
-    testSite = await createTestSite();
-
     const paramsConfig = `
 mastodon_url = "https://mastodon.social/@testuser"
 
@@ -153,6 +145,9 @@ mastodon_url = "https://mastodon.social/@testuser"
 `;
 
     fs.writeFileSync(path.join(testSite.tmpDir, 'config', '_default', 'params.toml'), paramsConfig);
+
+    // Restart the server to pick up config changes
+    serverControl.stop();
     serverControl = await startHugoServer(testSite);
 
     // WHEN visiting the homepage
@@ -165,8 +160,6 @@ mastodon_url = "https://mastodon.social/@testuser"
 
   test('should not include Mastodon rel=me link when mastodon_url is not configured', async ({ page }) => {
     // GIVEN a site without mastodon_url configured
-    testSite = await createTestSite();
-
     const paramsConfig = `
 [author]
   name = "Test User"
@@ -174,6 +167,9 @@ mastodon_url = "https://mastodon.social/@testuser"
 `;
 
     fs.writeFileSync(path.join(testSite.tmpDir, 'config', '_default', 'params.toml'), paramsConfig);
+
+    // Restart the server to pick up config changes
+    serverControl.stop();
     serverControl = await startHugoServer(testSite);
 
     // WHEN visiting the homepage
