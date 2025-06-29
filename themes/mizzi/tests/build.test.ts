@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
@@ -11,9 +11,20 @@ const __dirname = path.dirname(__filename);
 const THEME_SOURCE_DIR = path.join(__dirname, '..', '..');
 const DEBUG_MODE = process.env.DEBUG_TESTS === 'true';
 
-// Global test site and server control
-let testSite: TestSite;
-let serverControl: ServerControl;
+// Server fixture interface
+interface ServerFixture {
+  start: (config?: TestSiteConfig) => Promise<{ baseURL: string }>;
+}
+
+// Test fixtures
+interface TestFixtures {
+  server: ServerFixture;
+}
+
+interface TestSiteConfig {
+  params?: string;
+  indexContent?: string;
+}
 
 interface TestSite {
   tmpDir: string;
@@ -27,7 +38,7 @@ interface ServerControl {
   stop: () => void;
 }
 
-async function createTestSite(): Promise<TestSite> {
+async function createTestSite(config: TestSiteConfig = {}): Promise<TestSite> {
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hugo-theme-test-'));
 
   fs.mkdirSync(path.join(tmpDir, 'config'));
@@ -45,6 +56,17 @@ async function createTestSite(): Promise<TestSite> {
     .join('\n');
 
   fs.writeFileSync(path.join(tmpDir, 'config', '_default', 'hugo.toml'), hugoConfig);
+
+  // Write params.toml if provided
+  if (config.params) {
+    fs.writeFileSync(path.join(tmpDir, 'config', '_default', 'params.toml'), config.params);
+  }
+
+  // Create content directory and files if provided
+  if (config.indexContent) {
+    fs.mkdirSync(path.join(tmpDir, 'content'));
+    fs.writeFileSync(path.join(tmpDir, 'content', '_index.md'), config.indexContent);
+  }
 
   return {
     tmpDir,
@@ -112,29 +134,63 @@ async function startHugoServer(testSite: TestSite): Promise<ServerControl> {
   });
 }
 
-// Global setup and teardown for all tests
-test.beforeEach(async () => {
-  testSite = await createTestSite();
-  serverControl = await startHugoServer(testSite);
+// Global cleanup tracking
+const activeServers: ServerControl[] = [];
+const activeTestSites: TestSite[] = [];
+
+// Extended test with server fixture
+const test = base.extend<TestFixtures>({
+  // eslint-disable-next-line no-empty-pattern
+  server: async ({ }, use) => {
+    const serverFixture: ServerFixture = {
+      start: async (config: TestSiteConfig = {}) => {
+        const testSite = await createTestSite(config);
+        const serverControl = await startHugoServer(testSite);
+
+        // Track for cleanup
+        activeTestSites.push(testSite);
+        activeServers.push(serverControl);
+
+        return { baseURL: serverControl.baseURL };
+      },
+    };
+
+    await use(serverFixture);
+  },
 });
 
+// Global cleanup
 test.afterEach(async () => {
-  testSite?.cleanup();
-  serverControl?.stop();
+  // Stop all servers
+  for (const server of activeServers) {
+    server.stop();
+  }
+
+  // Cleanup all test sites
+  for (const site of activeTestSites) {
+    site.cleanup();
+  }
+
+  // Clear tracking arrays
+  activeServers.length = 0;
+  activeTestSites.length = 0;
 });
 
 test.describe('Hugo Theme Tests', () => {
-  test('should serve the theme homepage correctly', async ({ page }) => {
-    // WHEN
-    await page.goto(serverControl.baseURL);
+  test('should serve the theme homepage correctly', async ({ page, server }) => {
+    // GIVEN a basic Hugo site
+    const { baseURL } = await server.start();
 
-    // THEN
+    // WHEN visiting the homepage
+    await page.goto(baseURL);
+
+    // THEN it should have the correct title
     await expect(page).toHaveTitle(/Theme Test Site/);
   });
 });
 
 test.describe('Mastodon Link Configuration', () => {
-  test('should include Mastodon rel=me link when mastodon_url is configured', async ({ page }) => {
+  test('should include Mastodon rel=me link when configured', async ({ page, server }) => {
     // GIVEN a site with mastodon_url configured
     const paramsConfig = `
 mastodon_url = "https://mastodon.social/@testuser"
@@ -143,37 +199,27 @@ mastodon_url = "https://mastodon.social/@testuser"
   name = "Test User"
   email = "test@example.com"
 `;
-
-    fs.writeFileSync(path.join(testSite.tmpDir, 'config', '_default', 'params.toml'), paramsConfig);
-
-    // Restart the server to pick up config changes
-    serverControl.stop();
-    serverControl = await startHugoServer(testSite);
+    const { baseURL } = await server.start({ params: paramsConfig });
 
     // WHEN visiting the homepage
-    await page.goto(serverControl.baseURL);
+    await page.goto(baseURL);
 
     // THEN the page should include the Mastodon rel=me link
     const mastodonLink = page.locator('link[rel="me"]');
     await expect(mastodonLink).toHaveAttribute('href', 'https://mastodon.social/@testuser');
   });
 
-  test('should not include Mastodon rel=me link when mastodon_url is not configured', async ({ page }) => {
+  test('should not include Mastodon rel=me link when not configured', async ({ page, server }) => {
     // GIVEN a site without mastodon_url configured
     const paramsConfig = `
 [author]
   name = "Test User"
   email = "test@example.com"
 `;
-
-    fs.writeFileSync(path.join(testSite.tmpDir, 'config', '_default', 'params.toml'), paramsConfig);
-
-    // Restart the server to pick up config changes
-    serverControl.stop();
-    serverControl = await startHugoServer(testSite);
+    const { baseURL } = await server.start({ params: paramsConfig });
 
     // WHEN visiting the homepage
-    await page.goto(serverControl.baseURL);
+    await page.goto(baseURL);
 
     // THEN the page should not include any Mastodon rel=me link
     const mastodonLink = page.locator('link[rel="me"]');
@@ -182,20 +228,8 @@ mastodon_url = "https://mastodon.social/@testuser"
 });
 
 test.describe('Home Page Content Rendering', () => {
-  let testSite: TestSite;
-  let serverControl: ServerControl;
-
-  test.afterEach(async () => {
-    testSite?.cleanup();
-    serverControl?.stop();
-  });
-
-  test('should render content from _index.md in bio section', async ({ page }) => {
+  test('should render content from _index.md in bio section', async ({ page, server }) => {
     // GIVEN a site with content in _index.md
-    testSite = await createTestSite();
-
-    // Create content directory and _index.md with sample content
-    fs.mkdirSync(path.join(testSite.tmpDir, 'content'));
     const indexContent = `+++
 title = "Test Site"
 description = "A test site for theme testing"
@@ -205,13 +239,10 @@ This is the main content that should appear in the bio section.
 
 Visit my [website](https://example.com) for more info.
 `;
-
-    fs.writeFileSync(path.join(testSite.tmpDir, 'content', '_index.md'), indexContent);
-
-    serverControl = await startHugoServer(testSite);
+    const { baseURL } = await server.start({ indexContent });
 
     // WHEN visiting the homepage
-    await page.goto(serverControl.baseURL);
+    await page.goto(baseURL);
 
     // THEN the bio section should be present and contain the content
     const bioSection = page.locator('.bio-section');
@@ -226,37 +257,29 @@ Visit my [website](https://example.com) for more info.
     await expect(link).toContainText('website');
   });
 
-  test('should not render bio section when _index.md has no content', async ({ page }) => {
+  test('should not render bio section when _index.md has no content', async ({ page, server }) => {
     // GIVEN a site with an empty _index.md (only frontmatter)
-    testSite = await createTestSite();
-
-    fs.mkdirSync(path.join(testSite.tmpDir, 'content'));
     const indexContent = `+++
 title = "Test Site"
 description = "A test site for theme testing"
 +++
 `;
-
-    fs.writeFileSync(path.join(testSite.tmpDir, 'content', '_index.md'), indexContent);
-
-    serverControl = await startHugoServer(testSite);
+    const { baseURL } = await server.start({ indexContent });
 
     // WHEN visiting the homepage
-    await page.goto(serverControl.baseURL);
+    await page.goto(baseURL);
 
     // THEN the bio section should not be present
     const bioSection = page.locator('.bio-section');
     await expect(bioSection).toHaveCount(0);
   });
 
-  test('should not render bio section when no _index.md exists', async ({ page }) => {
+  test('should not render bio section when no _index.md exists', async ({ page, server }) => {
     // GIVEN a site with no _index.md file
-    testSite = await createTestSite();
-
-    serverControl = await startHugoServer(testSite);
+    const { baseURL } = await server.start({});
 
     // WHEN visiting the homepage
-    await page.goto(serverControl.baseURL);
+    await page.goto(baseURL);
 
     // THEN the bio section should not be present
     const bioSection = page.locator('.bio-section');
