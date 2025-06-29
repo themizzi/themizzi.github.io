@@ -10,6 +10,7 @@ permissions:
   contents: read
   pull-requests: write
   packages: write
+  deployments: write
 
 jobs:
   test:
@@ -30,12 +31,26 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: test
+    outputs:
+      deployment-id: ${{ steps.deployment.outputs.deployment-id }}
+      deployment-url: ${{ steps.deploy.outputs.deployment-url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
+
+      - name: Create GitHub Deployment
+        id: deployment
+        uses: ./.github/actions/github-deployment
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          environment: 'pr-${{ github.event.pull_request.number }}'
+          ref: ${{ github.event.pull_request.head.sha }}
+          description: 'Deploy PR #${{ github.event.pull_request.number }}'
+          action: 'create'
+
       - name: Deploy to Digital Ocean
         id: deploy
         uses: ./.github/actions/deploy-app
@@ -43,22 +58,6 @@ jobs:
           token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
           app-id: ${{ env.APP_ID }}
           deploy-pr-preview: 'true'
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `🚀🚀🚀 The app was successfully deployed at ${{ fromJson(steps.deploy.outputs.app).live_url }}. [1]`
-            })
-      - uses: actions/github-script@v7
-        if: failure()
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `The app failed to be deployed. Logs can be found [here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).`
-            }) 
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
+          environment: 'pr-${{ github.event.pull_request.number }}' 
