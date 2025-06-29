@@ -2,9 +2,22 @@
 <div class="home-container">
   <section class="profile-section">
     <div class="profile-pic">
-      {{ $profile_image := resources.Get .Site.Params.small_profile_image }}
-      {{ with $profile_image}}
-      <img src="{{ .RelPermalink }}" alt="Profile Picture">
+      {{ $sourceImage := "" }}
+      {{ $altText := "" }}
+      {{ if .Site.Params.profile_image }}
+        {{ $sourceImage = resources.Get .Site.Params.profile_image }}
+        {{ $altText = "Profile Picture" }}
+      {{ else }}
+        {{ $sourceImage = resources.Get "images/profile-large-placeholder.svg" }}
+        {{ $altText = "Profile Picture Placeholder" }}
+      {{ end }}
+      {{ with $sourceImage }}
+        {{ if eq .MediaType.SubType "svg" }}
+          <img src="{{ .RelPermalink }}" alt="{{ $altText }}">
+        {{ else }}
+          {{ $resizedImage := .Fill "120x120" }}
+          <img src="{{ $resizedImage.RelPermalink }}" alt="{{ $altText }}">
+        {{ end }}
       {{ end }}
     </div>
     <h1>{{ .Site.Title }}</h1>
