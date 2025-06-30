@@ -4,6 +4,13 @@ on:
 # Run on all closed PRs
   pull_request:
     types: [ closed ]
+  # Temporary: Allow manual testing
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'PR number to test cleanup for'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -28,7 +35,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const prNumber = context.payload.pull_request.number;
+            const prNumber = context.payload.pull_request?.number || context.payload.inputs?.pr_number;
             const environment = `pr-${prNumber}`;
             
             // Get all deployments for this repository
@@ -54,5 +61,28 @@ jobs:
                 console.log(`Marked deployment ${deployment.id} as inactive`);
               } catch (error) {
                 console.log(`Failed to mark deployment ${deployment.id} as inactive: ${error.message}`);
+              }
+            }
+
+      - name: Delete GitHub environment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = context.payload.pull_request?.number || context.payload.inputs?.pr_number;
+            const environment = `pr-${prNumber}`;
+            
+            try {
+              await github.rest.repos.deleteAnEnvironment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                environment_name: environment
+              });
+              console.log(`Successfully deleted environment: ${environment}`);
+            } catch (error) {
+              if (error.status === 404) {
+                console.log(`Environment ${environment} not found - may have already been deleted`);
+              } else {
+                console.log(`Failed to delete environment ${environment}: ${error.message}`);
               }
             }
