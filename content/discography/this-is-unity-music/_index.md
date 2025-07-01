@@ -1,6 +1,6 @@
 +++
 artists = ['common-rider']
-date = '2025-06-30T00:00:00-05:00'
+date = 2025-06-30T00:00:00-05:00
 description = '12 track album by Common Rider released September 3rd, 2002'
 featured_image = 'this-is-unity-music.jpg'
 releaseDate = '2002-09-03'
