@@ -6,6 +6,7 @@ featured_image = 'this-is-unity-music.jpg'
 releaseDate = '2002-09-03'
 title = 'This Is Unity Music'
 type = 'album'
+draft = false
 
 [links]
   discogs = 'https://www.discogs.com/master/148802-Common-Rider-This-Is-Unity-Music'
