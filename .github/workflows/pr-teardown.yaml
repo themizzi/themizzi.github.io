@@ -4,13 +4,13 @@ on:
 # Run on all closed PRs
   pull_request:
     types: [ closed ]
-  # Temporary: Allow manual testing
+  # Allow manual triggering with PR number
   workflow_dispatch:
     inputs:
       pr_number:
-        description: 'PR number to test cleanup for'
+        description: 'PR number to clean up'
         required: true
-        type: string
+        type: number
 
 permissions:
   contents: read
@@ -23,7 +23,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Delete Digital Ocean preview app
+      - name: Delete Digital Ocean preview app (from PR)
+        if: github.event_name == 'pull_request'
         uses: digitalocean/app_action/delete@v2
         with:
           from_pr_preview: true
@@ -35,7 +36,13 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            // Get PR number from either pull_request event or manual input
             const prNumber = context.payload.pull_request?.number || context.payload.inputs?.pr_number;
+            
+            if (!prNumber) {
+              throw new Error('Could not determine PR number from context');
+            }
+            
             const environment = `pr-${prNumber}`;
             
             // Get all deployments for this repository
