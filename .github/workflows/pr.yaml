@@ -46,7 +46,7 @@ jobs:
         uses: ./.github/actions/github-deployment
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          environment: 'pr-${{ github.event.pull_request.number }}'
+          environment: 'production'
           ref: ${{ github.event.pull_request.head.sha }}
           description: 'Deploy PR #${{ github.event.pull_request.number }}'
           action: 'create'
@@ -60,5 +60,5 @@ jobs:
           deploy-pr-preview: 'true'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deployment-id: ${{ steps.deployment.outputs.deployment-id }}
-          environment: 'pr-${{ github.event.pull_request.number }}'
+          environment: 'production'
           image-tag: 'pr-${{ github.event.pull_request.number }}'
