@@ -20,6 +20,10 @@ inputs:
   environment:
     description: 'Deployment environment name'
     required: false
+  image-tag:
+    description: 'Docker image tag to use for deployment'
+    required: false
+    default: 'latest'
 
 runs:
   using: 'composite'
@@ -36,6 +40,8 @@ runs:
     - name: Deploy the app
       id: deploy
       uses: digitalocean/app_action/deploy@v2
+      env:
+        IMAGE_TAG: ${{ inputs.image-tag }}
       with:
         token: ${{ inputs.token }}
         project_id: ${{ inputs.app-id }}

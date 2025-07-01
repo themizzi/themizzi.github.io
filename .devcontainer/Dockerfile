@@ -50,10 +50,3 @@ VOLUME [ "/home/node/.zsh" ]
 EXPOSE 1313
 
 USER node
-
-FROM dev AS build
-
-COPY --chown=node:node ./ /workspace
-WORKDIR /workspace
-
-RUN make build

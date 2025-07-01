@@ -6,8 +6,12 @@ static_sites:
     deploy_on_push: true
   name: site
   source_dir: /
-  dockerfile_path: /.devcontainer/Dockerfile
+  dockerfile_path: ./Dockerfile
   output_dir: /workspace/public
+  envs:
+  - key: IMAGE_TAG
+    value: ${IMAGE_TAG}
+    scope: BUILD_TIME
 domains:
 - domain: joemizzi.com
   type: PRIMARY

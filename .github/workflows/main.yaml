@@ -60,7 +60,7 @@ jobs:
         uses: ./.github/actions/deploy-app
         with:
           token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
-          app-id: ${{ vars.APP_ID }}
+          app-id: ${{ env.APP_ID }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deployment-id: ${{ steps.deployment.outputs.deployment-id }}
           environment: 'production'
