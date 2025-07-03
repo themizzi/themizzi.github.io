@@ -1,5 +1,5 @@
 +++
-title = "Mastered By"
+title = "Mastered"
 weight = 10
 +++
 

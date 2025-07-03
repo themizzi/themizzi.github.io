@@ -1,0 +1,7 @@
++++
+date = '2025-07-03T00:00:00-05:00'
+inlineTitle = 'Strings Arrangement'
+title = 'Strings Arranged'
++++
+
+Credit for arranging string parts in musical compositions.
