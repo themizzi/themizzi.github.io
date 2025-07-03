@@ -1,6 +1,6 @@
 +++
 artists = ['heads-will-roll']
-date = '2025-07-03T00:00:00-05:00'
+date = '2025-07-02T00:00:00-05:00'
 description = '11 track album by Heads Will Roll released September 21st, 2004'
 featured_image = 'extrapolate-the-meaning.jpg'
 releaseDate = '2004-09-21'
@@ -14,3 +14,4 @@ type = 'album'
   bandcamp = 'https://headswillrolldetroit.bandcamp.com/album/extrapolate-the-meaning'
   youtube = 'https://music.youtube.com/playlist?list=PLEq19ItaOW0VPkPSaSwI6c6R-2IdkAfMy'
 +++
+ 

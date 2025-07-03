@@ -1,6 +1,6 @@
 +++
 artists = ['jon-drew']
-date = '2025-07-03T00:00:00-05:00'
+date = '2025-07-02T00:00:00-05:00'
 locations = ['signal-to-noise-studios']
 roles = ['recorded', 'mixed', 'producer', 'mastered', 'tambourine']
 title = 'Jon Drew'
