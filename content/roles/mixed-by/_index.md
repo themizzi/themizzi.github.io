@@ -1,5 +1,5 @@
 +++
-title = "Mixed By"
+title = "Mixed"
 weight = 9
 +++
 
