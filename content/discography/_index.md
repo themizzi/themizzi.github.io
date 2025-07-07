@@ -1,4 +1,5 @@
 +++
+artists = ['joe-mizzi']
 summary = "Mizzi's Discography"
 title = 'Discography'
 
