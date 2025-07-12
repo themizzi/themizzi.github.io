@@ -1,5 +1,7 @@
 +++
 title = 'Events'
+paginateCount = 10
+maxPaginationPages = 5
 
 [menus]
   [menus.main]
