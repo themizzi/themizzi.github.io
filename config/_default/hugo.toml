@@ -2,3 +2,6 @@ baseURL = "https://joemizzi.com/"
 languageCode = "en-us"
 title = "Mizzi"
 theme = "mizzi"
+
+[outputs]
+  home = ["HTML", "RSS", "SearchIndex"]
