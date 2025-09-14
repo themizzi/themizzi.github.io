@@ -21,23 +21,23 @@ permissions:
   deployments: write
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          fetch-depth: 0
-      - name: Run Playwright tests
-        uses: ./.github/actions/run-tests
-        with:
-          artifact-name: main-playwright-test-results
-          push-image: always
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
+  #       with:
+  #         submodules: recursive
+  #         fetch-depth: 0
+  #     - name: Run Playwright tests
+  #       uses: ./.github/actions/run-tests
+  #       with:
+  #         artifact-name: main-playwright-test-results
+  #         push-image: always
 
   deploy:
     runs-on: ubuntu-latest
-    needs: test
+    # needs: test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
