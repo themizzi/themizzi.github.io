@@ -25,7 +25,7 @@ Sources:
 * Wikipedia — “This Is Unity Music” (release date, personnel, producers, style)
 * Discogs — Master release page (label, formats, 2025 reissue details)
 
-## My involvement
+## My Involvement
 
 I was invited to the sessions to sing backing vocals through my friend [Kevin Sierzega](/artists/kevin-sierzega/), who was singing for Teen Idols at the time. Phil from Teen Idols (see [Phillip Hill](/artists/phillip-hill/)) was also working on the record. Kevin asked if I wanted to come in and add some backing vocals — easy yes.
 
