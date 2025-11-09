@@ -8,15 +8,19 @@
 ## ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝╚═╝
 
 # Variables
-HUGO = hugo
-SYNC_TARGET = r2:mizzi
-FORCE_DOWNLOAD = false
-HTTP_SERVER = npx http-server
-ENVIRONMENT = development
-RCLONE_CONFIG = ./rclone.conf
+HUGO ?= hugo
+WRANGLER ?= npx wrangler
+SYNC_TARGET ?= r2:mizzi
+FORCE_DOWNLOAD ?= false
+HTTP_SERVER ?= npx http-server
+ENVIRONMENT ?= development
+RCLONE_CONFIG ?= ./rclone.conf
+CLOUDFLARE_PROJECT ?= joemizzi
+CLOUDFLARE_BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)
+COMMIT_HASH ?= $(if $(GITHUB_SHA),$(GITHUB_SHA),$(shell git rev-parse HEAD))
 
 # Targets
-.PHONY: all clean download-assets upload-assets pre-build build serve serve-dev help
+.PHONY: all clean download-assets upload-assets pre-build build serve serve-dev deploy deploy-preview help
 all: build ## Build the project.
 
 build: pre-build ## Build the project.
@@ -38,6 +42,12 @@ node_modules: package-lock.json # Install node modules.
 	@touch node_modules
 
 pre-build: node_modules ## Pre-build tasks.
+
+deploy: build
+	$(WRANGLER) pages deploy public \
+		--project-name $(CLOUDFLARE_PROJECT) \
+		--branch $(CLOUDFLARE_BRANCH) \
+		--commit-hash $(COMMIT_HASH) \
 
 serve: pre-build download-assets ## Serve the project.
 	$(HUGO) --environment $(ENVIRONMENT) serve

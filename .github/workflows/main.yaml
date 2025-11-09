@@ -20,6 +20,9 @@ permissions:
   packages: write
   deployments: write
 
+env:
+  CLOUDFLARE_PROJECT: 'joemizzi'
+
 jobs:
   # test:
   #   runs-on: ubuntu-latest
@@ -35,8 +38,11 @@ jobs:
   #         artifact-name: main-playwright-test-results
   #         push-image: always
 
-  deploy:
+  deploy-production:
+    if: github.event_name != 'pull_request' && (github.event_name != 'push' || github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_BRANCH_NAME: ${{ github.ref_name }}
     # needs: test
     steps:
       - name: Checkout repository
@@ -54,6 +60,76 @@ jobs:
           ref: ${{ github.sha }}
           description: 'Deploy to production'
           action: 'create'
+
+      - name: Create GitHub Deployment (Cloudflare)
+        id: cloudflare-deployment
+        uses: ./.github/actions/github-deployment
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          environment: 'cloudflare-production'
+          ref: ${{ github.sha }}
+          description: 'Deploy to Cloudflare Pages'
+          action: 'create'
+
+      - name: Start Cloudflare deployment
+        if: steps.cloudflare-deployment.outputs.deployment-id != ''
+        uses: ./.github/actions/github-deployment
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deployment-id: ${{ steps.cloudflare-deployment.outputs.deployment-id }}
+          action: 'update-status'
+          status: 'in_progress'
+
+      - name: Build site & deploy to Cloudflare Pages (devcontainer)
+        id: cloudflare-pages
+        uses: devcontainers/ci@v0.3
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          imageName: ghcr.io/${{ github.repository }}/devcontainer
+          imageTag: latest
+          cacheFrom: ghcr.io/${{ github.repository }}/devcontainer
+          push: always
+          runCmd: |
+            CLOUDFLARE_BRANCH='${{ github.ref_name }}' make deploy
+
+      - name: Determine Cloudflare deployment URL
+        id: cloudflare-url
+        if: steps.cloudflare-pages.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch="${{ env.CLOUDFLARE_BRANCH_NAME }}"
+          project="${{ env.CLOUDFLARE_PROJECT }}"
+          sanitized=$(echo "$branch" | tr '[:upper:]' '[:lower:]')
+          sanitized=$(echo "$sanitized" | sed 's/[^a-z0-9-]/-/g')
+          sanitized=$(echo "$sanitized" | sed 's/-\{2,\}/-/g')
+          sanitized=$(echo "$sanitized" | sed 's/^-//' | sed 's/-$//')
+          if [ -z "$sanitized" ]; then
+            sanitized='main'
+          fi
+          echo "alias-url=https://${sanitized}.${project}.pages.dev" >> "$GITHUB_OUTPUT"
+
+      - name: Mark Cloudflare deployment success
+        if: steps.cloudflare-pages.outcome == 'success' && steps.cloudflare-deployment.outputs.deployment-id != ''
+        uses: ./.github/actions/github-deployment
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deployment-id: ${{ steps.cloudflare-deployment.outputs.deployment-id }}
+          action: 'update-status'
+          status: 'success'
+          deployment-url: ${{ steps.cloudflare-url.outputs.alias-url }}
+
+      - name: Mark Cloudflare deployment failure
+        if: failure() && steps.cloudflare-pages.outcome == 'failure' && steps.cloudflare-deployment.outputs.deployment-id != ''
+        uses: ./.github/actions/github-deployment
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deployment-id: ${{ steps.cloudflare-deployment.outputs.deployment-id }}
+          action: 'update-status'
+          status: 'failure'
 
       - name: Deploy to Digital Ocean
         id: deploy
