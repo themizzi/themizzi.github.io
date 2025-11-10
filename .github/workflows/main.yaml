@@ -6,6 +6,11 @@ on:
     branches:
       - main
 
+  # Run on all pull requests to main
+  pull_request:
+    branches:
+      - main
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -21,46 +26,35 @@ permissions:
   deployments: write
 
 jobs:
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v4
-  #       with:
-  #         submodules: recursive
-  #         fetch-depth: 0
-  #     - name: Run Playwright tests
-  #       uses: ./.github/actions/run-tests
-  #       with:
-  #         artifact-name: main-playwright-test-results
-  #         push-image: always
-
   deploy:
     runs-on: ubuntu-latest
-    # needs: test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
-
-      - name: Create GitHub Deployment
-        id: deployment
-        uses: ./.github/actions/github-deployment
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          environment: 'production'
-          ref: ${{ github.sha }}
-          description: 'Deploy to production'
-          action: 'create'
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
 
-      - name: Deploy to Digital Ocean
-        id: deploy
-        uses: ./.github/actions/deploy-app
+      - name: Deploy site
+        uses: devcontainers/ci@v0.3
         with:
-          token: ${{ secrets.DIGITAL_OCEAN_ACCESS_TOKEN }}
-          app-id: ${{ env.APP_ID }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deployment-id: ${{ steps.deployment.outputs.deployment-id }}
-          environment: 'production'
+          imageName: ghcr.io/${{ github.repository }}/devcontainer
+          imageTag: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
+          cacheFrom: ghcr.io/${{ github.repository }}/devcontainer
+          push: always
+          runCmd: |
+            cd themes/mizzi
+            npm i
+            npm test
+            make deploy
+          env: |
+            BRANCH=${{ github.head_ref || github.ref_name }}
+            CLOUDFLARE_ACCOUNT_ID=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+            CLOUDFLARE_API_TOKEN=${{ secrets.CLOUDFLARE_API_TOKEN }}
