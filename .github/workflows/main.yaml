@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - deploy-to-cloudflare-pages-and-simplify-test-deploy
 
   # Run on all pull requests to main
   pull_request:
@@ -25,8 +26,12 @@ permissions:
   packages: write
   deployments: write
 
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}/devcontainer
+  IMAGE_TAG: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
+
 jobs:
-  deploy:
+  prepare:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -42,19 +47,93 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ github.token }}
 
+      - name: Build devcontainer
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: ${{ env.IMAGE_NAME }}
+          imageTag: ${{ env.IMAGE_TAG }}
+          cacheFrom: ${{ env.IMAGE_NAME }}
+          push: always
+        
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Build site
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: ${{ env.IMAGE_NAME }}
+          imageTag: ${{ env.IMAGE_TAG }}
+          cacheFrom: ${{ env.IMAGE_NAME }}
+          push: never
+          runCmd: make build
+
+      - name: Upload public folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: public
+          path: public
+            
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Test site
+        uses: devcontainers/ci@v0.3
+        with:
+          imageName: ${{ env.IMAGE_NAME }}
+          imageTag: ${{ env.IMAGE_TAG }}
+          cacheFrom: ${{ env.IMAGE_NAME }}
+          push: never
+          runCmd: make test
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.url.outputs.url }}
+    needs: build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Download public folder
+        uses: actions/download-artifact@v4
+        with:
+          name: public
+          path: public
+      
       - name: Deploy site
         uses: devcontainers/ci@v0.3
         with:
-          imageName: ghcr.io/${{ github.repository }}/devcontainer
-          imageTag: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
-          cacheFrom: ghcr.io/${{ github.repository }}/devcontainer
-          push: always
-          runCmd: |
-            cd themes/mizzi
-            npm i
-            npm test
-            make deploy
+          imageName: ${{ env.IMAGE_NAME }}
+          imageTag: ${{ env.IMAGE_TAG }}
+          cacheFrom: ${{ env.IMAGE_NAME }}
+          push: never
+          runCmd: make deploy | tee output.txt
           env: |
             BRANCH=${{ github.head_ref || github.ref_name }}
             CLOUDFLARE_ACCOUNT_ID=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
             CLOUDFLARE_API_TOKEN=${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Get deployment URL
+        id: url
+        run: |
+          DEPLOYMENT_URL=$(grep -o 'https://[a-zA-Z0-9./?=_-]*\.pages\.dev' output.txt | tail -n 1)
+          echo "Deployment URL: $DEPLOYMENT_URL"
+          echo "url=$DEPLOYMENT_URL" >> $GITHUB_OUTPUT
