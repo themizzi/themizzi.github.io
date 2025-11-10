@@ -71,7 +71,7 @@ jobs:
           imageName: ${{ env.IMAGE_NAME }}
           imageTag: ${{ env.IMAGE_TAG }}
           cacheFrom: ${{ env.IMAGE_NAME }}
-          push: always
+          push: never
           runCmd: make build
 
       - name: Upload public folder
