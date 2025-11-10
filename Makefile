@@ -14,9 +14,11 @@ FORCE_DOWNLOAD = false
 HTTP_SERVER = npx http-server
 ENVIRONMENT = development
 RCLONE_CONFIG = ./rclone.conf
+WRANGLER = npx wrangler
+BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 
 # Targets
-.PHONY: all clean download-assets upload-assets pre-build build serve serve-dev help
+.PHONY: all clean download-assets upload-assets pre-build build serve serve-dev help deploy
 all: build ## Build the project.
 
 build: pre-build ## Build the project.
@@ -49,3 +51,12 @@ help: ## Show this help.
 	@awk 'BEGIN {FS = ":.*?## "}; /^[a-zA-Z_-]+:/ {exit} /^## / {gsub(/^## /, ""); print}' $(MAKEFILE_LIST)
 	@echo "Available commands:"; \
 	    grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-20s\033[0m %s\n", $$1, $$2}'
+
+test:
+	cd themes/mizzi
+	npm install
+	npm test
+	cd ../..
+
+deploy:
+	$(WRANGLER) pages deploy --project-name joemizzi --branch $(BRANCH) ./public
