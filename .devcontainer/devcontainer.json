@@ -21,7 +21,7 @@
 			// Rebuild the container if it already exists to update.
 			"VERSION": "latest",
 			// Update NODE_VERSION to pick the Node.js version: 12, 14
-			"NODE_VERSION": "20"
+			"NODE_VERSION": "24"
 		}
 	},
 	"features": {
@@ -54,7 +54,6 @@
 				"GitHub.vscode-pull-request-github",
 				"firefox-devtools.vscode-firefox-debug",
 				"ms-playwright.playwright",
-				"GitHub.vscode-github-actions"
 			]
 		}
 	},
