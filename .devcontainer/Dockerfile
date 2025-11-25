@@ -41,14 +41,6 @@ RUN npx playwright install-deps
 # Install starship prompt
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --bin-dir /usr/local/bin -y
 
-# Install doctl
-ARG DOCTL_VERSION=1.120.1
-ARG DOCTL_ARCH=amd64
-RUN wget https://github.com/digitalocean/doctl/releases/download/v${DOCTL_VERSION}/doctl-${DOCTL_VERSION}-linux-${DOCTL_ARCH}.tar.gz \
-    && tar xf doctl-${DOCTL_VERSION}-linux-${DOCTL_ARCH}.tar.gz \
-    && mv doctl /usr/local/bin \
-    && rm doctl-${DOCTL_VERSION}-linux-${DOCTL_ARCH}.tar.gz
-
 # Remove default .zshrc
 RUN rm /home/node/.zshrc
 
