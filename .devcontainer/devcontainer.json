@@ -54,6 +54,8 @@
 				"GitHub.vscode-pull-request-github",
 				"firefox-devtools.vscode-firefox-debug",
 				"ms-playwright.playwright",
+				"GitHub.vscode-github-actions",
+				"openai.chatgpt"
 			]
 		}
 	},
