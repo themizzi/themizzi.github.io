@@ -29,6 +29,7 @@ permissions:
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository }}/devcontainer
   IMAGE_TAG: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'latest' }}
+  BUILD_TARGET: base
 
 jobs:
   prepare:

@@ -21,7 +21,8 @@
 			// Rebuild the container if it already exists to update.
 			"VERSION": "latest",
 			// Update NODE_VERSION to pick the Node.js version: 12, 14
-			"NODE_VERSION": "24"
+			"NODE_VERSION": "24",
+			"BUILD_TARGET": "${localEnv:BUILD_TARGET:dev}"
 		}
 	},
 	"features": {
