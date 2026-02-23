@@ -33,7 +33,12 @@ RUN apt-get update && apt-get install -y \
     ffmpeg \
     pup \
     jq \
-    gh
+    gh \
+    openjdk-21-jre \
+    tidy
+
+# Install vnu
+RUN npm install -g vnu-jar
 
 # Install playwright dependencies
 RUN npx playwright install-deps
