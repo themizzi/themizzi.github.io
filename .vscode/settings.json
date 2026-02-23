@@ -48,5 +48,8 @@
     "json.validate.enable": true,
     "files.associations": {
         "**/layouts/**/*.json": "hugo"
+    },
+    "chat.tools.terminal.autoApprove": {
+        "hugo": true
     }
 }
