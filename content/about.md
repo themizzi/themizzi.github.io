@@ -14,7 +14,6 @@ title = 'About'
 
 👋 Hi, I'm Mizzi!
 
-💾 Senior Engineering Manager @ PayPal  
 🎸 Bands: The Mizzerables, The Bollweevils, The Iron Spiders  
 🎹 [#Guitar](/tags/guitar), [#bass](/tags/bass), [#violin](/tags/violin), [#piano](/tags/piano), things with strings  
 🖖 [#Trekkie](/tags/trekkie), [#physics](/tags/physics) enthusiast  
