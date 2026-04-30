@@ -18,7 +18,9 @@ WRANGLER = npx wrangler
 BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 
 # Targets
-.PHONY: all clean download-assets upload-assets pre-build build serve serve-dev help deploy
+.PHONY: all clean download-assets upload-assets pre-build build serve serve-dev help deploy vid
+.SILENT: vid
+
 all: build ## Build the project.
 
 build: pre-build ## Build the project.
@@ -60,3 +62,15 @@ test:
 
 deploy:
 	$(WRANGLER) pages deploy --project-name joemizzi --branch $(BRANCH) ./public
+
+vid: NAME:=?
+vid:
+	if [ -z "$(NAME)" ]; then \
+		@echo "Error: No video name provided. Usage: make vid <video-name>"; \
+		@exit 1; \
+	fi
+	DIRNAME=content/vids/$(NAME); \
+	FILENAME=$${DIRNAME}/index.md; \
+	mkdir -p "$${DIRNAME}"; \
+	hugo new "$${FILENAME}"; \
+	code "$${FILENAME}"
