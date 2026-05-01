@@ -35,7 +35,8 @@ RUN apt-get update && apt-get install -y \
     jq \
     gh \
     openjdk-21-jre \
-    tidy
+    tidy \ 
+    ripgrep
 
 # Install vnu
 RUN npm install -g vnu-jar
