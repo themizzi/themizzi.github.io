@@ -1,0 +1,19 @@
+{{ with .Params.audio }}
+<audio preload="metadata" controls>
+    {{ range . }}
+    <source src="
+      {{- $audioPath := . -}}
+      {{- if hasPrefix . "/" -}}
+        {{- $audioPath = . -}}
+      {{- else -}}
+        {{- $audioPath = printf "%s%s" $.Page.File.Dir . -}}
+      {{- end -}}
+      {{- if $.Site.Params.bucket_address -}}
+        {{- $.Site.Params.bucket_address -}}/{{- $audioPath -}}
+      {{- else -}}
+        /{{- $audioPath -}}
+      {{- end -}}
+    ">
+    {{ end }}
+</audio>
+{{ end }}

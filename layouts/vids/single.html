@@ -1,0 +1,31 @@
+{{ define "main" }}
+<article class="container page vids-single">
+  <h1>{{ .Title }}</h1>
+
+  {{ $poster := .Resources.GetMatch .Params.featured_image }}
+  {{ with .Params.video }}
+    {{ $videoPath := . }}
+    {{ if not (hasPrefix . "/") }}
+      {{ $videoPath = printf "%s%s" $.Page.File.Dir . }}
+    {{ end }}
+    <video controls preload="metadata"{{ with $poster }} poster="{{ .RelPermalink }}"{{ end }}>
+      <source src="{{ if $.Site.Params.bucket_address }}{{ $.Site.Params.bucket_address }}/{{ $videoPath }}{{ else }}/{{ $videoPath }}{{ end }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  {{ else }}
+    {{ with $poster }}
+    <img src="{{ .RelPermalink }}" alt="{{ $.Title }} poster">
+    {{ end }}
+  {{ end }}
+
+  {{ with .Params.links }}
+  <ul class="vids-links">
+    {{ range $key, $link := . }}
+    <li><a href="{{ $link }}" target="_blank" rel="noopener noreferrer">{{ humanize $key }}</a></li>
+    {{ end }}
+  </ul>
+  {{ end }}
+
+  {{ .Content }}
+</article>
+{{ end }}

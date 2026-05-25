@@ -55,10 +55,7 @@ help: ## Show this help.
 	    grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-20s\033[0m %s\n", $$1, $$2}'
 
 test:
-	cd themes/mizzi
-	npm install
 	npm test
-	cd ../..
 
 deploy:
 	$(WRANGLER) pages deploy --project-name joemizzi --branch $(BRANCH) ./public

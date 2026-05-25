@@ -1,0 +1,9 @@
+{{- $src := .Get "src" -}}
+{{- $alt := .Get "alt" -}}
+
+{{- $image := resources.Get $src -}}
+{{- if $image -}}
+  <img src="{{ $image.RelPermalink }}" alt="{{ $alt }}">
+{{- else -}}
+  {{- warnf "Image not found: %s" $src -}}
+{{- end -}}

@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{ if (eq .CurrentSection .FirstSection) }}
+<div class="container">
+    <h1>{{ .Title }}</h1>
+    {{ $section := .Section }}
+    
+    {{/* Get all albums that are children of this section */}}
+    {{ $allAlbums := slice }}
+    {{ range .Pages }}
+    {{ if eq .Type "album" }}
+    {{ $allAlbums = $allAlbums | append . }}
+    {{ end }}
+    {{ end }}
+    
+    {{/* Group albums by artist and display */}}
+    {{ $artistGroups := dict }}
+    {{ range $allAlbums }}
+    {{ $currentAlbum := . }}
+    {{ range .Params.artists }}
+    {{ $artistName := . }}
+    {{ $existingAlbums := index $artistGroups $artistName }}
+    {{ if not $existingAlbums }}
+    {{ $existingAlbums = slice }}
+    {{ end }}
+    {{ $existingAlbums = $existingAlbums | append $currentAlbum }}
+    {{ $artistGroups = merge $artistGroups (dict $artistName $existingAlbums) }}
+    {{ end }}
+    {{ end }}
+    
+    {{/* Display each artist and their albums */}}
+    {{ range $name, $term := .Site.Taxonomies.artists }}
+    {{ with .Page }}
+    {{ $artistSlug := $name }}
+    {{ $artistAlbums := index $artistGroups $artistSlug }}
+    {{ if $artistAlbums }}
+    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <ul>
+        {{ range sort $artistAlbums ".Params.releaseDate" "desc" }}
+        <li>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+    </ul>
+    {{ end }}
+    {{ end }}
+    {{ end }}
+    
+</div>
+{{ end }}
+{{ end }}

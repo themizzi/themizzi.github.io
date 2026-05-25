@@ -1,0 +1,19 @@
+<article class="container page">
+    <hgroup>
+        <h1>{{ .Title }}</h1>
+        {{- $artists := .GetTerms "artists" -}}
+        {{- if and (not $artists) .Parent }}
+        {{- $artists = .Parent.GetTerms "artists" -}}
+        {{- end -}}
+        {{ with $artists }}
+        <p>by {{ partial "inline-list.html" . }}</p>
+        {{ end }}
+    </hgroup>
+    {{ partial "audio.html" . }}
+    {{ .Content }}
+    {{ $trackCreditPages := where .RegularPages "Type" "credit" }}
+    {{ with $trackCreditPages }}
+    <h2>Credits</h2>
+    {{ partial "credits.html" (sort . "Weight") }}
+    {{ end }}
+</article>

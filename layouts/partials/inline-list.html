@@ -1,0 +1,28 @@
+{{- $items := . -}}
+{{- $count := len $items -}}
+{{- $moreThanOne := gt $count 1 -}}
+{{- range $i, $item := . -}}
+{{- if $moreThanOne -}}
+{{- if lt $i (sub $count 1) -}}
+{{- if $i -}}, {{ end -}}
+{{- end -}}
+{{- end -}}
+{{- with $item -}}
+<a href="{{ .RelPermalink }}">
+{{- $inlineTitle := .Params.inlineTitle }}
+{{- if $inlineTitle -}}
+{{ $inlineTitle }}
+{{- else -}}
+{{ .Title }}
+{{- end -}}
+</a>
+{{- with .Params.inlineSuffix }}
+{{ . }}
+{{- end -}}
+{{- end -}}
+{{- if $moreThanOne -}}
+{{- if eq $i (sub $count 2) }}
+and 
+{{ end -}}
+{{- end -}}
+{{- end -}}

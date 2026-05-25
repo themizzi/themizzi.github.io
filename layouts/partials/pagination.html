@@ -1,0 +1,57 @@
+{{ if gt .Paginator.TotalPages 1 }}
+<nav class="pagination" aria-label="Pagination">
+  <ul class="pagination-list">
+    <li>
+      {{ if .Paginator.HasPrev }}
+        <a href="{{ .Paginator.First.URL }}" aria-label="First page">&laquo;</a>
+      {{ else }}
+        <span class="disabled" aria-label="First page"><span aria-hidden="true">&laquo;</span><span class="visually-hidden">First page</span></span>
+      {{ end }}
+    </li>
+    <li>
+      {{ if .Paginator.HasPrev }}
+        <a href="{{ .Paginator.Prev.URL }}" aria-label="Previous page">&lsaquo;</a>
+      {{ else }}
+        <span class="disabled" aria-label="Previous page"><span aria-hidden="true">&lsaquo;</span><span class="visually-hidden">Previous page</span></span>
+      {{ end }}
+    </li>
+    
+    {{ $maxPagesToShow := default 5 .Params.maxPaginationPages }}
+    {{ $current := .Paginator.PageNumber }}
+    {{ $total := .Paginator.TotalPages }}
+    {{ $half := div $maxPagesToShow 2 }}
+    
+    {{ $startPage := sub $current $half }}
+    {{ $endPage := add $current $half }}
+    
+    {{ range seq $startPage $endPage }}
+      {{ if eq . $current }}
+        <li><span class="current">{{ . }}</span></li>
+      {{ else if and (gt . 0) (le . $total) }}
+        {{ $pageURL := printf "%spage/%d/" $.Paginator.First.URL . }}
+        {{ if eq . 1 }}
+          {{ $pageURL = $.Paginator.First.URL }}
+        {{ end }}
+        <li><a href="{{ $pageURL }}">{{ . }}</a></li>
+      {{ else }}
+        <li><span class="invisible">•</span></li>
+      {{ end }}
+    {{ end }}
+    
+    <li>
+      {{ if .Paginator.HasNext }}
+        <a href="{{ .Paginator.Next.URL }}" aria-label="Next page">&rsaquo;</a>
+      {{ else }}
+        <span class="disabled" aria-label="Next page"><span aria-hidden="true">&rsaquo;</span><span class="visually-hidden">Next page</span></span>
+      {{ end }}
+    </li>
+    <li>
+      {{ if .Paginator.HasNext }}
+        <a href="{{ .Paginator.Last.URL }}" aria-label="Last page">&raquo;</a>
+      {{ else }}
+        <span class="disabled" aria-label="Last page"><span aria-hidden="true">&raquo;</span><span class="visually-hidden">Last page</span></span>
+      {{ end }}
+    </li>
+  </ul>
+</nav>
+{{ end }}

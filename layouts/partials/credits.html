@@ -1,0 +1,19 @@
+<ul>
+{{- range . -}}
+<li>
+    {{- $roles := .GetTerms "roles" -}}
+    {{ partial "inline-list.html" $roles }}
+    {{- if $roles }}
+    by
+    {{ end -}}
+    {{- $artists := .GetTerms "artists" -}}
+    {{ partial "inline-list.html" $artists }}
+    {{- $locations := .GetTerms "locations" -}}
+    {{- if $locations }}
+    at
+    {{ end -}}
+    {{ partial "inline-list.html" $locations }}
+    <a href="{{ .RelPermalink }}">(details)</a>
+</li>
+{{- end -}}
+</ul>

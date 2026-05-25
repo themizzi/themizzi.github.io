@@ -1,0 +1,28 @@
+{{ $creditsPage := .GetPage "credits" }}
+{{ $creditPages := where .RegularPages "Type" "credit" }}
+{{ $trackPages := where .Pages "Type" "track" }}
+{{ $trackCreditPages := false }}
+{{ range $trackPages }}
+{{ $trackCreditPages = where .RegularPages "Type" "credit" }}
+{{ if $trackCreditPages }}
+{{ break }}
+{{ end}}
+{{ end }}
+{{ if or $creditsPage $creditPages $trackCreditPages }}
+<h2>Credits</h2>
+{{- with .GetPage "credits" -}}
+{{- .Content -}}
+{{- end -}}
+{{ if $creditPages }}
+{{ partial "credits.html" (sort $creditPages "Weight") }}
+{{ end }}
+{{ with sort (where .Pages "Type" "track") "Weight" }}
+{{- range . -}}
+{{- $track := . -}}
+{{ with where .RegularPages "Type" "credit" }}
+<h3>{{ $track.Title }}</h3>
+{{ partial "credits.html" (sort . "Weight") }}
+{{ end }}
+{{ end }}
+{{ end }}
+{{ end }}

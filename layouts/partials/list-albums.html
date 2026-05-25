@@ -1,0 +1,13 @@
+{{ $albums := slice }}
+{{ range .Pages }}
+{{ if eq .Parent.CurrentSection $.RootSection }}
+{{ $albums = union $albums (slice .) }}
+{{ else if eq $.RootSection .FirstSection }}
+{{ $albums = union $albums (slice .Parent) }}
+{{ end }}
+{{ end }}
+{{ range sort $albums ".Params.releaseDate" "desc" }}
+<li>
+    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+</li>
+{{ end }}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ or site.Language.LanguageCode `en` }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<head>
+  {{ partial "indent.html" (dict "content" (partial "head.html" .)) | chomp }}
+</head>
+<body>
+  <header class="site-header">
+    {{ partial "indent.html" (dict "content" (partial "header.html" .) "spaces" 4) | chomp }}
+  </header>
+  <nav class="breadcrumb-nav">
+    {{ partial "indent.html" (dict "content" (partial "breadcrumbs.html" .)) | chomp }}
+  </nav>
+  <main class="site-main">
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer class="site-footer">
+    {{ partial "indent.html" (dict "content" (partial "footer.html" .)) | chomp }}
+  </footer>
+</body>
+</html>

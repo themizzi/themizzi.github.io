@@ -1,0 +1,9 @@
+{{- if .Site.Params.social_links -}}
+<ul class="social-links">
+    {{ range sort .Site.Params.social_links "order" "asc" }}
+    <li>
+        <a href="{{ .href }}" class="{{ .name }}" target="_blank">{{ partial "service-icon.html" .name }}</a>
+    </li>
+    {{ end }}
+</ul>
+{{- end -}}

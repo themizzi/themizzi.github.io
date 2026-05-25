@@ -1,0 +1,132 @@
+{{ define "main" }}
+<div class="container">
+    <h1>{{ .Title }}</h1>
+
+    <!-- Pagination setup: items per page configurable via front matter -->
+    {{ $perPage := default 10 .Params.paginateCount }}
+    
+    {{/* Calculate effective sort date for each event - prefer doors, fallback to super_event_start */}}
+    {{ $sortedPages := slice }}
+    {{ range .Pages }}
+        {{ $sortDate := .Params.doors }}
+        {{ if not $sortDate }}
+            {{ $sortDate = .Params.super_event_start }}
+        {{ end }}
+        {{ $sortedPages = $sortedPages | append (dict "Page" . "SortDate" $sortDate) }}
+    {{ end }}
+    
+    {{/* Sort by the effective date in descending order */}}
+    {{ $sorted := slice }}
+    {{ range sort $sortedPages "SortDate" "desc" }}
+        {{ $sorted = $sorted | append .Page }}
+    {{ end }}
+    
+    {{ $paginator := .Paginate $sorted $perPage }}
+
+    {{ partial "pagination.html" . }}
+
+    {{/* Group by effective sort date */}}
+    {{ $eventsByYear := slice }}
+    {{ range $paginator.Pages }}
+        {{ $sortDate := .Params.doors }}
+        {{ if not $sortDate }}
+            {{ $sortDate = .Params.super_event_start }}
+        {{ end }}
+        {{ $year := $sortDate | dateFormat "2006" }}
+        {{ $month := $sortDate | dateFormat "January" }}
+        
+        {{ $eventsByYear = $eventsByYear | append (dict "Page" . "Year" $year "Month" $month "SortDate" $sortDate) }}
+    {{ end }}
+    
+    {{/* Group pages by year */}}
+    {{ $yearGroups := slice }}
+    {{ $currentYear := "" }}
+    {{ $currentYearPages := slice }}
+    {{ range $eventsByYear }}
+        {{ if ne .Year $currentYear }}
+            {{ if $currentYearPages }}
+                {{ $yearGroups = $yearGroups | append (dict "Key" $currentYear "Pages" $currentYearPages) }}
+            {{ end }}
+            {{ $currentYear = .Year }}
+            {{ $currentYearPages = slice }}
+        {{ end }}
+        {{ $currentYearPages = $currentYearPages | append . }}
+    {{ end }}
+    {{ if $currentYearPages }}
+        {{ $yearGroups = $yearGroups | append (dict "Key" $currentYear "Pages" $currentYearPages) }}
+    {{ end }}
+    
+    {{ range $yearGroups }}
+    <h2>{{ .Key }}</h2>
+    
+    {{/* Group by month within year */}}
+    {{ $monthGroups := slice }}
+    {{ $currentMonth := "" }}
+    {{ $currentMonthPages := slice }}
+    {{ range .Pages }}
+        {{ if ne .Month $currentMonth }}
+            {{ if $currentMonthPages }}
+                {{ $monthGroups = $monthGroups | append (dict "Key" $currentMonth "Pages" $currentMonthPages) }}
+            {{ end }}
+            {{ $currentMonth = .Month }}
+            {{ $currentMonthPages = slice }}
+        {{ end }}
+        {{ $currentMonthPages = $currentMonthPages | append . }}
+    {{ end }}
+    {{ if $currentMonthPages }}
+        {{ $monthGroups = $monthGroups | append (dict "Key" $currentMonth "Pages" $currentMonthPages) }}
+    {{ end }}
+    
+    {{ range $monthGroups }}
+    <h3>{{ .Key }}</h3>
+    <ul>
+        {{ range .Pages }}
+        {{ $page := .Page }}
+        <li>
+            <a href="{{ $page.RelPermalink }}">
+            {{ $day := .SortDate | dateFormat "2" }}
+            {{ $suffix := "th" }}
+            {{ if or (eq $day "1") (eq $day "21") (eq $day "31") }}
+            {{ $suffix = "st" }}
+            {{ else if or (eq $day "2") (eq $day "22") }}
+            {{ $suffix = "nd" }}
+            {{ else if or (eq $day "3") (eq $day "23") }}
+            {{ $suffix = "rd" }}
+            {{ end }}
+            <span><time datetime="{{ time.Format "2006-01-02" .SortDate }}">{{ $day }}</time>{{ $suffix }}: </span>
+            {{ if $page.Title }}
+            {{ $page.Title }}
+            {{ else if $page.Params.artist }}
+            {{ $page.Params.artist }}
+            {{ end }}
+            <span>
+                {{ $locationCity := "" }}
+                {{ $locationState := "" }}
+                
+                {{ with $page.GetTerms "locations" }}
+                    {{ range . }}
+                        {{ $locationCity = .Params.city }}
+                        {{ $locationState = .Params.state }}
+                    {{ end }}
+                {{ else }}
+                    {{ $locationCity = $page.Params.city }}
+                    {{ $locationState = $page.Params.state }}
+                {{ end }}
+                
+                {{ if and $locationCity $locationState }}
+                {{ $locationCity }}, {{ $locationState }}
+                {{ else if $page.Params.super_event_city }}
+                {{ $page.Params.super_event_city }}
+                {{ end }}
+            </span>
+            </a>
+        </li>
+        {{ end }}
+    </ul>
+    {{ end }}
+    {{ end }}
+
+    <!-- Bottom pagination navigator -->
+    {{ partial "pagination.html" . }}
+</div>
+{{ end }}

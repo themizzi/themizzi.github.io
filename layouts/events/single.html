@@ -1,0 +1,29 @@
+{{ define "main" }}
+<article class="container page" itemscope itemtype="https://schema.org/MusicEvent">
+    {{ partial "event-main-content.html" . }}
+    
+    {{ with .Params.videos }}
+    <h2>Videos</h2>
+    <div class="videos">
+    <!-- loop through each video and show an html5 player for the video -->
+    {{ range . }}
+    <video preload="metadata" controls>
+        <source src="{{- if $.Site.Params.bucket_address -}}{{ $.Site.Params.bucket_address}}{{- end -}}{{ . }}">
+    </video>
+    {{ end }}
+    </div>
+    {{ end }}
+    {{ with .Resources.Match "images/*" }}
+    <h2>Photos</h2>
+    <div class="photos">
+        {{ range . }}
+        <a href="{{ .RelPermalink }}" target="_blank">
+            {{ with .Fill "300x300"}}
+            <img src="{{ .RelPermalink }}" alt="{{ .Title }}">
+            {{ end}}
+        </a>    
+        {{ end }}
+    </div>
+    {{ end }}
+</article>
+{{ end }}

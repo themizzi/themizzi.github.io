@@ -1,0 +1,30 @@
+{{ define "main" }}
+<div class="container">
+    <h1>{{ .Title }}</h1>
+    {{ if .Params.featured_image }}
+    {{ with .Resources.GetMatch .Params.featured_image }}
+    <div class="featured-image">
+        {{ with .Resize "600x"}}
+        <img src="{{ .RelPermalink }}" alt="{{ .Title }}" />
+        {{ end }}
+    </div>
+    {{ end }}
+    {{ end }}
+    {{ .Content }}
+    {{ range .Pages.GroupBy "Section" }}
+    {{ $section := $.Site.GetPage "section" .Key}}
+    <h2>{{ $section.Title }}</h2>
+    <ul>
+        {{ if eq .Key "discography" }}
+        {{ partial "list-albums.html" (dict "RootSection" $section.CurrentSection "Pages" .Pages) }}
+        {{ else }}
+        {{ range sort .Pages ".Params.releaseDate" "desc" }}
+        <li>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+        {{ end }}
+        {{ end }}
+    </ul>
+    {{ end }}
+</div>
+{{ end}}

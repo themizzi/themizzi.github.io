@@ -1,0 +1,36 @@
+{{/*
+  Partial: service-icon.html
+  Purpose: Maps service keys to their appropriate FontAwesome icons (HTML) or key text (RSS)
+  Usage: {{ partial "service-icon.html" "discogs" }} (HTML context)
+         {{ partial "service-icon.html" (dict "service" "discogs" "rss" true) }} (RSS context)
+  Returns: HTML for FontAwesome icon or just the service key for RSS feeds
+*/}}
+
+{{- $service := "" -}}
+{{- $isRSS := false -}}
+
+{{/* Handle both dict format and string format */}}
+{{- if reflect.IsMap . -}}
+  {{/* Dict format: can specify RSS mode */}}
+  {{- $service = .service -}}
+  {{- $isRSS = .rss | default false -}}
+{{- else -}}
+  {{/* String format: assume HTML context */}}
+  {{- $service = . -}}
+  {{- $isRSS = false -}}
+{{- end -}}
+
+{{- $iconData := index site.Data.icons $service -}}
+
+{{- if $isRSS -}}
+  {{/* RSS context: just output the service key as text */}}
+  {{- $service -}}
+{{- else -}}
+  {{/* HTML context: output FontAwesome icons */}}
+  {{- if $iconData -}}
+    <i class="{{ $iconData.class }} fa-{{ $iconData.icon }}"></i>
+  {{- else -}}
+    {{/* Fallback: assume it's a standard brand icon */}}
+    <i class="fab fa-{{ $service }}"></i>
+  {{- end -}}
+{{- end -}}

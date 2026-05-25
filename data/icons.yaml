@@ -1,0 +1,32 @@
+# Icon mappings for various services
+# Format: service_key: { class: "fab|fas|far", icon: "icon-name", text: "text for RSS" }
+
+discogs:
+  class: "fas"
+  icon: "record-vinyl"
+  text: "🎵"
+
+rss:
+  class: "fas"
+  icon: "rss"
+  text: "📰"
+
+bandcamp:
+  class: "fab"
+  icon: "bandcamp"
+  text: "🎵"
+
+spotify:
+  class: "fab"
+  icon: "spotify"
+  text: "🎵"
+
+apple:
+  class: "fab"
+  icon: "apple"
+  text: "🍎"
+
+youtube:
+  class: "fab"
+  icon: "youtube"
+  text: "📺"

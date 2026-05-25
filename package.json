@@ -1,11 +1,8 @@
 {
   "type": "module",
-  "workspaces": [
-    "themes/mizzi"
-  ],
   "scripts": {
-    "test": "npm run test --workspaces",
-    "test:ui": "npm run test:ui --workspaces",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
     "lint:js": "eslint .",
     "lint:css": "stylelint '**/*.{css,scss}'",
     "lint:html": "htmlhint '**/*.html'",
@@ -15,12 +12,15 @@
     "postinstall": "if playwright --version > /dev/null 2>&1; then playwright install chromium; fi"
   },
   "devDependencies": {
+    "@playwright/test": "^1.53.1",
+    "@types/node": "24.0.3",
     "@davidsneighbour/markdownlint-config": "^2025.0.1",
     "@eslint/compat": "^1.2.5",
     "@eslint/js": "^9.18.0",
     "@stylistic/eslint-plugin": "^2.12.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.18.0",
+    "get-port": "^7.1.0",
     "htmlhint": "^1.1.4",
     "http-server": "^14.1.1",
     "husky": "^9.1.7",

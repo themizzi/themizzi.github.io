@@ -1,0 +1,149 @@
+{{/* 
+  Shared event content - extracted from events/single.html 
+  Can be called as: {{ partial "event-main-content.html" . }}
+  Or: {{ partial "event-main-content.html" (dict "Page" . "IsRSS" true) }}
+*/}}
+{{- $page := . -}}
+{{- $isRSS := false -}}
+
+{{/* Handle dict format for RSS context */}}
+{{- if reflect.IsMap . -}}
+  {{- $page = .Page -}}
+  {{- $isRSS = .IsRSS | default false -}}
+{{- end -}}
+
+{{ if $page.Title }}
+<h1 itemprop="name">{{ $page.Title }}</h1>
+{{ end }}
+
+{{ with $page.GetTerms "artists" }}
+<p>
+    {{ range $i, $artist := . }}
+    {{ if $i }}, {{ end }}
+    {{ with $artist }}
+    <span itemprop="performer" itemscope itemtype="https://schema.org/MusicGroup">
+        {{ range $artist.Params.links }}
+        <link itemprop="sameAs" href="{{ . }}" />
+        {{ end }}
+        <a href="{{ .RelPermalink }}"><span itemprop="name">{{ .Title }}</span></a>
+    </span>
+    {{ end }}
+    {{ end }}
+</p>
+{{ end }}
+
+{{/* Festival/Super Event Information */}}
+{{ if $page.Params.super_event_name }}
+<section itemprop="superEvent" itemscope itemtype="https://schema.org/MusicEvent">
+    <h2 class="visually-hidden">Festival details</h2>
+    <link itemprop="url" href="{{ $page.Params.super_event_url }}" />
+    <meta itemprop="name" content="{{ $page.Params.super_event_name }}" />
+    <meta itemprop="startDate" content="{{ $page.Params.super_event_start | dateFormat "2006-01-02T15:04:05-07:00" }}" />
+    <meta itemprop="endDate" content="{{ $page.Params.super_event_end | dateFormat "2006-01-02T15:04:05-07:00" }}" />
+    <p>🎪 <a href="{{ $page.Params.super_event_url }}" target="_blank">{{ $page.Params.super_event_name }}</a>: 
+    {{ $startMonth := $page.Params.super_event_start | dateFormat "January" }}
+    {{ $endMonth := $page.Params.super_event_end | dateFormat "January" }}
+    {{ $startDay := $page.Params.super_event_start | dateFormat "2" }}
+    {{ $endDay := $page.Params.super_event_end | dateFormat "2" }}
+    {{ $year := $page.Params.super_event_start | dateFormat "2006" }}
+    {{ if eq $startMonth $endMonth }}
+        {{ $startMonth }} {{ $startDay }}-{{ $endDay }}, {{ $year }}
+    {{ else }}
+        {{ $startMonth }} {{ $startDay }} - {{ $endMonth }} {{ $endDay }}, {{ $year }}
+    {{ end }}
+    </p>
+</section>
+{{ end }}
+
+{{/* Event Date/Time */}}
+{{ if $page.Params.doors }}
+    {{ if $page.Params.time_tba }}
+<p>📅 <time datetime="{{ $page.Params.doors | dateFormat "2006-01-02" }}" itemprop="startDate">{{ $page.Params.doors | dateFormat "January 2, 2006" }}</time> (time TBA)</p>
+    {{ else }}
+<p>📅 <time datetime="{{ $page.Params.doors | dateFormat "2006-01-02T15:04:05-07:00" }}" itemprop="startDate">{{ $page.Params.doors | dateFormat "January 2, 2006" }}, doors: {{ $page.Params.doors | dateFormat "3:04PM" }}</time></p>
+    {{ end }}
+{{ else if $page.Params.super_event_start }}
+<p>📅 Performance date/time: <strong>TBA</strong></p>
+{{ else }}
+<p>📅 <strong>ERROR: Event must have either 'doors' or 'super_event_start' field</strong></p>
+{{ end }}
+
+<section itemprop="location" itemscope itemtype="https://schema.org/MusicVenue">
+    <h2 class="visually-hidden">Venue details</h2>
+    {{ $locationName := "" }}
+    {{ $locationAddress := "" }}
+    {{ $locationCity := "" }}
+    {{ $locationState := "" }}
+    {{ $locationZip := "" }}
+    {{ $locationCountry := "" }}
+    {{ $locationLink := "" }}
+    {{ $hasLocationTaxonomy := false }}
+    {{ $hasLocation := false }}
+    
+    {{ with $page.GetTerms "locations" }}
+        {{ range . }}
+            {{ $locationName = .Title }}
+            {{ $locationAddress = .Params.address }}
+            {{ $locationCity = .Params.city }}
+            {{ $locationState = .Params.state }}
+            {{ $locationZip = .Params.zip }}
+            {{ $locationCountry = .Params.country }}
+            {{ $locationLink = .RelPermalink }}
+            {{ $hasLocationTaxonomy = true }}
+            {{ $hasLocation = true }}
+        {{ end }}
+    {{ else }}
+        {{ with $page.Params.location }}
+            {{ $locationName = . }}
+            {{ $hasLocation = true }}
+        {{ end }}
+        {{ $locationAddress = $page.Params.address }}
+        {{ $locationCity = $page.Params.city }}
+        {{ $locationState = $page.Params.state }}
+        {{ $locationZip = $page.Params.zip }}
+        {{ if or $locationName $locationAddress }}
+            {{ $hasLocation = true }}
+        {{ end }}
+    {{ end }}
+    
+    {{ if $hasLocation }}
+        {{ if $locationName }}
+        <p>🏛️ <span itemprop="name">
+            {{ if $hasLocationTaxonomy }}
+                <a href="{{ $locationLink }}">{{ $locationName }}</a>
+            {{ else }}
+                {{ $locationName }}
+            {{ end }}
+        </span></p>
+        {{ end }}
+        
+        {{ if and $locationAddress $locationCity $locationState $locationZip }}
+        {{ $address := printf "%s, %s, %s %s" $locationAddress $locationCity $locationState $locationZip }}
+        {{ if $locationCountry }}
+            {{ $address = printf "%s, %s" $address $locationCountry }}
+        {{ end }}
+        <p>📍 <a href="https://www.google.com/maps/search/?api=1&query={{ $address | urlquery }}" target="_blank" itemprop="address">{{ $address }}</a></p>
+        {{ end }}
+    {{ else }}
+        {{/* No location specified - show TBA */}}
+        <p>🏛️ Venue: <strong>TBA</strong>{{ if $page.Params.super_event_city }} ({{ $page.Params.super_event_city }}){{ end }}</p>
+    {{ end }}
+</section>
+{{ with $page.Params.link }}
+<p itemprop="offers" itemscope itemtype="https://schema.org/Offer">🔗 <a href="{{ . }}" target="_blank" itemprop="url">More Info</a></p>
+{{ end }}
+{{ if $page.Params.featured_image }}
+{{ with $page.Resources.GetMatch $page.Params.featured_image }}
+<a href="{{ .RelPermalink }}" target="_blank">
+    {{ with .Resize "600x"}}
+    <img src="{{ .RelPermalink }}" alt="{{ .Title }}" itemprop="image" />
+    {{ end }}
+</a>
+{{ end }}
+{{ end }}
+
+{{ if $page.Content }}
+<div class="event-content">
+    {{ $page.Content }}
+</div>
+{{ end }}

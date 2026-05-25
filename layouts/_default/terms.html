@@ -1,0 +1,11 @@
+{{ define "main"}}
+<div class="container">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    <ul>
+        {{ range .Data.Terms.Alphabetical }}
+        <li><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a> ({{ .Count }})</li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

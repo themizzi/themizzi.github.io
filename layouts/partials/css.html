@@ -1,0 +1,9 @@
+{{- with resources.Get . -}}
+{{- $css := . -}}
+{{- if hugo.IsProduction -}}
+{{- $css := $css | resources.Minify -}}
+{{- end -}}
+{{- with $css | fingerprint -}}
+<link rel="stylesheet" href="{{ .RelPermalink }}">
+{{- end -}}
+{{- end -}}

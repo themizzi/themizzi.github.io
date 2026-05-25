@@ -1,0 +1,32 @@
+{{ define "main" }}
+<div class="container page">
+    <hgroup>
+        <h1>{{ .Title }}</h1>
+        {{ with .GetTerms "roles" }}
+        <p>
+            {{ partial "inline-list.html" . }}
+        </p>
+        {{ end }}
+    </hgroup>
+
+    {{ with .GetTerms "artists" }}
+    <hgroup>
+        <h2>Artist</h2>
+        {{ range . }}
+        <p><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+        {{ end }}
+    </hgroup>
+    {{ end }}
+
+    {{ with .GetTerms "locations" }}
+    <hgroup>
+        <h2>Location</h2>
+        {{ range . }}
+        <p><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>
+        {{ end }}
+    </hgroup>
+    {{ end }}
+
+    {{ .Content }}
+</div>
+{{ end }}

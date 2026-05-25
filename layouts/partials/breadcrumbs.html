@@ -1,0 +1,17 @@
+{{- $currentPage := . -}}
+{{- $isPageInMainMenu := false -}}
+{{- range site.Menus.main -}}
+{{- if eq .Page $currentPage -}}
+{{- $isPageInMainMenu = true -}}
+{{- end -}}
+{{- end -}}
+{{- if and (not .IsHome) (not $isPageInMainMenu) -}}
+<nav class="breadcrumb" aria-label="Breadcrumbs">
+  <ol>
+    {{- range .Ancestors.Reverse }}
+        <li class="breadcrumb-item"><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+    {{- end }}
+    <li class="breadcrumb-item active">{{ .Title }}</li>
+</ol>
+</nav>
+{{- end }}

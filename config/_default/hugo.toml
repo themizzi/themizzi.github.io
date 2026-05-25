@@ -1,7 +1,24 @@
 baseURL = "https://joemizzi.com/"
 languageCode = "en-us"
 title = "Mizzi"
-theme = "mizzi"
+enableEmoji = true
+rssLimit = 100
+
+[outputFormats]
+  [outputFormats.SearchIndex]
+    mediaType = "application/json"
+    baseName = "search-index"
+    isPlainText = true
+    notAlternative = true
 
 [outputs]
   home = ["HTML", "RSS", "SearchIndex"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
+    lineNos = false
+    noClasses = false

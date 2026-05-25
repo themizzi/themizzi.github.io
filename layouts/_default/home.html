@@ -1,0 +1,147 @@
+{{ define "main" }}
+<div class="home-container">
+  <section class="profile-section">
+    <div class="profile-pic">
+      {{ $sourceImage := "" }}
+      {{ $altText := "" }}
+      {{ if .Site.Params.profile_image }}
+        {{ $sourceImage = resources.Get .Site.Params.profile_image }}
+        {{ $altText = "Profile Picture" }}
+      {{ else }}
+        {{ $sourceImage = resources.Get "images/profile-large-placeholder.svg" }}
+        {{ $altText = "Profile Picture Placeholder" }}
+      {{ end }}
+      {{ with $sourceImage }}
+        {{ if eq .MediaType.SubType "svg" }}
+          <img src="{{ .RelPermalink }}" alt="{{ $altText }}">
+        {{ else }}
+          {{ $resizedImage := .Fill "120x120" }}
+          <img src="{{ $resizedImage.RelPermalink }}" alt="{{ $altText }}">
+        {{ end }}
+      {{ end }}
+    </div>
+    <h1>{{ .Site.Title }}</h1>
+  </section>
+  
+  <nav class="social-links-section">
+    {{ partial "socials.html" . }}
+  </nav>
+  
+  {{ if .Content }}
+  <section class="bio-section" aria-labelledby="bio-heading">
+    <h2 id="bio-heading" class="visually-hidden">About {{ .Site.Title }}</h2>
+    {{ .Content }}
+  </section>
+  {{ end }}
+
+  {{ $latestVids := first 3 (sort (where .Site.RegularPages "Section" "vids") "Date" "desc") }}
+  {{ if $latestVids }}
+  <section class="latest-vids" aria-labelledby="latest-vids-heading">
+    <h2 id="latest-vids-heading">Latest Vids</h2>
+    <ul class="latest-vids-list">
+      {{ range $latestVids }}
+      {{ $page := . }}
+      {{ $poster := $page.Resources.GetMatch $page.Params.featured_image }}
+      <li class="latest-vids-item">
+        <a href="{{ $page.RelPermalink }}">
+          {{ with $poster }}
+          <img src="{{ .RelPermalink }}" alt="{{ $page.Title }} thumbnail" loading="lazy">
+          {{ end }}
+          <span>{{ $page.Title }}</span>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+  
+  {{/* Get all events and filter for upcoming ones */}}
+  {{ $allEvents := where .Site.RegularPages "Section" "events" }}
+  {{ $upcomingEvents := slice }}
+  {{ $now := now }}
+  
+  {{ range $allEvents }}
+    {{ $isUpcoming := false }}
+    
+    {{/* Check if event has a specific doors time */}}
+    {{ if .Params.doors }}
+      {{ if ge .Params.doors $now }}
+        {{ $isUpcoming = true }}
+      {{ end }}
+    {{ else if .Params.super_event_end }}
+      {{/* For multi-day events without specific doors time, check if event hasn't ended */}}
+      {{ if ge .Params.super_event_end $now }}
+        {{ $isUpcoming = true }}
+      {{ end }}
+    {{ else if .Params.super_event_start }}
+      {{/* Fallback: if only start date exists, use that */}}
+      {{ if ge .Params.super_event_start $now }}
+        {{ $isUpcoming = true }}
+      {{ end }}
+    {{ end }}
+    
+    {{ if $isUpcoming }}
+      {{/* Calculate sort date - prefer doors, fallback to super_event_start */}}
+      {{ $sortDate := .Params.doors }}
+      {{ if not $sortDate }}
+        {{ $sortDate = .Params.super_event_start }}
+      {{ end }}
+      {{ $upcomingEvents = $upcomingEvents | append (dict "Page" . "SortDate" $sortDate) }}
+    {{ end }}
+  {{ end }}
+  
+  {{/* Sort by effective date */}}
+  {{ $sortedEvents := sort $upcomingEvents "SortDate" }}
+  
+  {{ if $sortedEvents }}
+  <section class="upcoming-events">
+    <h2>Upcoming Appearances</h2>
+    <ul class="events-list">
+      {{ range $sortedEvents }}
+      {{ $page := .Page }}
+      <li class="event-item">
+        <a href="{{ $page.RelPermalink }}">
+          {{ if $page.Params.doors }}
+          {{ $page.Params.doors | dateFormat "January 2, 2006" }}:
+          {{ else if and $page.Params.super_event_start $page.Params.super_event_end }}
+          {{ $startMonth := $page.Params.super_event_start | dateFormat "January" }}
+          {{ $endMonth := $page.Params.super_event_end | dateFormat "January" }}
+          {{ $startDay := $page.Params.super_event_start | dateFormat "2" }}
+          {{ $endDay := $page.Params.super_event_end | dateFormat "2" }}
+          {{ $year := $page.Params.super_event_start | dateFormat "2006" }}
+          {{ if eq $startMonth $endMonth }}{{ $startMonth }} {{ $startDay }}-{{ $endDay }}, {{ $year }}{{ else }}{{ $startMonth }} {{ $startDay }} - {{ $endMonth }} {{ $endDay }}, {{ $year }}{{ end }} (TBA):
+          {{ else if $page.Params.super_event_start }}
+          {{ $page.Params.super_event_start | dateFormat "January 2, 2006" }} (TBA):
+          {{ end }}
+          {{ if and $page.Params.artist (ne $page.Params.artist $page.Title) }}
+          {{ $page.Title }} - {{ $page.Params.artist }}
+          {{ else }}
+          {{ $page.Title }}
+          {{ end }}
+          @ 
+          {{ $locationCity := "" }}
+          {{ $locationState := "" }}
+          
+          {{ with $page.GetTerms "locations" }}
+              {{ range . }}
+                  {{ $locationCity = .Params.city }}
+                  {{ $locationState = .Params.state }}
+              {{ end }}
+          {{ else }}
+              {{ $locationCity = $page.Params.city }}
+              {{ $locationState = $page.Params.state }}
+          {{ end }}
+          
+          {{ if and $locationCity $locationState }}
+          {{ $locationCity }}, {{ $locationState }}
+          {{ else if $page.Params.super_event_city }}
+          {{ $page.Params.super_event_city }}
+          {{ end }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+</div>
+{{ end }}

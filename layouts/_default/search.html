@@ -1,0 +1,105 @@
+{{ define "main" }}
+<section class="container page" aria-labelledby="search-page-title">
+    <header>
+        <h1 id="search-page-title">Search</h1>
+    </header>
+    
+    <!-- Search Custom Element -->
+    <search-element 
+        placeholder="Search artists, albums, songs, and more..."
+        template-id="search-result-template"
+        form-template-id="search-form-template"
+        no-results-template-id="search-no-results-template"
+        error-template-id="search-error-template">
+    </search-element>
+    
+    <!-- Search Form Template -->
+    <template id="search-form-template">
+        <section class="search-container">
+            <h2 class="visually-hidden">Search interface</h2>
+            <form class="search-form" role="search">
+                <fieldset class="search-input-container">
+                    <legend class="visually-hidden">Search Input</legend>
+                    <input
+                        type="search"
+                        id="search-input"
+                        class="search-input"
+                        placeholder="Search..."
+                        aria-label="Search"
+                        autocomplete="off"
+                    >
+                </fieldset>
+            </form>
+
+            <aside id="search-loading" class="search-loading" style="display: none;" aria-live="polite">
+                <span class="loading-spinner" aria-hidden="true">&#8203;</span>
+                <span>Searching...</span>
+            </aside>
+
+            <section id="search-results" class="search-results" role="region" aria-label="Search results" aria-live="polite">
+                <h3 class="visually-hidden">Search results</h3>
+            </section>
+        </section>
+    </template>
+    
+    <!-- Result Template (for JavaScript use) -->
+    <template id="search-result-template">
+        <article class="search-result">
+            <header class="search-result-header">
+                <h2 class="search-result-title">
+                    <a href="#" class="search-result-link"></a>
+                </h2>
+                <p class="search-result-url"></p>
+            </header>
+            <section class="search-result-content">
+                <h3 class="visually-hidden">Result summary</h3>
+                <p class="search-result-excerpt"></p>
+            </section>
+        </article>
+    </template>
+    
+    <!-- No Results Template -->
+    <template id="search-no-results-template">
+        <section class="search-no-results">
+            <header>
+                <h3>No results found</h3>
+            </header>
+            <p class="search-no-results-message">No results found for "<strong class="search-query">&#8203;</strong>"</p>
+            <section class="search-suggestions">
+                <h4>Try:</h4>
+                <ul class="search-suggestions-list">
+                    <li>Checking your spelling</li>
+                    <li>Using different keywords</li>
+                    <li>Using more general terms</li>
+                    <li>Browsing <a href="/artists/">artists</a>, <a href="/discography/">discography</a>, or <a href="/events/">events</a></li>
+                </ul>
+            </section>
+        </section>
+    </template>
+    
+    <!-- Error Template -->
+    <template id="search-error-template">
+        <section class="search-error">
+            <header>
+                <h3>Search Error</h3>
+            </header>
+            <p class="search-error-message">Sorry, there was an error performing your search<span class="search-query-text">&#8203;</span>.</p>
+            <p>Please try again later.</p>
+        </section>
+    </template>
+    
+    <!-- Fallback content for users without JavaScript -->
+    <noscript>
+        <section class="no-js-message">
+            <h2 class="visually-hidden">JavaScript disabled</h2>
+            <p>Search functionality is coming soon!</p>
+            <p>We're working on implementing a new search system. Please check back later.</p>
+        </section>
+    </noscript>
+    
+    <!-- Search Engine JavaScript -->
+    {{ with resources.Get "scripts/search.ts" | js.Build -}}
+    <script src="{{ .RelPermalink }}"></script>
+    {{- end }}
+</section>
+{{ end }}
