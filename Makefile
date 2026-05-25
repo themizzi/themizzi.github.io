@@ -54,7 +54,7 @@ help: ## Show this help.
 	@echo "Available commands:"; \
 	    grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[32m%-20s\033[0m %s\n", $$1, $$2}'
 
-test:
+test: node_modules ## Run the test suite.
 	npm test
 
 deploy:
