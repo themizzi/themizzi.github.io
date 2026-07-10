@@ -24,7 +24,7 @@ BRANCH ?= $(shell git rev-parse --abbrev-ref HEAD)
 all: build ## Build the project.
 
 build: pre-build ## Build the project.
-	$(HUGO) --minify --gc
+	$(HUGO) --minify --gc --cleanDestinationDir
 
 clean: ## Clean the project.
 	rm -rf public
