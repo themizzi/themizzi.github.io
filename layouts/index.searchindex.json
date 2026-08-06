@@ -1,6 +1,6 @@
 {{- $excludedTypes := site.Params.search.excludedTypes | default slice -}}
 {{- $pages := slice -}}
-{{- range $page := site.AllPages -}}
+{{- range $page := site.Pages -}}
   {{- if and (not $page.Draft) (not (in $excludedTypes $page.Type)) -}}
     {{- $content := $page.Content -}}
     

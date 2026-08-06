@@ -1,5 +1,5 @@
 baseURL = "https://joemizzi.com/"
-languageCode = "en-us"
+locale = "en-US"
 title = "Mizzi"
 enableEmoji = true
 rssLimit = 100

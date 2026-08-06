@@ -4,7 +4,7 @@ summary = "Mizzi's Discography"
 title = 'Discography'
 
 [cascade]
-  [cascade._target]
+  [cascade.target]
     kind = 'page'
 
   [cascade.build]

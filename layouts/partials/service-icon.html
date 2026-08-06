@@ -20,7 +20,7 @@
   {{- $isRSS = false -}}
 {{- end -}}
 
-{{- $iconData := index site.Data.icons $service -}}
+{{- $iconData := index hugo.Data.icons $service -}}
 
 {{- if $isRSS -}}
   {{/* RSS context: just output the service key as text */}}
