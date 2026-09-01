@@ -1,12 +1,14 @@
 {
 	"name": "Hugo (Community)",
 	"mounts": [
-		"source=themizzi-github-io-zsh-history,target=/home/node/.zsh,type=volume,consistency=cached"
+		"source=themizzi-github-io-zsh-history,target=/home/node/.zsh,type=volume,consistency=cached",
+		"source=themizzi-joemizzi.com-opencode,target=/home/node/.local/share/opencode,type=volume,consistency=bind"
 	],
 	"remoteEnv": {
 		"AWS_ACCESS_KEY_ID": "${localEnv:AWS_ACCESS_KEY_ID}",
 		"AWS_SECRET_ACCESS_KEY": "${localEnv:AWS_SECRET_ACCESS_KEY}",
-		"DIGITALOCEAN_ACCESS_TOKEN": "${localEnv:DIGITALOCEAN_ACCESS_TOKEN}"
+		"DIGITALOCEAN_ACCESS_TOKEN": "${localEnv:DIGITALOCEAN_ACCESS_TOKEN}",
+		"SSH_AUTH_SOCK": "/ssh-agent"
 	},
 	"build": {
 		"dockerfile": "Dockerfile",
@@ -55,7 +57,8 @@
 				"firefox-devtools.vscode-firefox-debug",
 				"ms-playwright.playwright",
 				"GitHub.vscode-github-actions",
-				"openai.chatgpt"
+				"openai.chatgpt",
+				"sst-dev.opencode"
 			]
 		}
 	},

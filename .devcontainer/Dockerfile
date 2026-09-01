@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/devcontainers/javascript-node:${NODE_VERSION} AS dev
 # VARIANT can be either 'hugo' for the standard version or 'hugo_extended' for the extended version.
 ARG HUGO_VARIANT=hugo
 # VERSION can be either 'latest' or a specific version number
-ARG HUGO_VERSION=0.144.2
+ARG HUGO_VERSION=0.165.0
 ARG GCM_VERSION=2.8.0
 
 # Download Hugo
@@ -74,3 +74,7 @@ VOLUME [ "/home/node/.zsh" ]
 EXPOSE 1313
 
 USER node
+
+# Install opencode
+RUN curl -fsSL https://opencode.ai/install | bash
+ 
